@@ -1,0 +1,12 @@
+\subsubsection{House}
+A house (or facility) is populated by individuals (people).
+A house exposes the following functional channels:
+\begin{itemize}
+	\item \texttt{register(entity, segmentIndex)}
+	\begin{itemize}
+		\item \textit{description}: it puts an entity into a house
+		\item \textit{use}: bootstrap phase
+	\end{itemize}
+\end{itemize}
+Notes:
+Freezing sleep could be tricky: how to save the partial timeout we reached? It could be useful to save a timestamp of sleep beginning too.
