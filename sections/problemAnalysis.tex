@@ -134,6 +134,32 @@ Like we did for distribution (see section \ref{sec:pa-distribution}), we'll
 show which concurrency issues we took in account during the initial phase of
 the project.
 
+\paragraph{Requirements} \mbox{} \\
+
+In the following list we'll expresse qualities our system might have to
+leverage concurrency.
+
+\begin{itemize}
+\item The system will present concurrency between some of its entities
+\item The critical sections of each entity should be identified and accesses to
+  them will have to be studied carefully
+\item Time spent in critical sections will be reduced as much as possible
+\item Blocking operations that are placed inside critical sections will be
+  considered errors
+\item We have to be able to show evidence of the fact that our system avoids
+  deadlocks and livelocks.
+\item Entities that act like servers should not also act like clients (and
+  viceversa)
+\item Causal dependencies between entities have to be found out
+\item Each valid state of an entity should be studied carefully so that
+  protocols between entities operate in a correct way
+\item Non-valid entity states should be pointed out so that we are able to
+  think possible countermeasures to recover a preceeding valid state
+\item Since in section \ref{sec:pa-distribution} we express our willingness to
+  be capable of obtain consistent snapshot, each entity could have a concurrent
+  part that handles the incoming and outgoing flow of information
+\end{itemize}
+
 \subsection{Time}
 %TODO add Time section
 
