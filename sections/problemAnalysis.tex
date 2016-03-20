@@ -99,6 +99,32 @@ leverage distribution.
 \item The end user should not be aware of part replication/restoration
 \end{itemize}
 
+\paragraph{Problems} \mbox{} \\
+
+Several problems arose from this issues:
+
+\begin{itemize}
+\item How can we effectively boot the system in a neat and systematic manner?
+\item How can we take a snapshot that is actually consistent in a distributed
+  system?
+\item How can we effectively shutdown the system in a neat and systematic
+  manner?
+\item The system might be seen in a control panel as if it were a film:
+  \begin{itemize}
+  \item what will it be able to show?
+  \item will it offer different modalities an user can consume?
+  \item how can we make the control panel see the traffic simulator as a
+    single unit?
+  \item will the stream show live events, deferred events or both?
+  \end{itemize}
+\item How can we set up an efficient and reliable naming resolution module?
+\item How should we scatter the system across a set of nodes? How and which
+  entities should we place in each node?
+\item How errors will be managed by our system so that it can reach a certain
+  degree of fault tolerancy?
+\item Are the answers at the previous questions providing a scalable solution?
+\end{itemize}
+
 \subsection{Concurrency}
 %TODO add Concurrency section
 
