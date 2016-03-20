@@ -1,14 +1,12 @@
 \subsubsection{Semaphore}
-A semaphore is placed at the end of a road stretch that offers the following functional channels:
+A semaphore is placed at the end of a road stretch, that offers the following functional channels:
 \begin{itemize}
-	\item \texttt{stop(way)}
-	\\Blocks outgoing flow of vehicles going towards a given way
-	\item \texttt{yield(way)}
-	\\Slows outgoing flow of vehicles going towards a given way	
-	\item \texttt{go(way)}
-	\\Allows outgoing flow of vehicles going towards a given way
+	\item \texttt{stop(direction : Direction)}
+	\\Blocks outgoing flow of vehicles going towards a given direction
+	\item \texttt{go(direction : Direction)}
+	\\Allows outgoing flow of vehicles going towards a given direction
 \end{itemize}
 Notes:
 \texttt{stop}, \texttt{yield} and \texttt{go} are likely to be called by a set of semaphores.
 A set of semaphores communicate internally to advance through their RGY steps.
-way parameter might be N/S (“vertical” street) or W/E (“horizontal” street).
+direction parameter might be N/S (“vertical” street) or W/E (“horizontal” street).

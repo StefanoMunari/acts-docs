@@ -1,26 +1,26 @@
 \subsubsection{Street}
 A street is made of segments and it offers the following functional channels:
 \begin{itemize}
-	\item \texttt{register(entity, segmentIndex)}
+	\item \texttt{register(entityId : String, segmentIndex : int)}
 	\\Puts an entity into a given segment		
 	\begin{itemize}
 		\item \textit{use}: boostrap phase
 	\end{itemize}
-	\item \texttt{advance(entity, to)}
+	\item \texttt{advance(entityId : String, direction : Direction, velocity : double)}
 	\\Moves an entity forward along the street	
 	\begin{itemize} 
 		\item If the street end has reached, the entity is notified providing it the adjacent streets list
 		\item The entity velocity is calculated by each segment taking a specific range of possible values according to the entity type
 	\end{itemize}
-	\item \texttt{change(entity, direction)}
+	\item \texttt{change(entityId : String, direction : Direction, velocity : double)}
 	\\Moves an entity to next segment in the given direction (left or right)	
 	\begin{itemize}		
 		\item If the street end has reached, do not allow to change lane and send a message to notify entity
 		\item If entity is already in the direction most lane available for its type, send a message to notify the entity
 	\end{itemize}
-	\item \texttt{enter(entity, type)}
+	\item \texttt{enter(entityId : String, type : EntityType)}
 	\\Puts an entity into the street in the rightmost lane available for the entity type (e.g. a car does not land in a sidewalk)
-	\item \texttt{get\_into\_house(entity, velocity)}
+	\item \texttt{get\_into\_house(entityId : String, houseId : String, velocity : double)}
 	\\Brings an entity into a house that is accessible from the street it’s in
 	\begin{itemize}
 		\item \textit{algorithm}:
@@ -29,17 +29,17 @@ A street is made of segments and it offers the following functional channels:
 			\item Otherwise, make it advance at velocity velocity
 		\end{itemize}
 	\end{itemize}
-	\item \texttt{hitchhike(hitchhiker, host)}
-	\\Brings a pedestrian into an vehicle (bus or car)
-	\item \texttt{cross(entity)}
+	\item \texttt{hitchhike(entityId : String, vehicleId : String)}
+	\\Brings a pedestrian into an vehicle
+	\item \texttt{cross(entityId : String)}
 	\\Moves a pedestrian or a cyclist to the other side of the street	
 	\begin{itemize}
 		\item If there is an entity in the segment near the sidewalk, book street crossing. No vehicles can enter segments covered by booked zebra crossing
 		\item If the segment near the sidewalk is free (wheter crossing is booked or not), pedestrian starts crossing
 		\item In general, segments covered with zebra crossing can be entered by vehicles if no pedestrian is over them || no crossing is booked
 	\end{itemize}
-	\item \texttt{enter(entity, type, segment)}
-	\\Brings an entity out from an house and it puts it into a street segment	
+	\item \texttt{enter(entityId : String, type : EntityType, segmentIndex : int)}
+	\\Brings an entity out from an house and it puts the entity into a street segment
 	\begin{itemize}
 		\item An entity has to wait for other entities to pass in order to exit: moving entities that comes out from private places has lower priority than others that are already on the public street.
 	\end{itemize}
