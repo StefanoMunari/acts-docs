@@ -61,7 +61,7 @@ code:
   signs.
 \end{itemize}
 
-\subsection{Distribution}
+\subsection{Distribution}\label{sec:pa-distribution}
 As we pointed out in section \ref{sec:pa-domain}, our system will be composed
 of streets that are joined together by crossroads.
 
@@ -126,7 +126,13 @@ Several problems arose from this issues:
 \end{itemize}
 
 \subsection{Concurrency}
-%TODO add Concurrency section
+Looking at the applicative domain, there are several situations that clearly
+express concurrent interactions between entities, for example more road users
+that proceed in the same street stretch.
+
+Like we did for distribution (see section \ref{sec:pa-distribution}), we'll
+show which concurrency issues we took in account during the initial phase of
+the project.
 
 \subsection{Time}
 %TODO add Time section
