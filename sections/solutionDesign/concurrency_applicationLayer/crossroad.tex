@@ -1,12 +1,9 @@
 \subsubsection{Crossroad}
-A crossroad is an intersection between roads.
-X are entities | roads that call crossroads’ operation(s).
-A crossroad exposes the following functional channels:
+A crossroad is a road intersection and it offers the following functional channels:
 \begin{itemize}
-	\item \texttt{cross(from, to, who)}
-	\begin{itemize}
-		\item \textit{description}: moves an entity from a street to another one
-	\end{itemize}
+	\item \texttt{cross(entity, from, to)}
+	\\Moves an entity from a street to another one
 \end{itemize}
+%Crossroads’ operations called by entities or roads.
 Notes:
 A crossroads has to encapsulate internally the logic that allows the entities to proceed neatly, i.e. way rules.

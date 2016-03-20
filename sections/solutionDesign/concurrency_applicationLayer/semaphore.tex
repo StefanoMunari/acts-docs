@@ -1,20 +1,12 @@
 \subsubsection{Semaphore}
-A semaphore is placed at the end of a road stretch.
-A road stretch with a semaphore exposes the following functional channels:
+A semaphore is placed at the end of a road stretch that offers the following functional channels:
 \begin{itemize}
 	\item \texttt{stop(way)}
-	\begin{itemize}
-		\item \textit{description}: it blocks outgoing flow of vehicles going towards a given way
-	\end{itemize}
+	\\Blocks outgoing flow of vehicles going towards a given way
 	\item \texttt{yield(way)}
-	\begin{itemize}
-		\item \textit{description}: it slows outgoing flow of vehicles going towards a given way
-		\item \textit{details}: Non esiste a livello applicazione: è un rosso ma a livello grafico si può rappresentare con giallo
-	\end{itemize}
+	\\Slows outgoing flow of vehicles going towards a given way	
 	\item \texttt{go(way)}
-	\begin{itemize}
-		\item \textit{description}: it allows outgoing flow of vehicles going towards a given way
-	\end{itemize}
+	\\Allows outgoing flow of vehicles going towards a given way
 \end{itemize}
 Notes:
 \texttt{stop}, \texttt{yield} and \texttt{go} are likely to be called by a set of semaphores.
