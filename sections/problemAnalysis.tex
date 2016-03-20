@@ -67,6 +67,38 @@ of streets that are joined together by crossroads.
 
 Hence, in this section we'll discuss about how we analyzed distribution issues.
 
+\paragraph{Requirements} \mbox{} \\
+
+In the following list we'll expresse qualities our system might have to
+leverage distribution.
+
+\begin{itemize}
+\item The system should be distributed: we expect the simulator to manage many
+  streets and much traffic. Thus, the system is probably going to balance load
+  in a better way if it allots nodes to geographical partitions of the city
+\item The system should appear as a single unit to its end user, in order to
+  have an acceptable degree of transparency
+\item The system might be composed of heterogeneous parts: whilst this issue
+  isn't mandatory, it makes the system more realistic
+\item The system should be scalable: considering the nature of our project (a
+  city simulator), we would like it to be scalable in possible directions
+  (e.g. number of road users, city size, etc.)
+\item There should be a clearly defined protocol for the communication between
+  each part of the system
+\item When possible, the communication between two nodes of our system will be
+  asynchronous: this quality leverages scalability
+\item The system should boot/terminate consistently and ordered: with a fixed
+  algorithm it is easier to ensure that all nodes are ready to execute/stop the
+  system
+\item The system should be able to save a consistent global state
+\item The system should be fault tolerant, i.e. \emph{reactive} to errors
+\item The system should be able to replicate and/or restore parts of itself,
+  in order to be more fault tolerant
+\item The system should be able to locate each part of itself through a system
+  of unique names
+\item The end user should not be aware of part replication/restoration
+\end{itemize}
+
 \subsection{Concurrency}
 %TODO add Concurrency section
 
