@@ -181,5 +181,18 @@ Concurrency requirements led us to make some questions about concurrency.
 \end{itemize}
 
 \subsection{Time}
-%TODO add Time section
+Even if a traffic simulator would be appropriate for a real-time application,
+we'll limit us to think about consistency in a general way though putting our
+best effort to make choices that minimize the drift among nodes and entities.
 
+Thus, we'll strive to solve in the most realistic way the following issues:
+
+\begin{itemize}
+\item How can we simulate road users proceeding (regarding to travelling
+  speed)?
+\item How can we simulate crossroads (regarding to road users' arrivals time)?
+\item How long do people stay in facilities for? How much precise do these
+  intervals have to be?
+\item How are semaphores going to be able to synchronize? Which of them decide
+  how much time do they have to wait for?
+\end{itemize}
