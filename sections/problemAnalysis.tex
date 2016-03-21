@@ -187,14 +187,22 @@ Concurrency requirements led us to make some questions about concurrency.
 \subsubsection{Domain Problems}
 
 There are some domain problems which are strictly related to concurrency.
-We'll use figure \ref{fig:pa-sample-street} to show a sample street which outlines 
-possible problems we found out.
+We'll use figure \ref{fig:pa-sample-street} and figure
+\ref{fig:pa-sample-crossroad} to show examples in which possible problems we
+found out lie.
 
 \begin{figure}
   \centering
   \includegraphics[width=.7\columnwidth]{sections/images/analysis/street_base.eps}
   \caption{Sample street}
   \label{fig:pa-sample-street}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.6\columnwidth]{sections/images/analysis/crossroads.eps}
+  \caption{Sample crossroad}
+  \label{fig:pa-sample-crossroad}
 \end{figure}
 
 \paragraph{Pedestrian Deadlock} \mbox{} \\
@@ -218,6 +226,20 @@ road user, for example sidewalk segments.
 
 As shown in figure \ref{fig:pa-sample-street}, there could be more road users
 proceeding in the same direction (F2) or even in opposite directions (A3).
+
+\paragraph{Yield rules} \mbox{} \\
+
+We'll use \href{http://www.aci.it/i-servizi/normative/codice-della-strada/titolo-v-norme-di-comportamento/art-145-precedenza.html}{Italian yield rules}\footnote{we'll also assume that vehicles proceed on the right side of the
+street}, therefore if a vehicle's trajectory is met by another one from right,
+the latter has to wait for the former to pass.
+
+Looking at picture \ref{fig:pa-sample-crossroad}, D is free to go since there
+is no vehicle on the right of its trajectory and so it is C.
+
+B must wait D to pass in order to turn left, whereas it does not have to wait
+for C to turn right because B's and C's trajectories do not intersect.
+
+Finally, A.1 must wait for B to pass, while A.2 must wait for A.1, B and C.
 
 \subsection{Time}
 Even if a traffic simulator would be appropriate for a real-time application,
