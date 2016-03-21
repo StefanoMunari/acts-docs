@@ -179,6 +179,41 @@ Concurrency requirements led us to make some questions about concurrency.
   handle the problem?
 \end{itemize}
 
+\subsubsection{Domain Problems}
+
+There are some domain problems which are strictly related to concurrency.
+We'll use figure \ref{fig:pa-sample-street} to show a sample street in which
+possible problems we found out lie.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.7\columnwidth]{sections/images/analysis/street_base.eps}
+  \caption{Sample street}
+  \label{fig:pa-sample-street}
+\end{figure}
+
+\paragraph{Pedestrian Deadlock} \mbox{} \\
+
+Let three be the maximum number of pedestrians in a sidewalk segment for the
+sake of this example.
+If we look at segments F6 and F7, there is a possible deadlock since
+pedestrians in F6 can't proceed in an already full segment F7 and viceversa.
+
+\paragraph{Rear-end Collisions} \mbox{} \\
+
+Look at motor vehicles' lane segments D4 and D5. If car in D4 is going too
+fast, there is a risk that it is going to collide with car in D5.
+
+Thus, we'll have to find a solution to avoid rear-endings.
+
+\paragraph{Segment Parallelism} \mbox{} \\
+
+It is realistic that some segments will be capable of containing more than one
+road user, for example sidewalk segments.
+
+As shown in figure \ref{fig:pa-sample-street}, there could be more road users
+proceeding in the same direction (F2) or even in opposite directions (A3).
+
 \subsection{Time}
 Even if a traffic simulator would be appropriate for a real-time application,
 we'll limit us to think about consistency in a general way though putting our
