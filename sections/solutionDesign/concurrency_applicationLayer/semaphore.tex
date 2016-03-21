@@ -1,12 +1,22 @@
 \subsubsection{Semaphore}
-A semaphore is placed at the end of a road stretch, that offers the following functional channels:
+\begin{figure}[h]
+\centering
+\nogloxy{\includegraphics[scale=0.6,keepaspectratio]{diagrams/workspace/application/semaphore.pdf}}
+\caption{Application::Semaphore}
+\end{figure}
+\FloatBarrier
+A semaphore is placed at the end of a road stretch offers the following operations:
 \begin{itemize}
 	\item \texttt{stop(direction : Direction)}
 	\\Blocks outgoing flow of vehicles going towards a given direction
 	\item \texttt{go(direction : Direction)}
 	\\Allows outgoing flow of vehicles going towards a given direction
 \end{itemize}
-Notes:
-\texttt{stop}, \texttt{yield} and \texttt{go} are likely to be called by a set of semaphores.
-A set of semaphores communicate internally to advance through their RGY steps.
-direction parameter might be N/S (“vertical” street) or W/E (“horizontal” street).
+\paragraph{Remaks}
+\ \\\texttt{stop} and \texttt{go} operations are called by a set of semaphores, that communicate internally to advance through their RGY steps.
+
+The \texttt{direction} parameter assumes the values:
+\begin{itemize}
+	\item N or S  for “vertical” street
+	\item W or E for “horizontal” street
+\end{itemize}

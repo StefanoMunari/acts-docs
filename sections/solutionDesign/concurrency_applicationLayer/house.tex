@@ -1,11 +1,16 @@
 \subsubsection{House}
-A house (or facility) is populated by individuals (people) and it offers the following functional channels:
+\begin{figure}[h]
+\centering
+\nogloxy{\includegraphics[scale=0.6,keepaspectratio]{diagrams/workspace/application/house.pdf}}
+\caption{Application::House}
+\end{figure}
+\FloatBarrier
+A house is populated by people and it offers the following operations:
 \begin{itemize}
-	\item \texttt{register(entityId : String, segmentIndex : int)}
+	\item \texttt{register(entityId : String)}
 	\\Puts an entity into a house
 	\begin{itemize}
-		\item \textit{use}: bootstrap phase
+		\item \textit{Use}: bootstrap phase
+		\item An house defines stocastically the residence time of an entity within it. After freezing, an entity has only the remaining time
 	\end{itemize}
 \end{itemize}
-Notes:
-Freezing sleep could be tricky: how to save the partial timeout we reached? It could be useful to save a timestamp of sleep beginning too.

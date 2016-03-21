@@ -1,51 +1,58 @@
 \subsubsection{Street}
-A street is made of segments and it offers the following functional channels:
+\begin{figure}[h]
+\centering
+\nogloxy{\includegraphics[scale=0.6,keepaspectratio]{diagrams/workspace/application/street.pdf}}
+\caption{Application::Street}
+\end{figure}
+\FloatBarrier
+A street is made of segments and it offers the following operations:
 \begin{itemize}
-	\item \texttt{register(entityId : String, segmentIndex : int)}
-	\\Puts an entity into a given segment		
+	\item \texttt{register(entityId : String, segmentIndex : int, laneId : String)}
+	\\Puts an entity into the segment having the given index
 	\begin{itemize}
-		\item \textit{use}: boostrap phase
+		\item \textit{Use}: boostrap phase
+	\end{itemize}
+	\item \texttt{enter(entityId : String, type : EntityType)}
+	\\Puts an entity into the street in the rightmost lane available for the entity type
+	\begin{itemize}
+		\item E.g. a car does not land in a sidewalk
 	\end{itemize}
 	\item \texttt{advance(entityId : String, direction : Direction, velocity : double)}
 	\\Moves an entity forward along the street	
-	\begin{itemize} 
-		\item If the street end has reached, the entity is notified providing it the adjacent streets list
+	\begin{itemize}
+		\item If a street end has reached, the entity is notified providing it the adjacent streets list
 		\item The entity velocity is calculated by each segment taking a specific range of possible values according to the entity type
 	\end{itemize}
 	\item \texttt{change(entityId : String, direction : Direction, velocity : double)}
 	\\Moves an entity to next segment in the given direction (left or right)	
-	\begin{itemize}		
-		\item If the street end has reached, do not allow to change lane and send a message to notify entity
-		\item If entity is already in the direction most lane available for its type, send a message to notify the entity
-	\end{itemize}
-	\item \texttt{enter(entityId : String, type : EntityType)}
-	\\Puts an entity into the street in the rightmost lane available for the entity type (e.g. a car does not land in a sidewalk)
-	\item \texttt{get\_into\_house(entityId : String, houseId : String, velocity : double)}
-	\\Brings an entity into a house that is accessible from the street it’s in
 	\begin{itemize}
-		\item \textit{algorithm}:
-		\begin{itemize}
-			\item If house is accessible from the segment entity is in, make him enter the facility
-			\item Otherwise, make it advance at velocity velocity
-		\end{itemize}
+		\item If a street end is reached, it does not allow the lane change and it sends a message for notifying the entity
+		\item If no more lanes for the entity type exist in the given direction, it sends a message for notifying the entity
 	\end{itemize}
-	\item \texttt{hitchhike(entityId : String, vehicleId : String)}
+	\item \texttt{hitchhike(pedestrianId : String, vehicleId : String)}
 	\\Brings a pedestrian into an vehicle
 	\item \texttt{cross(entityId : String)}
-	\\Moves a pedestrian or a cyclist to the other side of the street	
+	\\Moves a pedestrian or a cyclist to the other side of the street
 	\begin{itemize}
-		\item If there is an entity in the segment near the sidewalk, book street crossing. No vehicles can enter segments covered by booked zebra crossing
-		\item If the segment near the sidewalk is free (wheter crossing is booked or not), pedestrian starts crossing
-		\item In general, segments covered with zebra crossing can be entered by vehicles if no pedestrian is over them || no crossing is booked
+		\item If there is an entity in the segment near a sidewalk, it books a street crossing
+		\item No vehicles can enter segments covered by booked zebra crossing
+		\item If a segment near a sidewalk is free (whether it is booked or not), pedestrian can start crossing the street
 	\end{itemize}
-	\item \texttt{enter(entityId : String, type : EntityType, segmentIndex : int)}
-	\\Brings an entity out from an house and it puts the entity into a street segment
+	\item \texttt{get\_into\_house(entityId : String, houseId : String, velocity : double)}
+	\\Brings an entity into a house accessible from the street where the entity is
 	\begin{itemize}
-		\item An entity has to wait for other entities to pass in order to exit: moving entities that comes out from private places has lower priority than others that are already on the public street.
+		\item It brings the entity into the house, if the entity is in a segment where the given house is accessible. Otherwise, It moves the entity forward at the specified velocity
+	\end{itemize}
+	\item \texttt{enter\_from\_house(entityId : String, type : EntityType, segmentIndex : int)}
+	\\Brings an entity out from a house and it puts the entity into the street segment having the given index
+	\begin{itemize}
+		\item An entity coming out from a house has lower priority than one is already on the street. So that, before exiting the house, the first one has to wait the other one is passed
 	\end{itemize}
 \end{itemize}
-Notes: 
-Lane change can happen only in two situations:
-overtaking: lane change might be requested in any segment.
-next street will be on the left: lane change will be requested on the first segment of the street
-We assume that streets are at least n segments long if they have n lanes for motor vehicles.
+\paragraph{Remarks}
+\ \\A lane change can happen in two cases:
+\begin{itemize}
+	\item Overtaking. It is requested in a particular segment
+	\item Street change. It is requested in the first segment of the street taken
+\end{itemize}
+We assume a street is at least $n$ segments long if it consists of $n$ lanes for motor vehicles.

@@ -1,9 +1,15 @@
 \subsubsection{Crossroad}
-A crossroad is a road intersection and it offers the following functional channels:
+\begin{figure}[h]
+\centering
+\nogloxy{\includegraphics[scale=0.6,keepaspectratio]{diagrams/workspace/application/crossroad.pdf}}
+\caption{Application::Crossroad}
+\end{figure}
+\FloatBarrier
+A crossroad is a road intersection offers the following operations:
 \begin{itemize}
 	\item \texttt{cross(entityId : String, startingStreetId : String, destinationStreetId : String)}
 	\\Moves an entity from a street to another one
 \end{itemize}
 %Crossroads’ operations called by entities or roads.
-Notes:
-A crossroads has to encapsulate internally the logic that allows the entities to proceed neatly, i.e. way rules.
+\paragraph{Remarks}
+\ \\A crossroads internally encapsulates the logic allows the entities to proceed neatly, i.e. way rules.
