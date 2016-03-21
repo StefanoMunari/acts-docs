@@ -186,8 +186,8 @@ Concurrency requirements led us to make some questions about concurrency.
 \subsubsection{Domain Problems}
 
 There are some domain problems which are strictly related to concurrency.
-We'll use figure \ref{fig:pa-sample-street} to show a sample street in which
-possible problems we found out lie.
+We'll use figure \ref{fig:pa-sample-street} to show a sample street which outlines 
+possible problems we found out.
 
 \begin{figure}
   \centering
@@ -208,7 +208,7 @@ pedestrians in F6 can't proceed in an already full segment F7 and viceversa.
 Look at motor vehicles' lane segments D4 and D5. If car in D4 is going too
 fast, there is a risk that it is going to collide with car in D5.
 
-Thus, we'll have to find a solution to avoid rear-endings.
+Thus, we'll have to find a solution to avoid rear-end collisions.
 
 \paragraph{Segment Parallelism} \mbox{} \\
 
@@ -233,4 +233,5 @@ Thus, we'll strive to solve in the most realistic way the following issues:
   intervals have to be?
 \item How are semaphores going to be able to synchronize? Which of them decide
   how much time do they have to wait for?
+\item When is suitable to use logical clocks instead of local system's clock?
 \end{itemize}
