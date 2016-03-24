@@ -1,10 +1,15 @@
 \subsubsection{Middleware}
 \subsubsubsection{Application - Middleware}
 The communication protocol between application layer and middleware layer 
-\paragraph{Fire and forget}
-It is a one-way message pattern (the service sends a message without expecting a response). Since the application and the middleware will reside on the same physical node we can assume that the communication is reliable, once a message is sent from the application layer it arrives to the middleware layer and viceversa.
-Properties:
-\begin{itemize}
-\item \textit{Asynchronous communication}: decouples the communication from application to middleware and viceversa
-\end{itemize}
+\paragraph{Fire and forget} 
+It is a one-way message pattern (the service sends a message without expecting a response). 
+Since the application and the middleware will reside on the same physical node we can assume 
+that the communication is reliable, once a message is sent from the application layer it arrives to 
+the middleware layer and viceversa.
+The asynchronous communication decouples the computation of the application from the 
+computation of the middleware and viceversa. The standard interfaces for communication 
+implemented by application layer and middleware layer enables the use of etherogenous 
+technologies for each one. Defining a standard interface is fundamental to abstract from 
+the underlying technologies (implementation).
+
 \subsubsubsection{Middleware - Middleware}
