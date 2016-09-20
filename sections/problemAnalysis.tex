@@ -36,7 +36,7 @@ traffic lights to regulate the traffic;
 \end{itemize}
 
 Even if our reference city\footnote{with the term \emph{``reference city"}
-we're talking about but a city which has similar characteristics to San
+we're talking about a city which has similar characteristics to San
 Francisco} has many means of transport, we will consider only a few meaningful
 ones (besides \textbf{pedestrian} traffic): \textbf{bikes}, \textbf{cars} and
 \textbf{buses}.
@@ -70,7 +70,7 @@ Hence, in this section we'll discuss about how we analyzed distribution issues.
 
 \paragraph{Requirements} \mbox{} \\
 
-In the following list we’ll express qualities that our system might have to leverage distribution.
+In the following list we’ll express qualities that our system should have to leverage distribution.
 
 \begin{itemize}
 \item The system should be distributed: we expect the simulator to manage many
@@ -141,7 +141,7 @@ the project.
 
 \paragraph{Requirements} \mbox{} \\
 
-In the following list we'll expresse qualities our system might have to
+In the following list we'll express qualities our system should have to
 leverage concurrency.
 
 \begin{itemize}
@@ -172,9 +172,9 @@ Concurrency requirements led us to make some questions about concurrency.
 \item How concurrent accesses will be managed? Will it make sense to discern
   side-effect accesses (\emph{procedures}) from reading accesses
   (\emph{functions})?
-\item Which entities has to be active?
-\item Which entities has to be reactive?
-\item Which entities has to be passive?
+\item Which entities have to be active?
+\item Which entities have to be reactive?
+\item Which entities have to be passive?
 \item Should we use a formal technique to give proof of deadlock/livelock
   avoidance?
 \item Should we use a formal technique to give proof of some properties of the
