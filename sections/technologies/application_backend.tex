@@ -1,0 +1,21 @@
+\subsection{Application::Back End}
+The Ada 2005 language has been chosen to implement the application back end.
+
+The Ada language standard was originally designed in the early 1980s to promote
+sound software engineering. The latest version (Ada 2005) offers particular 
+innovations that improves support for high-integrity systems in three major 
+areas: object-oriented programming, tasking, and real-time features.
+
+We have reason to believe that the properties of the application layer 
+that we are looking for, particularly for concurrency, could be supported 
+by the following features that Ada provides:
+\begin{itemize}
+    \item Protected Object: a structured and efficient mechanism to handle shared resources access
+    \item Locking and scheduling policies
+    \item Avoidance of race conditions during system initialization
+    \item Avoidance of silent task termination
+    \item Possibility to define language profiles (using pragma restrictions)
+    \item Timing events: to define async/time-based events with associated 
+handlers
+    \item Buffer overflow and dangling reference prevention
+\end{itemize}
