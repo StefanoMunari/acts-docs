@@ -36,7 +36,7 @@ traffic lights to regulate the traffic;
 \end{itemize}
 
 Even if our reference city\footnote{with the term \emph{``reference city"}
-we're talking about a city which has similar characteristics to San
+we are talking about a city which has similar characteristics to San
 Francisco} has many means of transport, we will consider only a few meaningful
 ones (besides \textbf{pedestrian} traffic): \textbf{bikes}, \textbf{cars} and
 \textbf{buses}.
@@ -48,12 +48,12 @@ code:
 \begin{itemize}
 \item motor vehicles must stop in order to let pedestrians and bikes walk over
   respective zebra crossings;
-\item each road user has to proceed in his/her street part (pedestrians can't
+\item each road user has to proceed in his/her street part (pedestrians can not
   tread a road in the middle of a car lane);
 \item each crossroad can either be or not be regulated by traffic lights;
 \item road users must not proceed faster than an eventual speed limit posted
   on a street stretch;
-\item vehicles can't enter a one-way in the wrong direction;
+\item vehicles can not enter a one-way in the wrong direction;
 \item vehicles must give the way to other ones if it is requested by
   regulatory sign (STOP or YIELD);
 \item vehicles must not turn in directions that are eventually forbidden by
@@ -66,7 +66,7 @@ code:
 As we pointed out in section \ref{sec:pa-domain}, our system will be composed
 of streets that are joined together by crossroads.
 
-Hence, in this section we'll discuss about how we analyzed distribution issues.
+Hence, in this section we will discuss about how we analyzed distribution issues.
 
 \paragraph{Requirements} \mbox{} \\
 
@@ -81,7 +81,7 @@ In the following list we’ll express qualities that our system should have to l
 \item The system should appear as a single unit to its end user, in order to
   have an acceptable degree of transparency
 \item The system might be composed of heterogeneous parts: whilst this issue
-  isn't mandatory, it makes the system more realistic
+  is not mandatory, it makes the system more realistic
 \item The system should be scalable: considering the nature of our project (a
   city simulator), we would like it to be scalable in possible directions
   (e.g. number of road users, city size, etc.)
@@ -136,12 +136,12 @@ Looking at the applicative domain, there are several situations that clearly
 express concurrent interactions between entities, for example more road users
 that proceed in the same street stretch.
 
-We'll show which concurrency issues we took into account during the initial phase of
+We will show which concurrency issues we took into account during the initial phase of
 the project.
 
 \paragraph{Requirements} \mbox{} \\
 
-In the following list we'll express qualities our system should have to
+In the following list we will express qualities our system should have to
 leverage concurrency.
 
 \begin{itemize}
@@ -187,7 +187,7 @@ Concurrency requirements led us to make some questions about concurrency.
 \subsubsection{Domain Problems}
 
 There are some domain problems which are strictly related to concurrency.
-We'll use figure \ref{fig:pa-sample-street} and figure
+We will use figure \ref{fig:pa-sample-street} and figure
 \ref{fig:pa-sample-crossroad} to show examples in which possible problems we
 found out lie.
 
@@ -203,14 +203,14 @@ found out lie.
 Let three be the maximum number of pedestrians in a sidewalk segment for the
 sake of this example.
 If we look at segments F6 and F7, there is a possible deadlock since
-pedestrians in F6 can't proceed in an already full segment F7 and viceversa.
+pedestrians in F6 can not proceed in an already full segment F7 and viceversa.
 
 \paragraph{Rear-end Collisions} \mbox{} \\
 
 Look at motor vehicles' lane segments D4 and D5. If car in D4 is going too
 fast, there is a risk that it is going to collide with car in D5.
 
-Thus, we'll have to find a solution to avoid rear-end collisions.
+Thus, we will have to find a solution to avoid rear-end collisions.
 
 \paragraph{Segment Parallelism} \mbox{} \\
 
@@ -229,7 +229,7 @@ proceeding in the same direction (F2) or even in opposite directions (A3).
 
 \paragraph{Yield rules} \mbox{} \\
 
-We'll use \href{http://www.aci.it/i-servizi/normative/codice-della-strada/titolo-v-norme-di-comportamento/art-145-precedenza.html}{Italian yield rules}\footnote{we'll also assume that vehicles proceed on the right side of the
+We will use \href{http://www.aci.it/i-servizi/normative/codice-della-strada/titolo-v-norme-di-comportamento/art-145-precedenza.html}{Italian yield rules}\footnote{we will also assume that vehicles proceed on the right side of the
 street}, therefore if a vehicle's trajectory is met by another one from right,
 the latter has to wait for the former to pass. 
 Looking at picture \ref{fig:pa-sample-crossroad}: 
@@ -242,10 +242,10 @@ for C to turn right because B's and C's trajectories do not intersect;
 
 \subsection{Time}
 Even if a traffic simulator would be appropriate for a real-time application,
-we'll limit us to think about consistency in a general way though putting our
+we will limit us to think about consistency in a general way though putting our
 best effort to make choices that minimize the drift among nodes and entities.
 
-Thus, we'll strive to solve in the most realistic way the following issues:
+Thus, we will strive to solve in the most realistic way the following issues:
 
 \begin{itemize}
 \item How can we simulate road users proceeding (regarding to travelling
