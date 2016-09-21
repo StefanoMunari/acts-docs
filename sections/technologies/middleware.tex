@@ -1,0 +1,23 @@
+\subsection{Middleware}
+We have chosen Elixir (an Erlang\footnote{Erlang is a general-purpose, 
+concurrent, garbage-collected programming language} dialect) to implement 
+our middleware. Elixir comes with a series of features like meta programming, 
+mix tool and the ExUnit test framework which will help us to make 
+the project maintainable.
+However, the main reason to choose Elixir/Erlang is BEAM.
+BEAM is the Erlang runtime which provides an enviroment to build portable, 
+distributed, fault-tolerant and soft real-time applications.
+Since Erlang does not have a formal specification for its runtime we will
+ base our motivations on a comparison between BEAM and the JVM 
+(Hotspot implementation)\footnote{T. Pool \textit{Comparison of Erlang Runtime 
+System and Java Virtual Machine}, University of Tartu, Estonia, May 2015}.
+
+\paragraph{BEAM}
+\begin{itemize}
+    \item \textit{Lightweight processes}: 
+    \item \textit{Isolation}:
+    \item \textit{Heap Management}:
+    \item \textit{Concurrency model}:
+    \item \textit{Hot code swapping}:
+    \item \textit{Supervision trees}: 
+\end{itemize}
