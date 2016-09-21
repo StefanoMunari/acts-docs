@@ -2,9 +2,10 @@
 We have chosen Elixir (an Erlang\footnote{Erlang is a general-purpose, 
 concurrent, garbage-collected programming language} dialect) to implement 
 our middleware. Elixir comes with a series of features like meta programming, 
-Mix tool and the ExUnit test framework which will help us to make 
+the Mix build tool and the ExUnit test framework which will help us to make 
 the project maintainable.
-However, the main reason to choose Elixir/Erlang is BEAM.
+However, the main reasons to choose Elixir/Erlang are BEAM virtual machine 
+and the OTP library.
 BEAM is the Erlang runtime which provides an enviroment to build portable, 
 distributed, fault-tolerant and soft real-time applications.
 Since Erlang does not have a formal specification for its runtime we will
@@ -12,14 +13,14 @@ Since Erlang does not have a formal specification for its runtime we will
 (Hotspot implementation)\footnote{T. Pool \textit{Comparison of Erlang Runtime 
 System and Java Virtual Machine}, University of Tartu, Estonia, May 2015}.
 
-\paragraph{BEAM}
+\paragraph{BEAM and OTP}
 \begin{itemize}
     \item \textit{Concurrency model}: the Elixir concurrency model relies on 
-asynchronous message passing instead of sharing the state between processes
+asynchronous message passing instead of sharing the state between threads 
 like Java does, the runtime itself handles concurrency; 
    \item \textit{Functional}: Elixir is a pure functional language 
-so each message is passed by copy, thus makes the testing easier and the semantics of 
-local and remote failures the same; 
+so each message is passed by copy, thus makes the testing easier and the 
+semantics of local and remote failures the same; 
     \item \textit{Lightweight processes}: every thread in the JVM is mapped 
 one-to-one to an OS level thread, in BEAM the mapping is n-to-m using 
 lightweight threads (not OS threads) and supporting true multi-threading 
@@ -27,10 +28,10 @@ through SMP where each scheduler handle a running queue of Elixir
 processes/actors. The Akka framework implements the actor model in Java, but 
 since the model is not natively supported by Java the implementation 
 has some important drawbacks compared to the BEAM one. As Akka actors run on 
-OS threads, an actor that randomly blocks will block the entire thread. This can 
-not happen in BEAM where a blocked actor does not block the scheduler which 
+OS threads, an actor that randomly blocks will block the entire thread. This can
+ not happen in BEAM where a blocked actor does not block the scheduler which 
 immediately starts running the next process in its queue;  
-    \item \textit{Isolation}: The JVM uses a shared heap among all existing 
+    \item \textit{Isolation}: the JVM uses a shared heap among all existing 
 threads. In BEAM each Elixir process/actor has its own heap;
     \item \textit{Heap Management}: BEAM processes isolation makes garbage 
 collection easier and more efficient than Java. The garbage collection process 
@@ -38,7 +39,7 @@ does not affect other running processes because there isn't any global pause
 in the application like in the JVM;
     \item \textit{Hot code swapping}: BEAM supports hot code swapping, allowing 
 to update the code whithout stopping the process which is running it;
-    \item \textit{Supervision trees}: Elixir provides primitives to structure a 
-fault-tolerant application in a hierarchical tree of processes where the parent
-processes handles the faulty behaviour of children processes.
+    \item \textit{Supervision trees}: OTP provides primitives to structure a 
+fault-tolerant application in a hierarchical tree of processes where the parent 
+handles the faulty behaviour of the children.
 \end{itemize}
