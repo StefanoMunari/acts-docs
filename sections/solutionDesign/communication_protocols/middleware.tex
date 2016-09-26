@@ -48,13 +48,19 @@ Assuming that a \texttt{Start\_mw} message arrives to a non-booted node (say
 $l$) at time 0, the protocol is defined as follows:
 
 \begin{enumerate}
-  \item The leftmost node $l$ in figure \ref{fig:sys-termination-protocol}
-    starts its own middleware services;
-  \item $l$ sends a \texttt{Start\_mw} message to the set $S$ of all the nodes
-    it knows;
-  \item $l$ waits for each node in $S$ to boot, i.e. $l$ waits for all nodes
-    in $S$ to send an \texttt{Ack\_mw} message back;
-  \item The middleware MW of $l$ asks to start the application APP;
+  \item The leftmost node $l$ in figure \ref{fig:sys-bootstrap-protocol}
+    starts its own middleware services.  
+  \item $l$ sends a \texttt{Start\_mw} message to the set $S$ of all its 
+neighbors. If $l$ is the first node, it becomes the coordinator of the boot 
+process: 
+  \begin{itemize}
+    \item It is the node of the system which sends the first message during 
+the boot process;
+    \item It becomes the last node to complete the boot process.
+  \end{itemize} 
+  \item $l$ waits for each node in $S$ to complete the boot. $l$ waits for all 
+nodes in $S$ to send an \texttt{Ack\_mw} message back;
+  \item The middleware MW of $l$ grants the application APP to start;
   \item $l$ then sends an \texttt{Ack\_mw} message back.
 \end{enumerate}
 
