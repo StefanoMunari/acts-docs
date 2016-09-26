@@ -16,20 +16,25 @@ is fundamental to abstract from the underlying technologies (implementation).
 \subsubsubsection{Middleware - Middleware}
 
 \subsubsubsection{System Boostrap}
-As pointed out in the problem analysis, the system has to start neatly. Hence,
-we need to design a protocol to respect in order to accomplish this goal.
+As pointed out in Problem Analysis (\ref{sec:pa-distribution}), the system has
+to start neatly. Hence, we need to design a protocol in order to accomplish 
+this goal.
 
 The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
 
 \begin{itemize}
-  \item a circle is a logical node that is composed of a middleware layer
-    \textbf{MW} and an application layer \textbf{APP}. Since the middleware
-    has to be application-independent, it only assumes that there is an
-    interface through which it is possible to make an application start neatly;
-  \item a named arrow represents a message that is sent from a logical node
-    through another one with the name as its payload;
-  \item the numbers in the figure represents the progress of the system
-    bootstrap.
+  \item A circle is a logical node which is composed of two layers:
+    \begin{itemize}
+      \item \textbf{MW}:  middleware layer
+      \item \textbf{APP}: application layer
+  \end{itemize}
+    Since the middleware has to be application-independent, it only assumes 
+    that the application layer exposes an interface through which it is 
+    possible to start the application neatly;
+  \item \textbf{Named arrow}: it represents a message that is sent from a 
+logical node through another one with the name as its payload;
+  \item \textbf{Number}: it represents the progress of the logical system clock 
+during the bootstrap process.
 \end{itemize}
 
 \begin{figure}[H]
@@ -40,7 +45,7 @@ The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
 \end{figure}
 
 Assuming that a \texttt{Start\_mw} message arrives to a non-booted node (say
-$l$) at time instant 0, the protocol is defined as follows:
+$l$) at time 0, the protocol is defined as follows:
 
 \begin{enumerate}
   \item The leftmost node $l$ in figure \ref{fig:sys-termination-protocol}
