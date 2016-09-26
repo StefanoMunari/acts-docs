@@ -57,9 +57,10 @@ by all nodes of the system. If a node has already been booted, then it only
 sends \texttt{Ack\_mw} back.
 
 \subsubsubsection{System Termination}
-Also, the system has to shutdown neatly. Therefore we designed a (symmetric)
-protocol to stop the entire system.
-% TODO: describe why it is "symmetric"
+Also, the system has to shutdown neatly. Therefore we designed a protocol to
+stop the entire system; please notice that this one could be seen as a
+symmetric version of the System Bootstrap protocol.
+% TODO: please check the sentence here above
 
 The protocol is represented in figure \ref{fig:sys-termination-protocol}, where
 the conventions are the same as the ones used in figure
