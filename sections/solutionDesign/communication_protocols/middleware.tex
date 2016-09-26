@@ -13,3 +13,44 @@ technologies for each one. Defining a standard interface is fundamental to abstr
 the underlying technologies (implementation).
 
 \subsubsubsection{Middleware - Middleware}
+
+\subsubsubsection{System Boostrap}
+As pointed out in the problem analysis, the system has to start neatly. Hence,
+we need to design a protocol to respect in order to accomplish this goal.
+
+The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
+
+\begin{itemize}
+  \item a circle is a logical node that is composed of a middleware layer
+    \textbf{MW} and an application layer \textbf{APP}. Since the middleware
+    has to be application-independent, it only assumes that there is an
+    interface through which it is possible to make an application start neatly;
+  \item a named arrow represents a message that is sent from a logical node
+    through another one with the name as its payload;
+  \item the numbers in the figure represents the progress of the system
+    bootstrap.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{sections/images/solution/bootstrap.pdf}
+  \caption{System bootstrap protocol}
+  \label{fig:sys-bootstrap-protocol}
+\end{figure}
+
+Assuming that a \texttt{Start\_mw} message arrives to a non-booted node at time
+0, the protocol is defined as follows:
+
+\begin{enumerate}
+  \item The leftmost node $l$ starts its own middleware services;
+  \item The leftmost node $l$ sends a \texttt{Start\_mw} message to the set
+    $S$ of all the nodes it knows;
+  \item $l$ waits for each node in $S$ to boot, i.e. $l$ waits for all nodes
+    in $S$ to send an \texttt{Ack\_mw} message back;
+  \item The middleware MW of $l$ requires $l$ to start the application APP;
+  \item $l$ then sends an \texttt{Ack\_mw} message back.
+\end{enumerate}
+
+As it can be seen in the figure, this behaviour is replicated recursively
+by all nodes of the system. If a node has already been booted, then it only
+sends \texttt{Ack\_mw} back.
