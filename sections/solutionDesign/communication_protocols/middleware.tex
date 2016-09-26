@@ -38,6 +38,7 @@ The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
   \label{fig:sys-bootstrap-protocol}
 \end{figure}
 
+% TODO: Explicit that $l$ is the leftmost node *in the picture*
 Assuming that a \texttt{Start\_mw} message arrives to a non-booted node at time
 0, the protocol is defined as follows:
 
@@ -58,28 +59,20 @@ sends \texttt{Ack\_mw} back.
 \subsubsubsection{System Termination}
 Also, the system has to shutdown neatly. Therefore we designed a (symmetric)
 protocol to stop the entire system.
+% TODO: describe why it is "symmetric"
 
-%The protocol is represented in figure \ref{fig:sys-termination-protocol}, where:
+The protocol is represented in figure \ref{fig:sys-termination-protocol}, where
+the conventions are the same as the ones used in figure
+\ref{fig:sys-bootstrap-protocol}.
 
-%\begin{itemize}
-%  \item a circle is a logical node that is composed of a middleware layer
-%    \textbf{MW} and an application layer \textbf{APP}. Since the middleware
-%    has to be application-independent, it only assumes that there is an
-%    interface through which it is possible to make an application stop
-%    gracefully;
-%  \item a named arrow represents a message that is sent from a logical node
-%    through another one with the name as its payload;
-%  \item the numbers in the figure represents the progress of the system
-%    bootstrap.
-%\end{itemize}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{sections/images/solution/termination.pdf}
+  \caption{System termination protocol}
+  \label{fig:sys-termination-protocol}
+\end{figure}
 
-%\begin{figure}[H]
-%  \centering
-%  \includegraphics[width=\columnwidth]{sections/images/solution/termination.pdf}
-%  \caption{System termination protocol}
-%  \label{fig:sys-termination-protocol}
-%\end{figure}
-
+% TODO: Explicit that $l$ is the leftmost node *in the picture*
 Assuming that a \texttt{Shutdown\_mw} message arrives to a non-terminated node
 $l$ at time 0, the protocol is defined as follows:
 
@@ -93,6 +86,6 @@ $l$ at time 0, the protocol is defined as follows:
   \item $l$ then sends an \texttt{Ackt\_mw} message back.
 \end{enumerate}
 
-As it can be seen in the figure, this behaviour is replicated recursively
-by all nodes of the system. If a node has already terminated, then it only
-sends \texttt{Ackt\_mw} back.
+As it can be seen in the related figure, this behaviour is replicated
+recursively by all nodes of the system. If a node has already terminated, then
+it only sends \texttt{Ackt\_mw} back.
