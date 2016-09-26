@@ -54,3 +54,45 @@ Assuming that a \texttt{Start\_mw} message arrives to a non-booted node at time
 As it can be seen in the figure, this behaviour is replicated recursively
 by all nodes of the system. If a node has already been booted, then it only
 sends \texttt{Ack\_mw} back.
+
+\subsubsubsection{System Termination}
+Also, the system has to shutdown neatly. Therefore we designed a (symmetric)
+protocol to stop the entire system.
+
+%The protocol is represented in figure \ref{fig:sys-termination-protocol}, where:
+
+%\begin{itemize}
+%  \item a circle is a logical node that is composed of a middleware layer
+%    \textbf{MW} and an application layer \textbf{APP}. Since the middleware
+%    has to be application-independent, it only assumes that there is an
+%    interface through which it is possible to make an application stop
+%    gracefully;
+%  \item a named arrow represents a message that is sent from a logical node
+%    through another one with the name as its payload;
+%  \item the numbers in the figure represents the progress of the system
+%    bootstrap.
+%\end{itemize}
+
+%\begin{figure}[H]
+%  \centering
+%  \includegraphics[width=\columnwidth]{sections/images/solution/termination.pdf}
+%  \caption{System termination protocol}
+%  \label{fig:sys-termination-protocol}
+%\end{figure}
+
+Assuming that a \texttt{Shutdown\_mw} message arrives to a non-terminated node
+$l$ at time 0, the protocol is defined as follows:
+
+\begin{enumerate}
+  \item The middleware MW of $l$ asks $l$ to terminate the application APP;
+  \item The leftmost node $l$ sends a \texttt{Shutdown\_mw} message to the set
+    $S$ of all the nodes it knows;
+  \item $l$ waits for each node in $S$ to terminate, i.e. $l$ waits for all
+    nodes in $S$ to send an \texttt{Ackt\_mw} message back;
+  \item The leftmost node $l$ stops its own middleware services;
+  \item $l$ then sends an \texttt{Ackt\_mw} message back.
+\end{enumerate}
+
+As it can be seen in the figure, this behaviour is replicated recursively
+by all nodes of the system. If a node has already terminated, then it only
+sends \texttt{Ackt\_mw} back.
