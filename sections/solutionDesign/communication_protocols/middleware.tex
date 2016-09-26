@@ -38,17 +38,17 @@ The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
   \label{fig:sys-bootstrap-protocol}
 \end{figure}
 
-% TODO: Explicit that $l$ is the leftmost node *in the picture*
-Assuming that a \texttt{Start\_mw} message arrives to a non-booted node at time
-0, the protocol is defined as follows:
+Assuming that a \texttt{Start\_mw} message arrives to a non-booted node (say
+$l$) at time instant 0, the protocol is defined as follows:
 
 \begin{enumerate}
-  \item The leftmost node $l$ starts its own middleware services;
-  \item The leftmost node $l$ sends a \texttt{Start\_mw} message to the set
-    $S$ of all the nodes it knows;
+  \item The leftmost node $l$ in figure \ref{fig:sys-termination-protocol}
+    starts its own middleware services;
+  \item $l$ sends a \texttt{Start\_mw} message to the set $S$ of all the nodes
+    it knows;
   \item $l$ waits for each node in $S$ to boot, i.e. $l$ waits for all nodes
     in $S$ to send an \texttt{Ack\_mw} message back;
-  \item The middleware MW of $l$ requires $l$ to start the application APP;
+  \item The middleware MW of $l$ asks to start the application APP;
   \item $l$ then sends an \texttt{Ack\_mw} message back.
 \end{enumerate}
 
@@ -72,17 +72,17 @@ the conventions are the same as the ones used in figure
   \label{fig:sys-termination-protocol}
 \end{figure}
 
-% TODO: Explicit that $l$ is the leftmost node *in the picture*
 Assuming that a \texttt{Shutdown\_mw} message arrives to a non-terminated node
-$l$ at time 0, the protocol is defined as follows:
+$l$ (let it be the leftmost one in the picture) at time instant 0, the protocol
+is defined as follows:
 
 \begin{enumerate}
-  \item The middleware MW of $l$ asks $l$ to terminate the application APP;
-  \item The leftmost node $l$ sends a \texttt{Shutdown\_mw} message to the set
+  \item The middleware MW of $l$ asks to terminate the application APP;
+  \item $l$ sends a \texttt{Shutdown\_mw} message to the set
     $S$ of all the nodes it knows;
   \item $l$ waits for each node in $S$ to terminate, i.e. $l$ waits for all
     nodes in $S$ to send an \texttt{Ackt\_mw} message back;
-  \item The leftmost node $l$ stops its own middleware services;
+  \item $l$ stops its own middleware services;
   \item $l$ then sends an \texttt{Ackt\_mw} message back.
 \end{enumerate}
 
