@@ -39,10 +39,9 @@ of a coordinator node, this version tries to improve the efficiency of the bully
 \begin{itemize}
   \item Each node knows the total number of nodes in the system (this information is gained during the censuns process);
   \item Each node has a different priority/ID;
-  \item There is no natural time bound for this process to complete. A user-defined bound could be setted as system parameter before starting the process;
-  \item At the end of the process the highest priority/ID (active) node is elected as coordinator.
+  \item There is no natural time bound for this process to complete. A user-defined bound could be setted as system parameter before starting the process.
 \end{itemize}
-The rules of the protocol are as follows:
+The protocol works as follows:
 \begin{enumerate}
   \item A node N sends an \textit{election} message to each node M with \textit{higher} priority/ID than him;
   \item N sets a timeout for each node M. If the timeout elapses then the receiver D is considered dead;
@@ -55,21 +54,31 @@ The rules of the protocol are as follows:
   \item Each node K replies with an \textit{ack} message to H;
   \item When the last node K has replied H has received all \textit{ack} messages thus completing the election process.
 \end{enumerate}
-Note and side cases:
+Notes and side cases:
 \begin{itemize}
   \item If none of the M nodes reply then N elects himself as coordinator sending a \textit{coordinator} message to each L node which has lower priority/ID than him;
   \item If the dead node is the highest priority/ID node H and it restarts during the election process then it sends a \textit{coordinator} message to each active node L in the system. Each L possibly updates its coordinator state if the coordinator election isn't finished yet;
   \item If a possible coordinator node crashes during the election, the process restarts from another active node;
+  \item At the completion of the protocol the highest priority/ID (active) node is elected as coordinator.
   \item This solution tries to reduce the timeout costs notifying higher priority/ID nodes when a dead node is detected;
   \item The communication is always between a lower priority node and a set of higher priority nodes, only during the \textit{coordinator} phase messages are broadcasted to all lower priority/ID nodes;
   \item The system has to freeze its state before starting the termination process, in this case all user inputs are ignored during the census and election processes.
 \end{itemize}
 
+\subsubsubsubsection{Example}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\columnwidth]{sections/images/solution/election_legend.pdf}
+  \caption{Legend of \nameref{fig:election-protocol-ex}}
+  \label{fig:election-protocol-legend}
+\end{figure}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\columnwidth]{sections/images/solution/election.pdf}
-  \caption{Election protocol}
-  \label{fig:election-protocol}
+  \caption{Election protocol - Example}
+  \label{fig:election-protocol-ex}
 \end{figure}
 
 \subsubsubsection{System Boostrap}
