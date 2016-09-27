@@ -108,11 +108,11 @@ is defined as follows:
   \item $l$ sends a \texttt{Shutdown\_mw} message to the set
     $S$ of all the nodes it knows;
   \item $l$ waits for each node in $S$ to terminate, i.e. $l$ waits for all
-    nodes in $S$ to send an \texttt{Ackt\_mw} message back;
+    nodes in $S$ to send an \texttt{Ack\_mw} message back;
   \item $l$ stops its own middleware services;
-  \item $l$ then sends an \texttt{Ackt\_mw} message back.
+  \item $l$ then sends an \texttt{Ack\_mw} message back.
 \end{enumerate}
 
 As it can be seen in the related figure, this behaviour is replicated
 recursively by all nodes of the system. If a node has already terminated, then
-it only sends \texttt{Ackt\_mw} back.
+it only sends \texttt{Ack\_mw} back.
