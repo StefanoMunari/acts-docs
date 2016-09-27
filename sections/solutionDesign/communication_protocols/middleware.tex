@@ -34,7 +34,36 @@ node.
 \end{itemize}
 
 \subsubsubsection{Election Protocol}
-%TODO
+This protocol tries to resolve the problem of the global consensus in a distributed system through the election
+of a coordinator node, this version tries to improve the efficiency of the bully algorithm through the notification in case of a crash detection. The protocol assumption are as follows:
+\begin{itemize}
+  \item Each node knows the total number of nodes in the system (this information is gained during the censuns process);
+  \item Each node has a different priority/ID;
+  \item There is no natural time bound for this process to complete. A user-defined bound could be setted as system parameter before starting the process;
+  \item At the end of the process the highest priority/ID (active) node is elected as coordinator.
+\end{itemize}
+The rules of the protocol are as follows:
+\begin{enumerate}
+  \item A node N sends an \textit{election} message to each node M with \textit{higher} priority/ID than him;
+  \item N sets a timeout for each node M. If the timeout elapses then the receiver D is considered dead;
+  \item M\footnote{M is any node with higher priority/ID than N} replies with an \textit{ok} message, which means that M is ready to continue the election process;
+  \item M repeats the points 1. and 2. until the highest priority/ID node H is reached;
+  \item If N has detected at least one dead node then N sends a \textit{crash} message \textit{with dead node IDs} to M;
+  \item M stops waiting for the nodes reported in the \textit{crash} message;
+  \item When H is reached there isn't any other active node with higher priority/ID than him;
+  \item H sends a \textit{coordinator} message to each active node K;
+  \item Each node K replies with an \textit{ack} message to H;
+  \item When the last node K has replied H has received all \textit{ack} messages thus completing the election process.
+\end{enumerate}
+Note and side cases:
+\begin{itemize}
+  \item If none of the M nodes reply then N elects himself as coordinator sending a \textit{coordinator} message to each L node which has lower priority/ID than him;
+  \item If the dead node is the highest priority/ID node H and it restarts during the election process then it sends a \textit{coordinator} message to each active node L in the system. Each L possibly updates its coordinator state if the coordinator election isn't finished yet;
+  \item If a possible coordinator node crashes during the election, the process restarts from another active node;
+  \item This solution tries to reduce the timeout costs notifying higher priority/ID nodes when a dead node is detected;
+  \item The communication is always between a lower priority node and a set of higher priority nodes, only during the \textit{coordinator} phase messages are broadcasted to all lower priority/ID nodes;
+  \item The system has to freeze its state before starting the termination process, in this case all user inputs are ignored during the census and election processes.
+\end{itemize}
 
 \subsubsubsection{System Boostrap}
 As pointed out in Problem Analysis (\ref{sec:pa-distribution}), the system has
