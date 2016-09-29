@@ -14,13 +14,17 @@ not capable to start an action by itself;
 \rowcolor{BlueGreen}
 Type     & Entities                                 \\ \hline
 Active   & pedestrian, car, bus, bicycle, semaphore \\ \hline
-Reactive & road, crossroad ,house                   \\ \hline
+Reactive & road, crossroads, house                   \\ \hline
 Passive  & road signs                               \\ \hline
 \end{tabular}
 \caption{Types of entities}
 \label{tab:entity_type}
 \end{table}
-
+The entities have the following dependencies:
+\begin{itemize}
+  \item \textit{Active} provides inputs to \textit{Reactive} (solid line);
+  \item \textit{Active} and \textit{Reactive} can use \textit{Passive}, the dependency is not strict (dashed line).
+\end{itemize}
 \begin{figure}[H]
   \centering
   \includegraphics[width=.35\columnwidth]{sections/images/solution/entity_type_dependency.eps}
