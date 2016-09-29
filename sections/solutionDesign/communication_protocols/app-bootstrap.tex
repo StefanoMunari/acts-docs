@@ -25,6 +25,9 @@ At the end of the bootstrap process the \textit{master} will notify the
 middleware-layer that the bootstrap has completed successfully. If the 
 \textit{master} crashes before the bootstrap has completed then 
 the middleware-layer will notice that because the timeout 
-attached to the \texttt{app.boot} call expires. 
+attached to the \texttt{app.boot} call expires. Note that this model works also
+in the case of a bootstrap from a snapshot: the only difference consists in the
+values of the configuration file. Indeed we will use a set of different 
+configurations, one for each city.
 
 
