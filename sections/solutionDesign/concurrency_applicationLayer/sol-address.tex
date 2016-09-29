@@ -65,3 +65,24 @@ the execution from the last valid snapshot.
 will be designed to overcome starvation scenarios.
 
 \subsubsection{Solution to Domain Problems}
+
+In section \ref{sec:pa-domain-problems} we showed that the applicative domain
+presents inherently some problems, but our solution design is thought to solve
+them.
+
+\paragraph{Pedestrian Deadlock} After detecting this scenario with a bit of
+application logic, the system will solve the situation by moving at the same
+time pedestrians to the start of the next road stretch.
+
+\paragraph{Rear-end Collisions} If the next road stretch is already occupied,
+then the moving entity will wait for the stretch to become free while keeping
+its own stretch occupied.
+
+\paragraph{Stretch Parallelism} Sidewalks may contain more than one pedestrian.
+As opposed to roadway lanes, it is sufficient to add a counter which represents
+the number of entities currently treading the stretch (and denying the
+possibility to enter the stretch if it is ``full''.
+
+\paragraph{Yield rules} The logic to manage yield rules will be encapsulated in
+crossroads, which will make vehicles respect the rules without letting anyone of
+them violating the street code.
