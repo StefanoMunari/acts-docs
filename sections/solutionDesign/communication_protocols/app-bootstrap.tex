@@ -1,17 +1,18 @@
 \subsubsubsection{Bootstrap}
-In order to start the application-layer neatly we have to consider the 
-dependencies between the entity types exposed in \ref{fig:sd-entity-types-deps}. 
-We have also to consider that the application-layer can not decide by itself 
-when is time to boot, indeed the application-layer is instructed by the 
-middleware-layer. The bootstrap of the application-layer needs a \textit{master} 
-process which will create the entities based on the configuration provided by 
-the middleware-layer. Considering the dependencies:
+In order to neatly start the application layer, we have to consider the 
+dependencies among the entity types exposed in \ref{fig:sd-entity-types-deps}. 
+Moreover we have to take into account that this layer can not decide by itself 
+when it is time to boot, indeed it is ruled by the middleware one.
+The bootstrap of the application layer needs a \textit{master} process, 
+which has to create the entities based on the configuration provided by 
+the middleware layer. 
+Bearing in mind the mentioned dependencies:
 \begin{itemize}
   \item The \textit{reactive} entities have to start before the \textit{active} 
 ones, because the latter use the former; 
   \item The \textit{passive} entities have no particular dependency. Since 
-they are stateless and belong to \textit{reactive} entities (the road signs 
-belong to roads) they will be instantiated along with them.
+they are stateless and they logically belong to \textit{reactive} entities 
+(e.g. the road signs belong to roads), they have to be instantiated along with them.
 \end{itemize}
 
 \begin{figure}[H]
@@ -21,13 +22,12 @@ belong to roads) they will be instantiated along with them.
   \label{fig:app-proc-tree}
 \end{figure}
 
-At the end of the bootstrap process the \textit{master} will notify the 
-middleware-layer that the bootstrap has completed successfully. If the 
-\textit{master} crashes before the bootstrap has completed then 
-the middleware-layer will notice that because the timeout 
-attached to the \texttt{app.boot} call expires. Note that this model works also
-in the case of a bootstrap from a snapshot: the only difference consists in the
-values of the configuration file. Indeed we will use a set of different 
-configurations, one for each city.
-
-
+At the end of the bootstrap, the \textit{master} process has to notify the 
+middleware layer of the successful completion. A crash of the
+\textit{master} process, occurring before the end of the bootstrap, 
+is signaled to the middleware layer, because of the expiration 
+of the timeout attached to the \texttt{app.boot} call. 
+Note that this model works also for a bootstrap which is executed starting 
+from a snapshot of the system, with the only difference consisting in divergent
+values of the configuration file. Indeed, we have to use a set of 
+configurations, which is different for each city.
