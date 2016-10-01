@@ -1,13 +1,16 @@
 \subsubsection{Solution to Concurrency Problems}
 
-Our solution addresses the problems we pointed out in section
-\ref{sec:pa-concurrency}: here we are providing answers to the questions we
-made ourselves at the beginning of the development.
+Our solution addresses the problems we pointed out in section 
+\ref{sec:pa-concurrency}.
+Therefore here we are providing answers to the questions 
+we made ourselves at the beginning of the development.
 
 \paragraph{How can we recognize that a situation is suitable to present
-concurrency?} There are several active entities in our application: pedestrians,
-cars, bikes and buses. They act because of their own initiative, so they are
-likely to be considered as active tasks.
+concurrency?}
+There are several active entities in our application: 
+pedestrians, cars, bikes and buses. 
+They act because of their own initiative, 
+so they are likely to be considered as active tasks.
 
 Moreover, their actions cause side-effects to reactive entities like roads.
 Consequently, our application does not only need to be parallel 
@@ -15,8 +18,9 @@ but also \textit{concurrent}.
 
 \paragraph{How concurrent accesses will be managed? Will it make sense to
 discern side-effect accesses (procedures) from read-only accesses
-(\textit{functions})?} Concurrent accesses will be managed by means of
-Protected Objects, i.e. resources that can be accessed in concurrent read
+(\textit{functions})?} 
+Concurrent accesses will be managed by means of \textit{Protected Objects}, 
+i.e. resources that can be accessed in concurrent read
 \textbf{or} mutual exclusive write mode.
 
 It indeed makes sense to have the mentioned separation. 
@@ -34,7 +38,8 @@ In light of active entities undertake spontaneous actions, in our context they a
 \paragraph{Which entities have to be reactive?} 
 Roads (with all their parts) and crossroads should be reactive entities:
 \begin{itemize}
-  \item A road is used to travel towards a destination and it take actions only when it is trodden. 
+  \item A road is used to travel towards a destination 
+  and it takes actions only when it is trodden. 
   However, the state of a road is composed of the states 
   of the reactive sub-entities it comprises, i.e. stretches and houses;
   \item A Crossroads coordinates the traffic at road intersections 
@@ -55,7 +60,7 @@ but we deliberately do not choose any specific technique.
 If so, how do we handle the problem?} 
 The application will be designed to avoid non-valid states. 
 However, if the system recognizes it is in a non-valid state, 
-it recovery the execution from the last valid snapshot.
+it recoveries the execution from the last valid snapshot.
 
 \paragraph{How can we avoid possible starvation scenarios?} 
 The application will be designed to overcome starvation scenarios.
@@ -66,20 +71,22 @@ In section \ref{sec:pa-domain-problems} some problems
 inherently related to the application domain are explained, 
 and our solution design is thought to solve them.
 
-\paragraph{Pedestrian Deadlock} 
-After detecting this scenario with a bit of application logic, 
-the system will solve the situation by moving at the same
-time pedestrians to the start of the next road stretch.
+\paragraph{Pedestrian Deadlock}
+The system will be able to detect such a scenario
+and it will solve the problem by moving on
+all involved pedestrians together.
 
 \paragraph{Rear-end Collisions} 
 If the next road stretch of a moving entity route is already occupied,
-the entity will wait for the stretch to become free 
-before moving on.
+the entity will wait for the stretch to become free before moving on.
 
-\paragraph{Stretch Parallelism} One sidewalk stretch may contain more than one pedestrian at a time.
-Hence, it is sufficient to add a counter which represents
-the number of entities currently treading the stretch, 
-denying the possibility to enter the stretch if it is ``full''.
+\paragraph{Stretch Parallelism} 
+One road stretch (e.g. a sidewalk stetch) may contain more 
+than one entity of the same type (e.g. pedestrians) at a time.
+Hence, it is necessary to introduce a counter which represents
+the number of entities currently treading the stretch.
+It is indeed useful for denying the possibility to enter a stretch if it is ``full''.
 
-\paragraph{Yield rules} The logic to manage yield rules will be encapsulated in
-crossroads, which has to ensure the respect of the street code by the vehicles.
+\paragraph{Yield rules} 
+The logic to manage yield rules will be encapsulated in crossroads, 
+which has to ensure the respect of the street code.
