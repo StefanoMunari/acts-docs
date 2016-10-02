@@ -17,12 +17,8 @@ has zebra crossings painted on it has to wait for pedestrians or bikes to free
 all stretches of that particular crossing.
 
 \paragraph{Changing roadway lane} A vehicle that is on the i-th road stretch
-which wants to change lane has to check whether the (i+1)-th stretch in the
+which wants to change lane has to wait until the (i+1)-th stretch in the
 wanted direction is free.
-
-In that case, the vehicle enters the stretch of the other lane; otherwise, if a
-timeout expires before a vehicle is able to change lane, then it gives up on
-it and proceeds forward to the next stretch.
 
 \paragraph{Crossroads} Every road that is connected to a crossroads is marked
 with a cardinal point (N/E/W/S). The crossroads holds all the logic necessary
