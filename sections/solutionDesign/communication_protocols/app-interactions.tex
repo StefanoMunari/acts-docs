@@ -66,6 +66,14 @@ If all of these conditions are met, then:
   \item $d_e$ now ``books'' a place for the vehicle driven by $e$.
 \end{itemize}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth,trim=1 0 0 0,clip]
+    {sections/images/solution/going-out-vehicle.eps}
+  \caption{Exiting a building with a vehicle}
+  \label{fig:app-inter-vehicle}
+\end{figure}
+
 \paragraph{Waiting for a bus} A pedestrian may randomly decide to wait for a
 bus if she is on a bus stop stretch.
 
@@ -76,6 +84,14 @@ amount of time for a bus to arrive.
 If this timeout expires, then she continues travelling by foot to the next
 stretch.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth,trim=1 0 2 0,clip]
+    {sections/images/solution/bus-waiting.eps}
+  \caption{Waiting for a bus}
+  \label{fig:app-inter-wait-bus}
+\end{figure}
+
 \paragraph{Boarding a bus} When a bus arrives at a bus stop, then a waiting
 entity will board it only if:
 
@@ -83,6 +99,14 @@ entity will board it only if:
   \item there is enough room for her; and
   \item this bus shortens the expected route for her.
 \end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth,trim=1 0 0 0,clip]
+    {sections/images/solution/bus-boarding.eps}
+  \caption{Boarding a bus}
+  \label{fig:app-inter-board-bus}
+\end{figure}
 
 \paragraph{Getting off a bus} A person $p$ will get off a bus when it reaches
 the last stop $s$ such that $s$ belongs to the route of $p$.
