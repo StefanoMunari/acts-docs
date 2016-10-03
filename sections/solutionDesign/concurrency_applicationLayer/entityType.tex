@@ -6,7 +6,7 @@ Three types of entities have been identified
   \item \textit{Reactive}: an entity with an inner state, that only acts on reaction to external inputs, 
   and it is not capable to start an action by itself;
   \item \textit{Passive}: an entity with an internal state (if necessary) which is immutable. 
-   As a Reactive entity It only acts on reaction to external inputs, and it is not capable to start an action by itself.
+   As a Reactive entity it only acts on reaction to external inputs, and it is not capable to start an action by itself.
 \end{itemize}
 \begin{table}[H]
 \centering
@@ -21,10 +21,10 @@ Passive  & road signs                               \\ \hline
 \caption{Types of entities}
 \label{tab:entity_type}
 \end{table}
-The entities have the following dependencies:
+Entity types have the following dependencies:
 \begin{itemize}
-  \item \textit{Active} provides inputs to \textit{Reactive} (solid line);
-  \item \textit{Active} and \textit{Reactive} can use \textit{Passive}, the dependency is not strict (dashed line).
+  \item \textit{Active} entities provides inputs to the \textit{Reactive} entities (solid line);
+  \item \textit{Active} and \textit{Reactive} entities can use \textit{Passive} entities, the dependency is not strict (dashed line).
 \end{itemize}
 \begin{figure}[H]
   \centering
