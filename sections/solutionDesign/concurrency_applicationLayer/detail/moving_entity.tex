@@ -17,6 +17,8 @@ A unique identifier, useful to keep track of each entity.
 The possible states of the entity \{ running, stopped \}.
     \item \texttt{- route: ArrayList<UrbanEntity>} \\
 The route of urban entities that the entity has to tread.
+    \item \texttt{- maxSpeed: Unsigned Int} \\
+The maximum possible speed for the entity.
   \end{itemize}
   \item \textbf{Operation}
   \begin{itemize}
@@ -30,5 +32,7 @@ Activates the entity which sets its state to \textit{running} and
 starts consuming its route.
     \item  \texttt{+ stop()} \\
 Stops the entity which sets its state to \textit{stopped}.
+    \item  \texttt{+ getMaxSpeed() : Unsigned Int} \\
+Returns the maximum speed of the entity.
   \end{itemize}
 \end{itemize}
