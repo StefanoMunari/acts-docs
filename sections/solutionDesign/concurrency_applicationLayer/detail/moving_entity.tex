@@ -23,6 +23,8 @@ The route of urban entities that the entity has to tread.
     \item \texttt{- changeState(state: Enum)} \\
 Change the entity state. This method is used internally by public methods to 
 change the entity behaviour.
+    \item  \texttt{+ MovingEntity(route: ArrayList<UrbanEntity>)} \\
+Creates a moving entity setting its route.
     \item  \texttt{+ run()} \\
 Activates the entity which sets its state to \textit{running} and 
 starts consuming its route.
