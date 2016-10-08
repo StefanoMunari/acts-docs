@@ -3,10 +3,11 @@ Three types of entities have been identified
 \begin{itemize}
   \item \textit{Active}: an entity capable to start an action by itself, 
   providing it the computational resources it needs;
-  \item \textit{Reactive}: an entity with an inner state, that only acts on reaction to external inputs, 
-  and it is not capable to start an action by itself;
-  \item \textit{Passive}: an entity with an internal state (if necessary) which is immutable. 
-   As a Reactive entity it only acts on reaction to external inputs, and it is not capable to start an action by itself.
+  \item \textit{Reactive}: an entity with an inner state, that only acts on 
+reaction to external inputs, and it is not capable to start an action by itself;
+  \item \textit{Passive}: an entity with an internal state (if necessary) which 
+is immutable. As a Reactive entity it only acts on reaction to external inputs, 
+and it is not capable to start an action by itself.
 \end{itemize}
 \begin{table}[H]
 \centering
@@ -14,7 +15,7 @@ Three types of entities have been identified
 \hline
 \rowcolor{BlueGreen}
 Type     & Entities                                 \\ \hline
-Active   & pedestrian, bicycle, motorcycle, car, bus, semaphore \\ \hline
+Active   & pedestrian, bicycle, motorcycle, car, bus, traffic light \\ \hline
 Reactive & road, crossroads, sidewalk, bike lane, crossing, house \\ \hline
 Passive  & road signs                               \\ \hline
 \end{tabular}
@@ -23,8 +24,10 @@ Passive  & road signs                               \\ \hline
 \end{table}
 Entity types have the following dependencies:
 \begin{itemize}
-  \item \textit{Active} entities provides inputs to the \textit{Reactive} entities (solid line);
-  \item \textit{Active} and \textit{Reactive} entities can use \textit{Passive} entities, the dependency is not strict (dashed line).
+  \item \textit{Active} entities provides inputs to the \textit{Reactive} 
+entities (solid line);
+  \item \textit{Active} and \textit{Reactive} entities can use \textit{Passive} 
+entities, the dependency is not strict (dashed line).
 \end{itemize}
 \begin{figure}[H]
   \centering
