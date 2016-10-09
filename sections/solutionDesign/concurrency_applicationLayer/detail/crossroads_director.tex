@@ -1,0 +1,22 @@
+\subsubsubsubsection{Crossroads Director}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/crossroads_director.eps}
+\caption{App::Reactive::Crossroads Director}
+\label{fig:sd-app-crossroads_director}
+\end{figure}
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{Description} \\
+    It represents the concrete director of the crossroads builder.
+  \item \textbf{Operation}
+  \begin{itemize} 
+    \item \texttt{+ CrossroadsDirector(builder: CrossroadsBuilder)} \\
+Creates a concrete crossroads director with its own crossroads builder.
+    \item \texttt{+ build(config: FilePath) : ArrayList<Crossroads>} \\
+Builds a list of crossroads according to the configuration file. 
+It uses the builder multiple times 
+to create incrementally a specific configuration of the
+requested crossroads specified in the configuration file. 
+  \end{itemize}
+\end{itemize}
