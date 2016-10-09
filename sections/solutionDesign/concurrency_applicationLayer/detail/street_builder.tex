@@ -11,10 +11,12 @@
     It represents the builder of street entities. 
   \item \textbf{Operation}
   \begin{itemize} 
-    \item \texttt{+ buildTrafficLight()} \\
-Adds a new traffic light to the street.
-    \item \texttt{+ buildQueue()} \\
-Adds a new queue of moving entities to the street.
+    \item \texttt{+ buildRoadway(config: FilePath)} \\
+Builds a roadway using roadwayfactory according to a specific configuration.
+    \item \texttt{+ buildSidewalk(config: FilePath)} \\
+Builds a sidewalk using sidewalkfactory according to a specific configuration.
+    \item \texttt{+ buildBikepath(config: FilePath)} \\
+Builds a bikepath using bikepathfactory according to a specific configuration.
     \item \texttt{+ getEntity() : Street} \\
 Returns the street.
   \end{itemize}
