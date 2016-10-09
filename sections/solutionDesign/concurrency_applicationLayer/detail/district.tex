@@ -20,7 +20,9 @@ The urban entities of the district\footnote{Note that the name
 real district splitted into different logical nodes of the system}
 (i.e. crossroads and streets). 
     \item \texttt{- population: ArrayList<MovingEntity>} \\
-The moving entities that initially (at bootstrap time) reside on the district.
+The moving entities that reside on the district.
+    \item \texttt{- trafficLight: ArrayList<TrafficLight>} \\
+The traffic lights of the district.
     \item \texttt{- director: UEDirector} \\ 
 The director of the city building process.
   \end{itemize}
@@ -28,14 +30,14 @@ The director of the city building process.
   \begin{itemize} 
     \item \texttt{- boot() : boolean} \\
 Boots the application layer running all the active entities of the 
-district\footnote{The traffic light is a particular active entity that 
-is started by its crossroads when the latter is created}. 
+district (moving entities and traffic lights).
 Returns true if the process completes neatly, false otherwise. 
 This method is internally used by init.
     \item \texttt{+ init(config: FilePath) : boolean} \\
 Creates and boots all the entities of the district according to the 
-configuration file. Returns true if the process completes neatly, false 
-otherwise.
+configuration file. Attach each crossroads to the relative traffic light
+if specified in the configuration file. 
+Returns true if the process completes neatly, false otherwise.
     \item \texttt{+ shutdown() : boolean} \\
 Terminates the district. Returns true if the process completes neatly,
 false otherwise.
