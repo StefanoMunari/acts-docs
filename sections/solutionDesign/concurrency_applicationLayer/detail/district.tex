@@ -17,8 +17,8 @@ A reference to the interface of the application layer.
     \item \texttt{- roadMap: ArrayList<UrbanEntity>} \\
 The urban entities of the district\footnote{Note that the name 
 \textit{district} is only a convetion, indeed it is possible to have a 
-real district splitted in different logical nodes of the system}(i.e. crossroads
-and streets). 
+real district splitted into different logical nodes of the system}
+(i.e. crossroads and streets). 
     \item \texttt{- population: ArrayList<MovingEntity>} \\
 The moving entities that initially (at bootstrap time) reside on the district.
     \item \texttt{- director: UEDirector} \\ 
@@ -29,7 +29,7 @@ The director of the city building process.
     \item \texttt{- boot() : boolean} \\
 Boots the application layer running all the active entities of the 
 district\footnote{The traffic light is a particular active entity that 
-is started by the relative crossroads when the latter is created}. 
+is started by its crossroads when the latter is created}. 
 Returns true if the process completes neatly, false otherwise. 
 This method is internally used by init.
     \item \texttt{+ init(config: FilePath) : boolean} \\
