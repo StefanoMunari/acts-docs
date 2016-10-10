@@ -73,9 +73,14 @@ inherently related to the application domain are explained,
 and our solution design is thought to solve them.
 
 \paragraph{Pedestrian Deadlock}
-The system will be able to detect such a scenario
-and it will solve the problem by moving on
-all involved pedestrians together.
+This problem will be avoided ``by design'' by organizing sidewalks in
+\textit{lanes}. Though sidewalks in real world usually do not have lanes (apart
+from seldom exceptions), we employ the concept of a \textit{logic} lane, i.e.
+an abstraction that allows us to coordinate opposite flows of pedestrians in an
+agile way.
+
+Since pedestrians proceeding in opposite directions will not compete to enter
+the same sidewalk stretch, there can not be any pedestrian deadlock.
 
 \paragraph{Rear-end Collisions} 
 If the next road stretch of a moving entity route is already occupied,
