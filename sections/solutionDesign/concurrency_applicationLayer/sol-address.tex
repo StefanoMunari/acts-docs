@@ -32,7 +32,7 @@ when someone asks for it (without causing side-effects).
 In light of active entities undertake spontaneous actions, in our context they are:
 \begin{itemize}
   \item Moving entities, which move around the city according to their own will;
-  \item Semaphores, which autonomously changes its color by the time elapses.
+  \item Semaphores, which autonomously change their color by the time elapses.
 \end{itemize}
 
 \paragraph{Which entities have to be reactive?} 
@@ -42,12 +42,12 @@ Roads (with all their parts) and crossroads should be reactive entities:
   and it takes actions only when it is trodden. 
   However, the state of a road is composed of the states 
   of the reactive sub-entities it comprises, i.e. stretches and houses;
-  \item A Crossroads coordinates the traffic at road intersections 
+  \item A crossroads coordinates the traffic at road intersections 
   exclusively whenever a moving entity requires to cross it.
 \end{itemize}
 
 \paragraph{Which entities have to be passive?} 
-Passive entities can not alter its internal state. 
+Passive entities can not alter their internal state. 
 Therefore, road signs fit perfectly in this definition, since
 they represent some immutable information that is read by road users.
 
@@ -60,7 +60,8 @@ but we deliberately do not choose any specific technique.
 If so, how do we handle the problem?} 
 The application will be designed to avoid non-valid states. 
 However, if the system recognizes it is in a non-valid state, 
-it recoveries the execution from the last valid snapshot.
+it resumes the execution from the last valid snapshot.
+% resumes: see https://www.cs.york.ac.uk/rts/books/RTSbookThirdEdition/chap6.pdf
 
 \paragraph{How can we avoid possible starvation scenarios?} 
 The application will be designed to overcome starvation scenarios.
