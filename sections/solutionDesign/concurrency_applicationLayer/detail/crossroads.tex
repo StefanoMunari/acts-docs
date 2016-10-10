@@ -8,11 +8,12 @@
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
-    It represents a concrete crossroads entity. It is a protected object.
+    Protected object that represents a (concrete) crossroads entity.
   \item \textbf{Attribute}
   \begin{itemize}
     \item \texttt{- state: Enum} \\
-The traffic light state indicates which directions to free.
+The traffic light state tells which crossroads' queues can be processed in
+order to make waiting vehicles tread the crossroads.
     \item \texttt{- treading: Map<Direction, AbstractQueue<MovingEntity>>} \\
 The queue of moving entities which are treading the crossroads.
     \item \texttt{- waiting: Map<Direction, AbstratQueue<MovingEntity>>} \\

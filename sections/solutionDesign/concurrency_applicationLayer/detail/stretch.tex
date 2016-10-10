@@ -16,7 +16,7 @@ The size of the stretch/treading queue.
     \item \texttt{- treading: AbstractQueue<MovingEntity>} \\
 The queue of moving entities which are treading the stretch. If the concrete type
 is PriorityQueue then the stretch allows the overtaking between the moving entities.
-This is implemented through a priority queue ordered by decresing speed.
+This is implemented through a priority queue ordered by decreasing speed.
     \item \texttt{- waiting: AbstractQueue<MovingEntity>} \\
 The queue of moving entities which are waiting to tread the stretch. 
   \end{itemize}
@@ -25,9 +25,9 @@ The queue of moving entities which are waiting to tread the stretch.
     \item \texttt{+ Stretch(size: Unsigned Int)} \\
 Creates a stretch object with a specific size.
     \item \texttt{+ tread(entity: MovingEntity)} \\
-Implements the treading of the stretch. The current speed of the moving entity
+Implements the stretch treading. The current speed of the moving entity
 is calculated first, then the entity is placed in a treading queue which has a  
-timeout, after the deadline elapsed the queue is flushed and the entity can proceed
-along their route.
+timeout. When this timeout expires, the queue is flushed and the entity can
+proceed along their route.
   \end{itemize}
 \end{itemize}
