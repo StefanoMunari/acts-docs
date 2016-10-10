@@ -17,8 +17,9 @@ The lane to decorate.
   \end{itemize}
   \item \textbf{Operation}
    \begin{itemize} 
-   \item \texttt{+ LaneDecorator(component: Lane)} \\
-Creates a lane decorator with a specific lane to decorate.
+   \item \texttt{+ LaneDecorator(component: Lane, roadsign: List<RoadSign>)} \\
+Creates a lane decorator with a specific lane to decorate with the road signs
+in \texttt{roadsign}.
     \item \texttt{+ tread(entity: MovingEntity)} \\
 Decorates the standard behaviour of the lane.  
   \end{itemize}
