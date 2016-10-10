@@ -33,6 +33,10 @@ Activates the entity which sets its state to \textit{running} and
 starts consuming its route.
     \item  \texttt{+ stop()} \\
 Stops the entity which sets its state to \textit{stopped}.
+    \item  \texttt{+ notify(house: House) : ArrayList<Pedestrian>} \\
+Decide if it want to rest in the house according to its route: in this case
+returns a list of pedestrian which wants to stay in the house, otherwise returns
+an empty list.
     \item  \texttt{+ getMaxSpeed() : Unsigned Int} \\
 Returns the maximum speed of the entity.
      \item  \texttt{+ getId() : Unsigned Int} \\
