@@ -3,11 +3,19 @@
 The application contains several interactions among entities that have to be
 specified in order to understand well how to approach different problems.
 
-\paragraph{Entering a road} Moving entities enter a road by accessing a stretch
-that is located at the beginning of the road and that is treadable by their
-specific entity type.
+\paragraph{Entering a road} Moving entities enter a road which by accessing
+one of its lane that meets two requirements:
 
-\paragraph{Entering a road stretch} 
+\begin{itemize}
+  \item the lane has to be treadable by their specific entity type;
+  \item assuming that the moving entity wants to go in the direction $d_1$,
+    then the lane has to be treadable in the direction $d_0 \rightarrow d_1$.
+\end{itemize}
+
+\paragraph{Entering a lane}
+Moving entities enter a lane by simply entering its first stretch.
+
+\paragraph{Entering a road stretch}
 Moving entities who want to enter a new road stretch
 can do it whenever there is room for them in that stretch. 
 In particular, a roadway lane stretch can be trod for at most 
