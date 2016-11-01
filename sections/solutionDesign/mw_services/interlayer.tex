@@ -1,1 +1,35 @@
 \subsubsection{Interlayer service}
+
+This component is responsible of the communication that is performed among
+different layers, namely the one which it belongs (the \textbf{middleware}) and
+another one who uses the middleware layer, that is the \textbf{application}
+layer.
+
+We show in figure \ref{fig:mw-interlayer} the architecture of this service and
+then we will show in detail each module that composes this component.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{images/solution/mw/interlayer.eps}
+  \caption{Middleware's Interlayer service}
+  \label{fig:mw-interlayer}
+\end{figure} % TODO: needs update (Sequence usage comes from AppMwInterface)
+
+% TODO: All class diagrams has to be added
+\subsubsubsection{interlayer.Interlayer}
+
+\subsubsubsection{interlayer.MwAppInterface}
+
+\subsubsubsection{interlayer.AppMwInterface}
+
+\subsubsubsection{interlayer.AppDispatcher}
+
+\subsubsubsection{interlayer.sequence.Sequence}
+
+\subsubsubsection{interlayer.formatter.Formatter}
+
+\subsubsubsection{interlayer.formatter.AdaFormatter}
+
+\subsubsubsection{interlayer.pending.PendingTable}
+
+\subsubsubsection{interlayer.pending.Consumer}
