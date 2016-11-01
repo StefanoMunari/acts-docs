@@ -27,6 +27,13 @@ organization of those components.
     the nodes of the system.
 \end{itemize}
 
+We thought that it would have been a good situation for using the Fa\c cade
+pattern, so each one of the services in figure \ref{fig:mw-arch-over} will have
+a ``Fa\c cade module'', that is the interface through which requests are made
+to a specific component.
+These modules will be recognizable since they will have the same name as the
+component they are contained in.
+
 \input{sections/solutionDesign/mw_services/naming.tex}
 \input{sections/solutionDesign/mw_services/forwarding.tex}
 \input{sections/solutionDesign/mw_services/interlayer.tex}
