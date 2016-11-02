@@ -87,45 +87,8 @@ then we will show in detail each module that composes this component.
     \item \texttt{- loopAcceptor(srv: PID)} \\
     Loops accepting requests as the server \texttt{srv}.
     \item \texttt{- serve(client: PID)} \\
-    Handles the stream coming from the TCP connection of \texttt{client}.
-  \end{itemize}
-\end{itemize}
-
-\subsubsubsection{interlayer.AppDispatcher}
-% TODO: Class diagram
-\FloatBarrier
-\begin{itemize}
-  \item \textbf{Description} \\
-    Module that dispatches messages towards the Forwarding service.
-  \item \textbf{Attributes}
-  \item \textbf{Operations}
-  \begin{itemize}
-    \item \texttt{+ forward(data: String)} \\
-    Forwards the data towards to the Forwarding service.
-  \end{itemize}
-\end{itemize}
-
-\subsubsubsection{interlayer.sequence.Sequence}
-% TODO: Class diagram
-\FloatBarrier
-\begin{itemize}
-  \item \textbf{Description} \\
-    Process that gives sequential number in an atomic fashion.
-  \item \textbf{Attributes}
-    \begin{itemize}
-      \item \texttt{- counter: Int} \\
-    Simple counter from $0$ to \texttt{windowSize}.
-      \item \texttt{- windowSize: Int} \\
-    Maximum value of \texttt{counter}.
-    \end{itemize}
-  \item \textbf{Operations}
-  \begin{itemize}
-    \item \texttt{+ startLink()} \\
-    Starts Sequence process, setting counter to $0$.
-    \item \texttt{+ startLink(n: Int)} \\
-    Starts Sequence process, setting counter to \texttt{n}.
-    \item \texttt{+ getAndIncrement()} \\
-    Returns the current value  of \texttt{counter} and then increments it.
+    Handles the stream coming from the TCP connection of \texttt{client} by
+    forwarding data towards to the Forwarding service.
   \end{itemize}
 \end{itemize}
 
