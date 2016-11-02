@@ -14,6 +14,7 @@ then we will show in detail each module that composes this component.
   \caption{Middleware's Interlayer service}
   \label{fig:mw-interlayer}
 \end{figure} % TODO: needs update (Sequence usage comes from AppMwInterface)
+             % TODO: how about removing AppDispatcher and Sequence?
 
 % TODO: All class diagrams has to be added
 \subsubsubsection{interlayer.Interlayer}
@@ -21,8 +22,8 @@ then we will show in detail each module that composes this component.
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
-    This module is the Fa\c cade of the Interlayer service. It is responsible to
-    boot neatly and supervise all processes in Interlayer.
+    This module is the Fa\c cade of the Interlayer service. It is responsible
+    to boot neatly and supervise all processes in Interlayer.
   \item \textbf{Attributes}
     \begin{itemize}
       \item \texttt{- sendPort: Int} \\
@@ -194,7 +195,7 @@ then we will show in detail each module that composes this component.
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
-    Daemon worker that sequentially takes message to the pending table and
+    Daemon worker that sequentially takes message from the pending table and
     tries to send them to the application layer.
   \item \textbf{Attributes}
   \item \textbf{Operations}
