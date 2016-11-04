@@ -1,0 +1,23 @@
+\subsubsubsubsection{UEBuilder}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/u_e_builder.eps}
+\caption{\pReactiveBuild::UEBuilder}
+\label{fig:sd-app-uebuilder}
+\end{figure}
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{\descr} \\
+    It represents a component that builds urban entities like crossroads and
+    streets.
+  \item \textbf{\attrs}
+  \begin{itemize}
+    \item \texttt{entity: UrbanEntity} \\
+The entity which the builder incrementally constructs.
+  \end{itemize}
+  \item \textbf{\ops}
+  \begin{itemize}
+    \item[+] \texttt{getEntity() : UrbanEntity} \\
+Returns the final product of the building.
+  \end{itemize}
+\end{itemize}

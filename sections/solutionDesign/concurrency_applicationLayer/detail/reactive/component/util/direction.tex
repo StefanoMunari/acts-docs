@@ -1,0 +1,27 @@
+\subsubsubsubsection{Direction}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/direction.eps}
+\caption{\pReactiveComponentUtil::Direction}
+\label{fig:sd-app-direction}
+\end{figure}
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{\descr} \\
+    It represents the direction that a moving entity has while treading a
+    street or a crossroads.
+  \item \textbf{\attrs}
+  \begin{itemize}
+    \item \texttt{source: Enum} \\
+Direction from which an entity arrives. It may assume four possible
+values: \{north, south, east, west\}.
+    \item \texttt{destination: Enum} \\
+Direction the entity is going towards.  It also may assume four possible
+values: \{north, south, east, west\}.
+  \end{itemize}
+  \item \textbf{\ops}
+  \begin{itemize}
+    \item[+] \texttt{Direction(source : Enum, destination : Enum)} \\
+    Creates a direction specifying its source and destination.
+    \end{itemize}
+\end{itemize}

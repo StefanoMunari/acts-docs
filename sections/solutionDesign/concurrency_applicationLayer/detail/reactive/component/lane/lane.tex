@@ -1,0 +1,32 @@
+\subsubsubsubsection{Lane}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/lane.eps}
+\caption{\pReactiveComponentLane::Lane}
+\label{fig:sd-app-lane}
+\end{figure}
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{\descr} \\
+    It represents a lane entity. It is a protected object composed of one or
+    more stretches.
+  \item \textbf{\attrs}
+  \begin{itemize}
+    \item \texttt{size: Unsigned Int} \\
+The size of the stretch/treading queue.
+    \item \texttt{stretches: List<Stretch>} \\
+The list of stretches which compose the lane.
+    \item \texttt{treadingEntities: AbstractQueue<MovingEntity>} \\
+The queue of moving entities which are treading the lane.
+    \item \texttt{waitingEntities: AbstractQueue<MovingEntity>} \\
+The queue of moving entities which are waiting to tread the lane. 
+  \end{itemize}
+  \item \textbf{\ops}
+  \begin{itemize} 
+    \item[\#] \texttt{Lane(size: Unsigned Int, stretches: List<Stretch>)} \\
+Creates a \texttt{Lane} object with a specific size and list of stretches.
+    \item[+] \texttt{tread(entity: MovingEntity)} \\
+Implements the lane treading. Moves the entity on the stretches which are 
+in the moving entity route.
+  \end{itemize}
+\end{itemize}

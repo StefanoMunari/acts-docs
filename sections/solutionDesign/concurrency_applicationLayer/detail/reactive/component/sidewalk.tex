@@ -1,0 +1,24 @@
+\subsubsubsubsection{Sidewalk}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/sidewalk.eps}
+\caption{\pReactiveComponent::Sidewalk}
+\label{fig:sd-app-sidewalk}
+\end{figure}
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{\descr} \\
+    It represents a concrete sidewalk which is composed of one or more lanes.
+  \item \textbf{\attrs}
+  \begin{itemize}
+    \item \texttt{lanes: Collection<SidewalkLane>} \\
+A sidewalk is composed of lanes.
+  \end{itemize}
+  \item \textbf{\ops}
+  \begin{itemize}
+  \item[+] \texttt{Sidewalk(lanes : Collection<RoadwayLane>)} \\
+    Creates a sidewalk.
+    \item[+] \texttt{tread(entity: MovingEntity)} \\
+Moves the entity on the correct lane based on the current entity route. 
+  \end{itemize}
+\end{itemize}
