@@ -1,1 +1,71 @@
 \subsubsection{Termination service}
+This component is responsible of terminating the system neatly.
+
+We show in figure \ref{fig:mw-termination} the architecture of this service and
+then we will show in detail each module that composes this component.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{images/solution/mw/termination.eps}
+  \caption{Middleware's Termination service}
+  \label{fig:mw-termination}
+\end{figure}
+
+% TODO: All class diagrams have to be added
+\subsubsubsection{termination.Termination}
+% TODO: Class diagram
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{Description} \\
+    This module is the Fa\c cade of the Termination service. It is responsible
+    to boot neatly and supervise all processes in Termination. Also, it has to
+    handle termination requests that come from other nodes of the system.
+  \item \textbf{Attributes}
+  \item \textbf{Operations}
+  \begin{itemize}
+    \item \texttt{+ start()} \\
+    Starts the Termination service.
+    \item \texttt{+ handleMessage(message: String)} \\
+    % TODO: check this out: Message will really be a String?
+    Handles a termination start/finishing request that comes from other nodes
+    or receives termination information from the application layer.
+  \end{itemize}
+\end{itemize}
+
+\subsubsubsection{termination.TerminationAlgorithm}
+% TODO: Class diagram
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{Description} \\
+    Interface for processes that implement a certain kind of termination.
+  \item \textbf{Attributes}
+  \item \textbf{Operations}
+  \begin{itemize}
+    \item \texttt{+ terminate()} \\
+    Terminates the system.
+    \item \texttt{+ submitLocalState()} \\
+    Stores a local snapshot.
+    \item \texttt{+ submitRemoteState()} \\
+    Stores a remote snapshot.
+  \end{itemize}
+\end{itemize}
+
+\subsubsubsection{termination.SimpleShutdown}
+% TODO: Class diagram
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{Description} \\
+    Module that implements the \texttt{termination.TerminationAlgorithm}
+    interface to terminate the system with a simple algorithm.
+  \item \textbf{Attributes}
+  \item \textbf{Operations}
+  \begin{itemize}
+    \item \texttt{+ terminate()} \\
+    Terminates the system by requesting the application, the middleware and
+    other nodes to terminate.
+    \item \texttt{+ submitLocalState()} \\
+    Stores the state of the local node.
+    \item \texttt{+ submitRemoteState()} \\
+    Stores the state of a remote node.
+  \end{itemize}
+\end{itemize}
