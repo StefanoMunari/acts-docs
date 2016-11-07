@@ -1,7 +1,7 @@
 \subsubsubsubsection{Scheduler}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.6,keepaspectratio]{images/solution/scheduler.eps}
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/app/backend/scheduler.eps}
 \caption{\pScheduling::Scheduler}
 \label{fig:sd-app-scheduling-scheduler}
 \end{figure}
@@ -16,7 +16,7 @@
   It is a singleton because only one moving entity scheduler is needed.
   \item \textbf{\attrs}
   \begin{itemize}
-    \item \texttt{\underline{instance : District = nil}} \\
+    \item \texttt{\underline{instance : Scheduler = nil}} \\
     A static attribute that contains the unique instance 
     of a concrete \texttt{Scheduler}. It is initialized to nil.
     \item \texttt{movingEntities: Collection<MovingEntity>} \\

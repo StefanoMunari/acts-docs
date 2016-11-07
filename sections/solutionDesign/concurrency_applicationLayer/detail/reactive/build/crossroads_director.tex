@@ -1,7 +1,7 @@
-\subsubsubsubsection{Crossroads Director}
+\subsubsubsubsection{Crossroads director}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.6,keepaspectratio]{images/solution/crossroads_director.eps}
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/app/backend/crossroads_director.eps}
 \caption{\pReactiveBuild::CrossroadsDirector}
 \label{fig:sd-app-crossroads_director}
 \end{figure}
@@ -9,6 +9,11 @@
 \begin{itemize}
   \item \textbf{\descr} \\
     It represents the concrete director of the crossroads builder.
+    \item \textbf{\attrs}
+  \begin{itemize}
+    \item \texttt{builder: CrossroadsBuilder} \\
+The builder object which builds parts of the district.
+  \end{itemize}
   \item \textbf{\ops}
   \begin{itemize} 
     \item[+] \texttt{CrossroadsDirector(builder: CrossroadsBuilder)} \\

@@ -1,7 +1,7 @@
-\subsubsubsubsection{Street Director}
+\subsubsubsubsection{Street director}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.6,keepaspectratio]{images/solution/street_director.eps}
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/app/backend/street_director.eps}
 \caption{\pReactiveBuild::StreetDirector}
 \label{fig:sd-app-street_director}
 \end{figure}
@@ -9,6 +9,11 @@
 \begin{itemize}
   \item \textbf{\descr} \\
     It represents the concrete director of the street builder.
+  \item \textbf{\attrs}
+  \begin{itemize}
+    \item \texttt{builder: StreetBuilder} \\
+The builder object which builds parts of the district.
+  \end{itemize}
   \item \textbf{\ops}
   \begin{itemize} 
     \item[+] \texttt{StreetDirector(builder: StreetBuilder)} \\

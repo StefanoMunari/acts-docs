@@ -1,0 +1,19 @@
+\subsubsubsubsection{Urban entity director}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/app/backend/urban_entity_director.eps}
+\caption{\pReactiveBuild::UrbanEntityDirector}
+\label{fig:sd-app-uedirector}
+\end{figure}
+\FloatBarrier
+\begin{itemize}
+  \item \textbf{\descr} \\
+    It represents the urban entity director which instructs the builder.
+  \item \textbf{\ops}
+  \begin{itemize} 
+    \item[+] \texttt{\textit{build(config: FilePath) : Collection<? extends UrbanEntity>}} \\
+Builds a collection of urban entities according to the configuration file. It uses the
+builder multiple times to create incrementally a configuration of the requested
+urban entity as specified in the configuration file.
+  \end{itemize}
+\end{itemize}

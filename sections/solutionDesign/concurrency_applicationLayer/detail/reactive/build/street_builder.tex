@@ -1,14 +1,19 @@
-\subsubsubsubsection{StreetBuilder}
+\subsubsubsubsection{Street builder}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.6,keepaspectratio]{images/solution/street_builder.eps}
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/app/backend/street_builder.eps}
 \caption{\pReactiveBuild::StreetBuilder}
 \label{fig:sd-app-street_builder}
 \end{figure}
 \FloatBarrier
 \begin{itemize}
   \item \textbf{\descr} \\
-    It represents the builder of street entities. 
+    It represents the builder of street entities.
+  \item \textbf{\attrs}
+  \begin{itemize}
+    \item \texttt{street: Street} \\
+The street which the builder incrementally constructs.
+  \end{itemize}
   \item \textbf{\ops}
   \begin{itemize} 
     \item[+] \texttt{buildRoadway(config: FilePath)} \\
