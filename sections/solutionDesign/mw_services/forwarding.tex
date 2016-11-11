@@ -47,9 +47,6 @@ then we will show in detail each module that composes this component.
     \begin{itemize}
       \item \texttt{- queue: AbstractQueue<Message>} \\
     Queue of messages.
-      \item \texttt{- paused: Boolean} \\
-    Value that is false iff the queue has to stop processing items due to
-    some middleware operation (e.g. snapshot).
     \end{itemize}
   \item \textbf{Operations}
   \begin{itemize}
@@ -82,6 +79,11 @@ then we will show in detail each module that composes this component.
     Daemon worker that sequentially takes message from the MessageQueue to
     process them.
   \item \textbf{Attributes}
+    \begin{itemize}
+      \item \texttt{- paused: Boolean} \\
+        Value that is false iff the queue has to stop processing items due to
+        some middleware operation (e.g. snapshot).
+    \end{itemize}
   \item \textbf{Operations}
   \begin{itemize}
     \item \texttt{+ waitToConsume()} \\
