@@ -13,7 +13,15 @@ then we will show in detail each module that composes this component.
 
 % TODO: All class diagrams have to be added
 \subsubsubsection{termination.Termination}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/ter/ter.eps}
+  \caption{termination.Termination}
+  \label{fig:mw-termination-termination}
+\end{figure}
+    % TODO: check this out: will Message actually be a String?
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -33,7 +41,15 @@ then we will show in detail each module that composes this component.
 \end{itemize}
 
 \subsubsubsection{termination.TerminationAlgorithm}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/ter/talg.eps}
+  \caption{termination.TerminationAlgorithm}
+  \label{fig:mw-termination-term-alg}
+\end{figure}
+    % TODO: define State type
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -53,7 +69,15 @@ then we will show in detail each module that composes this component.
 \end{itemize}
 
 \subsubsubsection{termination.SimpleShutdown}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/ter/sshut.eps}
+  \caption{termination.SimpleShutdown}
+  \label{fig:mw-termination-simple-shutdown}
+\end{figure}
+    % TODO: define State type
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -71,7 +95,9 @@ then we will show in detail each module that composes this component.
     other nodes to terminate.
     \item \texttt{+ submitLocalState(state : State)} \\
     Stores the state of the local node.
+    % TODO: define State type
     \item \texttt{+ submitRemoteState(state : State)} \\
     Stores the state of a remote node.
+    % TODO: define State type
   \end{itemize}
 \end{itemize}
