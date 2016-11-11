@@ -15,9 +15,16 @@ then we will show in detail each module that composes this component.
   \label{fig:mw-interlayer}
 \end{figure}
 
-% TODO: All class diagrams have to be added
 \subsubsubsection{interlayer.Interlayer}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/int/inter.eps}
+  \caption{interlayer.Interlayer}
+  \label{fig:mw-interlayer-interlayer}
+\end{figure}
+    % TODO: check this out: will Message actually be a String?
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -33,17 +40,25 @@ then we will show in detail each module that composes this component.
   \item \textbf{Operations}
   \begin{itemize}
     \item \texttt{+ start()} \\
-    % TODO: check this out: Message will really be a String?
+    % TODO: check this out: will Message actually be a String?
     Starts the Interlayer service.
     \item \texttt{+ handleMessage(message: String)} \\
-    % TODO: check this out: Message will really be a String?
+    % TODO: check this out: will Message actually be a String?
     Handles the reception of a message by ensuring it reaches the application
     layer.
   \end{itemize}
 \end{itemize}
 
 \subsubsubsection{interlayer.MwAppInterface}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/int/mwapp.eps}
+  \caption{interlayer.MwAppInterface}
+  \label{fig:mw-interlayer-mwappinterface}
+\end{figure}
+    % TODO: check this out: will Message actually be a String?
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -60,16 +75,23 @@ then we will show in detail each module that composes this component.
     \item \texttt{+ startLink(port: Int)} \\
     Starts the process and set \texttt{sendPort} to the value \texttt{port}.
     \item \texttt{+ toApplication(message: String)} \\
-    % TODO: check this out: Message will really be a String?
+    % TODO: check this out: will Message actually be a String?
     Sends a message to the application with reliable delivery.
     \item \texttt{+ send(message: String)} \\
-    % TODO: check this out: Message will really be a String?
+    % TODO: check this out: will Message actually be a String?
     Sends a message to the application with unreliable delivery.
   \end{itemize}
 \end{itemize}
 
 \subsubsubsection{interlayer.AppMwInterface}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\columnwidth]{images/solution/mw/int/appmw.eps}
+  \caption{interlayer.AppMwInterface}
+  \label{fig:mw-interlayer-appmwinterface}
+\end{figure}
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -92,7 +114,15 @@ then we will show in detail each module that composes this component.
 \end{itemize}
 
 \subsubsubsection{interlayer.formatter.Formatter}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\columnwidth]{images/solution/mw/int/form.eps}
+  \caption{interlayer.formatter.Formatter}
+  \label{fig:mw-interlayer-formatter-formatter}
+\end{figure}
+    % TODO: check this out: will Message actually be a String?
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -102,13 +132,22 @@ then we will show in detail each module that composes this component.
   \begin{itemize}
     \item \texttt{+ format(msg: String)} \\
     Translates \texttt{msg} to the target format.
+    % TODO: check this out: will Message actually be a String?
     \item \texttt{+ parse(msg: String)} \\
     Translates \texttt{msg} from the target format.
   \end{itemize}
 \end{itemize}
 
 \subsubsubsection{interlayer.formatter.AdaFormatter}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\columnwidth]{images/solution/mw/int/adaform.eps}
+  \caption{interlayer.formatter.AdaFormatter}
+  \label{fig:mw-interlayer-formatter-adaformatter}
+\end{figure}
+    % TODO: check this out: will Message actually be a String?
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -119,13 +158,22 @@ then we will show in detail each module that composes this component.
   \begin{itemize}
     \item \texttt{+ format(data: String)} \\
     Format a message so that it can be received from an Ada application.
+    % TODO: check this out: will Message actually be a String?
     \item \texttt{+ parse(data: String)} \\
     Parse a message that arrives from an Ada application.
   \end{itemize}
 \end{itemize}
 
 \subsubsubsection{interlayer.pending.PendingTable}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/int/pendtbl.eps}
+  \caption{interlayer.pending.PendingTable}
+  \label{fig:mw-interlayer-pending-pendingtable}
+\end{figure}
+    % TODO: check this out: will Message actually be a String?
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -135,25 +183,36 @@ then we will show in detail each module that composes this component.
     \begin{itemize}
       \item \texttt{- pendingTable: Set<String>} \\
     Data structure in which pending messages are stored.
+    % TODO: check this out: will Message actually be a String?
     \end{itemize}
   \item \textbf{Operations}
   \begin{itemize}
     \item \texttt{+ startLink()} \\
     Starts PendingTable process and retrieves pending messages from last
     execution (if there are some). \\
-    Also starts an \texttt{interlayer.pending.Consumer}.
-    \item \texttt{+ getnext()} \\
+    Also starts at least one \texttt{interlayer.pending.Consumer}.
+    \item \texttt{+ getNext()} \\
     If there are some pending messages, returns the first of them that has to
     be sent.
     \item \texttt{+ store(message: String)} \\
     Stores a message in the pending table.
+    % TODO: check this out: will Message actually be a String?
     \item \texttt{+ remove(message: String)} \\
     Removes a message from the pending table.
+    % TODO: check this out: will Message actually be a String?
   \end{itemize}
 \end{itemize}
 
 \subsubsubsection{interlayer.pending.Consumer}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\columnwidth]{images/solution/mw/int/cons.eps}
+  \caption{interlayer.pending.Consumer}
+  \label{fig:mw-interlayer-pending-consumer}
+\end{figure}
+    % TODO: check this out: will Message actually be a String?
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
