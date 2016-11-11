@@ -43,10 +43,12 @@ then we will show in detail each module that composes this component.
   \begin{itemize}
     \item \texttt{+ terminate()} \\
     Terminates the system.
-    \item \texttt{+ submitLocalState()} \\
-    Stores a local snapshot.
-    \item \texttt{+ submitRemoteState()} \\
-    Stores a remote snapshot.
+    \item \texttt{+ submitLocalState(state : State)} \\
+    Stores a final local snapshot.
+    % TODO: define State type
+    \item \texttt{+ submitRemoteState(state : State)} \\
+    Stores a final remote snapshot.
+    % TODO: define State type
   \end{itemize}
 \end{itemize}
 
@@ -58,14 +60,18 @@ then we will show in detail each module that composes this component.
     Module that implements the \texttt{termination.TerminationAlgorithm}
     interface to terminate the system with a simple algorithm.
   \item \textbf{Attributes}
+  \begin{itemize}
+    \item \texttt{- states : List<State>} \\
+    Collection of final states.
+  \end{itemize}
   \item \textbf{Operations}
   \begin{itemize}
     \item \texttt{+ terminate()} \\
     Terminates the system by requesting the application, the middleware and
     other nodes to terminate.
-    \item \texttt{+ submitLocalState()} \\
+    \item \texttt{+ submitLocalState(state : State)} \\
     Stores the state of the local node.
-    \item \texttt{+ submitRemoteState()} \\
+    \item \texttt{+ submitRemoteState(state : State)} \\
     Stores the state of a remote node.
   \end{itemize}
 \end{itemize}
