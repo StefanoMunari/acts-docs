@@ -11,9 +11,15 @@ then we will show in detail each module that composes this component.
   \label{fig:mw-snapshot}
 \end{figure}
 
-% TODO: All class diagrams have to be added
 \subsubsubsection{snapshot.Snapshot}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/sn/snap.eps}
+  \caption{snapshot.Snapshot}
+  \label{fig:mw-snapshot-snapshot}
+\end{figure}
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -33,7 +39,15 @@ then we will show in detail each module that composes this component.
 \end{itemize}
 
 \subsubsubsection{snapshot.SnapshotAlgorithm}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/sn/snalg.eps}
+  \caption{snapshot.SnapshotAlgorithm}
+  \label{fig:mw-snapshot-snapshotalgorithm}
+\end{figure}
+    % TODO: define State type
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
@@ -43,21 +57,32 @@ then we will show in detail each module that composes this component.
   \begin{itemize}
     \item \texttt{+ take()} \\
     Starts to take a snapshot.
-    \item \texttt{+ submitLocalSnapshot()} \\
+    \item \texttt{+ submitLocalSnapshot(state : State)} \\
     Stores a local snapshot.
-    \item \texttt{+ submitRemoteSnapshot()} \\
+    % TODO: define State type
+    \item \texttt{+ submitRemoteSnapshot(state : State)} \\
     Stores a remote snapshot.
+    % TODO: define State type
   \end{itemize}
 \end{itemize}
 
 \subsubsubsection{snapshot.ChandyLamport}
-% TODO: Class diagram
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\columnwidth]{images/solution/mw/sn/sncl.eps}
+  \caption{snapshot.ChandyLamport}
+  \label{fig:mw-snapshot-chandylamport}
+\end{figure}
+    % TODO: define State type
+
 \FloatBarrier
 \begin{itemize}
   \item \textbf{Description} \\
     Module that implements the \texttt{snapshot.SnapshotAlgorithm}
     interface to take snapshots with the algorithm by Chandy and Lamport.
   \item \textbf{Attributes}
+    % TODO: Add list of states?
   \item \textbf{Operations}
   \begin{itemize}
     \item \texttt{+ take()} \\
@@ -65,9 +90,11 @@ then we will show in detail each module that composes this component.
     other nodes of that and to hold messages until the snapshot is over; also
     that implies Interlayer to issue a snapshot request to the application
     layer.
-    \item \texttt{+ submitLocalSnapshot()} \\
+    \item \texttt{+ submitLocalSnapshot(state : State)} \\
     Stores the snapshot of the node where the process is executing.
-    \item \texttt{+ submitRemoteSnapshot()} \\
+    % TODO: define State type
+    \item \texttt{+ submitRemoteSnapshot(state : State)} \\
     Stores the snapshot of a remote node.
+    % TODO: define State type
   \end{itemize}
 \end{itemize}
