@@ -16,7 +16,7 @@
    Private and unique constructor because \texttt{Application} provides 
    only static methods so there are no reasons a client creates instances 
    of \texttt{Application}.
-    \item[+] \texttt{\underline{send(entity: MovingEntity)}} \\
+    \item[+] \texttt{\underline{send(agent: MoveableAgent)}} \\
     Sends messages to the middleware layer. Before sending the message to the
     middleware it converts the entity into a JSON message using the parser.
     \item[+] \texttt{\underline{receive(msg: JSON)}} \\

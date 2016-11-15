@@ -8,7 +8,7 @@
 \FloatBarrier
 \begin{itemize}
   \item \textbf{\descr} \\
-It implements the speed limit road sign resetting the max speed valued of each moving entity.
+It implements the speed limit road sign resetting the max speed valued of each urban actor.
   \item \textbf{\attrs}
   \begin{itemize}
     \item \texttt{limit: Unsigned Int} \\
@@ -17,11 +17,13 @@ The speed limit.
   \item \textbf{\ops}
   \begin{itemize} 
   \item[+] \texttt{SpeedLimit(limit: Unsigned Int)} \\
-Creates a speed limit road sign with a specific limit.    
-  \item[+] \texttt{apply(entity: MovingEntity)} \\
-Notifies the entity only if the entity max speed is greater than the limit.
-The entity will update its maxSpeed according to the limit value.
+Creates a speed limit road sign with a specific limit.
   \item[+] \texttt{getLimit(): Unsigned Int} \\
 Returns the limit value.
+  \item[+] \texttt{apply(pedestrian: Pedestrian)} \\
+Does not do anything because a speed limit haves no effect on a pedestrian.
+  \item[+] \texttt{apply(vehicle: Vehicle)} \\
+Notifies the entity only if the entity max speed is greater than the limit.
+The entity will update its maxSpeed according to the limit value.
   \end{itemize}
 \end{itemize}

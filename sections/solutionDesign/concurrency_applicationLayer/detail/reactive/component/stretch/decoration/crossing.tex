@@ -12,20 +12,20 @@
   \item \textbf{\attrs}
   \begin{itemize}
     \item \texttt{size: Unsigned Int} \\
-The size of the stretch/\texttt{crossingEntities} queue.
-    \item \texttt{crossingEntities: AbstractQueue<MovingEntity>} \\
+The size of the stretch/\texttt{crossingAgents} queue.
+    \item \texttt{crossingAgents: AbstractQueue<MoveableAgent>} \\
 The queue of entities which are granted to cross the zebra crossing stretch.
-  \item \texttt{waitingEntities: AbstractQueue<MovingEntity>} \\
+  \item \texttt{waitingAgents: AbstractQueue<MoveableAgent>} \\
 The queue of entities which are currently waiting to cross the zebra crossing stretch.
   \end{itemize}
 \item \textbf{\ops}
   \begin{itemize}
     \item[\#] \texttt{Crossing(stretch: Stretch, size: Unsigned Int)} \\
 Creates a crossing with a specific component and two queues. The
-\texttt{crossingEntities} queue has a fixed size.
-    \item[+] \texttt{tread(entity: MovingEntity)} \\
+\texttt{crossingAgents} queue has a fixed size.
+    \item[+] \texttt{tread(agent: MoveableAgent)} \\
 Implements the treading of the stretch. This decoration allows all the
-entities in \texttt{crossingEntities} to tread the crossing before any other entity
+entities in \texttt{crossingAgents} to tread the crossing before any other entity
 which wants to tread the same stretches.
   \end{itemize}
 \end{itemize}

@@ -11,14 +11,14 @@
 It represents an entity that moves only on roadways.
   \item \textbf{\attrs}
   \begin{itemize}
-    \item \texttt{type: Enum} \\
-Each vehicle has a type \{ car, motorcycle, sidecar \}.
+    \item \texttt{type: PrivateMotorVehicleType} \\
+    The specific vehicle type.
   \end{itemize}
   \item \textbf{\ops}
   \begin{itemize}
-  \item[+] \texttt{PrivateMotorVehicle(type : Enum, seatCount : Unsigned Int, route : List<UrbanEntity>)} \\
+  \item[+] \texttt{PrivateMotorVehicle(type : PrivateMotorVehicleType, seatCount : Unsigned Int, route : List<Infrastracture>)} \\
 Creates a vehicle specifying its type.
-    \item[+] \texttt{getType() : Enum} \\
-Returns the type of the concrete vehicle.
+    \item[+] \texttt{getType() : PrivateMotorVehicleType} \\
+Returns the specific vehicle type.
   \end{itemize}
 \end{itemize} 

@@ -8,10 +8,12 @@
 \FloatBarrier
 \begin{itemize}
   \item \textbf{\descr} \\
-It implements the stop road sign. It registers the moving entity for a timeout.
+It implements the stop road sign. It registers the urban actor for a timeout.
   \item \textbf{\ops}
   \begin{itemize} 
-  \item[+] \texttt{apply(entity: MovingEntity)} \\
-Registers the moving entity for a timeout.
+  \item[+] \texttt{apply(pedestrian: Pedestrian)} \\
+Registers the pedestrian for a timeout.
+  \item[+] \texttt{apply(vehicle: Vehicle)} \\
+Registers the vehicle for a timeout.
   \end{itemize}
 \end{itemize}

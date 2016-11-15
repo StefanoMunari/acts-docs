@@ -8,19 +8,19 @@
 \FloatBarrier
 \begin{itemize}
   \item \textbf{\descr} \\
-  An abstraction of a scheduler of moving entities.
-  Ensures the existence of at most one instance of a concrete "Scheduler", 
+  An abstraction of a scheduler of urban actors.
+  Ensures the existence of at most one instance of a concrete ``Scheduler", 
   and provides a global point of access to it.
   Uses lazy initialization, hence no class instance is created 
   or stored until one is first requested.
-  It is a singleton because only one moving entity scheduler is needed.
+  It is a singleton because only one urban actor scheduler is needed.
   \item \textbf{\attrs}
   \begin{itemize}
     \item \texttt{\underline{instance : Scheduler = nil}} \\
     A static attribute that contains the unique instance 
     of a concrete \texttt{Scheduler}. It is initialized to nil.
-    \item \texttt{movingEntities: Collection<MovingEntity>} \\
-	A collection of moving entities.
+    \item \texttt{movingAgents: Collection<Agent>} \\
+	A collection of urban actors.
 	\item \texttt{strategy: schedulingStrategy} \\
 	A scheduling algorithm.
   \end{itemize}
@@ -32,11 +32,11 @@
     for creating the instance.
     \item[+] \texttt{setStrategy(strategy: schedulingStrategy)} \\
     Sets the scheduling algorithm.
-    \item[+] \texttt{attach(entity: MovingEntity)} \\
+    \item[+] \texttt{attach(agent: Agent)} \\
     Attaches \texttt{entity} object.
-	\item[+] \texttt{detach(entity: MovingEntity)} \\
+	\item[+] \texttt{detach(agent: Agent)} \\
 	Detaches \texttt{entity} object.
 	\item[+] \texttt{\textit{notify()}} \\
-	An abstract method notifies of changes all the attached MovingEntity objects.
+	An abstract method notifies of changes all the attached ``Agent'' objects.
   \end{itemize}
 \end{itemize}

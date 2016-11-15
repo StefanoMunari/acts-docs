@@ -11,7 +11,9 @@
     It represents an interface which expose a method to apply the behaviour of a specific road sign.
   \item \textbf{\ops}
   \begin{itemize} 
-    \item[+] \texttt{\textit{apply(entity: MovingEntity)}} \\
-Abstract method which will implement the behaviour of a road sign.
+    \item[+] \texttt{\textit{apply(pedestrian: Pedestrian)}} \\
+Abstract method which will implement the effect of a road sign on a Pedestrian.
+    \item[+] \texttt{\textit{apply(vehicle: Vehicle)}} \\
+Abstract method which will implement the effect of a road sign on a Vehicle.
   \end{itemize}
 \end{itemize}
