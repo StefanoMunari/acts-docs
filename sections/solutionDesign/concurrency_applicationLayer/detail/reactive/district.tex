@@ -35,16 +35,16 @@
   \end{itemize}
   \item \textbf{\ops}
   \begin{itemize}
-    \item[-] \texttt{District()} \\
+    \item \texttt{District()} \\
     Private and unique constructor because the class has the exclusive 
     responsability for instancing it.
     \item[+] \texttt{\underline{getInstance() : Scheduler}} \\
     Static method lets clients access the unique instance 
     of \texttt{Scheduler}. At the first invocation, it is responsible 
     for creating the instance.
-    \item[-] \texttt{setRoadMap(roadMap : Collection<Infrastracture>)}
+    \item \texttt{setRoadMap(roadMap : Collection<Infrastracture>)} \\
     Sets the urban entities the district includes.
-    \item[-] \texttt{setTrafficLights(trafficLights : Collection<TrafficLight>)}
+    \item \texttt{setTrafficLights(trafficLights : Collection<TrafficLight>)}
     Sets the traffic lights of the district.
     \item \texttt{boot() : boolean} \\
     Boots the application layer running all the active entities of the 
