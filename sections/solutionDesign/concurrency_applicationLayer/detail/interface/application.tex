@@ -13,9 +13,8 @@
   \item \textbf{\ops}
   \begin{itemize}
    \item \texttt{Application()} \\
-   Private and unique constructor because \texttt{Application} provides 
-   only static methods so there are no reasons a client creates instances 
-   of \texttt{Application}.
+   Private and unique constructor because the class provides only static methods 
+    so there are no reasons a client creates instances of it.
     \item[+] \texttt{\underline{send(agent: MoveableAgent)}} \\
     Sends messages to the middleware layer. Before sending the message to the
     middleware it converts the entity into a JSON message using the parser.
