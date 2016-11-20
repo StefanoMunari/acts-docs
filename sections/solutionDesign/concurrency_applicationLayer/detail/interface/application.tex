@@ -15,9 +15,9 @@
    \item \texttt{Application()} \\
    Private and unique constructor because the class provides only static methods 
     so there are no reasons a client creates instances of it.
-    \item[+] \texttt{\underline{send(agent: MoveableAgent)}} \\
+    \item[+] \texttt{\underline{send(traveller: Traveller)}} \\
     Sends messages to the middleware layer. Before sending the message to the
-    middleware it converts the entity into a JSON message using the parser.
+    middleware it converts the traveller into a JSON message using the parser.
     \item[+] \texttt{\underline{receive(msg: JSON)}} \\
     Receives a JSON messae from the middleware layer. It invokes the parser 
     passing the message as parameter.

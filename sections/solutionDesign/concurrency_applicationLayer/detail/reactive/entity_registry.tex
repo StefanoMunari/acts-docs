@@ -25,12 +25,10 @@
     \textit{district} is only a convention, indeed it is possible to have a 
     real district splitted into different logical nodes of the system}
     (i.e. crossroads and streets). 
-    \item \texttt{population: Collection<MoveableAgent>} \\
-    The urban actors that reside on the district.
+    \item \texttt{population: Collection<Traveller>} \\
+    The travellers that reside on the district.
     \item \texttt{trafficLights: Collection<TrafficLight>} \\
     The traffic lights of the district.
-    \item \texttt{scheduler: Scheduler} \\
-    The scheduler of agent actions.
   \end{itemize}
   \item \textbf{\ops}
   \begin{itemize}
@@ -46,13 +44,13 @@
     Ensures that the road map contains the specified infrastracture.
     \item[+] \texttt{add(trafficLight : TrafficLight) : boolean} \\
     Ensures that the traffic lights collection contains the specified traffic light.
-    \item[+] \texttt{add(agent : MoveableAgent) : boolean} \\
-    Ensures that the population contains the specified agent.
+    \item[+] \texttt{add(traveller : Traveller) : boolean} \\
+    Ensures that the population contains the specified traveller.
     \item[+] \texttt{remove(infrastracture : Infrastracture) : boolean} \\
     Removes a single instance of the specified urban infrastracture from the road map, if it is present.
     \item[+] \texttt{remove(trafficLight : TrafficLight) : boolean} \\
     Removes a single instance of the specified traffic light from the traffic lights collection, if it is present.
-    \item[+] \texttt{remove(agent : MoveableAgent) : boolean} \\
-    Removes a single instance of the specified agent from the population, if it is present.
+    \item[+] \texttt{remove(traveller : Traveller) : boolean} \\
+    Removes a single instance of the specified traveller from the population, if it is present.
   \end{itemize}
 \end{itemize} 

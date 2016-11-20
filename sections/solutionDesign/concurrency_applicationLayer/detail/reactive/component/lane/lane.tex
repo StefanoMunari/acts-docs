@@ -16,17 +16,17 @@
 The size of the stretch/treading queue.
     \item \texttt{stretches: List<Stretch>} \\
 The list of stretches which compose the lane.
-    \item \texttt{treadingAgents: AbstractQueue<MoveableAgent>} \\
-The queue of urban actors which are treading the lane.
-    \item \texttt{waitingAgents: AbstractQueue<MoveableAgent>} \\
-The queue of murban actors which are waiting to tread the lane. 
+    \item \texttt{treaders: AbstractQueue<Traveller>} \\
+The queue of travellers which are treading the lane.
+    \item \texttt{incomers: AbstractQueue<Traveller>} \\
+The queue of travellers which are waiting to tread the lane. 
   \end{itemize}
   \item \textbf{\ops}
   \begin{itemize} 
     \item[\#] \texttt{Lane(size: Unsigned Int, stretches: List<Stretch>)} \\
 Creates a \texttt{Lane} object with a specific size and list of stretches.
-    \item[+] \texttt{tread(agent: MoveableAgent)} \\
-Implements the lane treading. Moves the entity on the stretches which are 
-in the urban actor route.
+    \item[+] \texttt{tread(traveller: Traveller)} \\
+Implements the lane treading. Moves the traveller on the stretches which are 
+in the traveller route.
   \end{itemize}
 \end{itemize}

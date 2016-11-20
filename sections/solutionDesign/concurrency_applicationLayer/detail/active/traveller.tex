@@ -1,39 +1,39 @@
-\subsubsubsubsection{Moveable agent}
+\subsubsubsubsection{Traveller}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.6,keepaspectratio]{images/solution/app/backend/moveable_agent.eps}
-\caption{\pActive::MoveableAgent}
-\label{fig:sd-app-moveable-agent}
+\includegraphics[scale=0.6,keepaspectratio]{images/solution/app/backend/traveller.eps}
+\caption{\pActive::Traveller}
+\label{fig:sd-app-traveller}
 \end{figure}
 \FloatBarrier
 \begin{itemize}
   \item \textbf{\descr} \\
-    It represents an entity that moves through the city, consuming its 
+    It represents an agent that moves through the city, consuming its 
 route at each stretch treaded.
   \item \textbf{\attrs}
   \begin{itemize}
     \item \texttt{id: Unsigned Int} \\
-A unique identifier, useful to keep track of each entity.
+A unique identifier, useful to keep track of each traveller.
     %\item \texttt{state: ActiveEntityState} \\
-%The executive state of the entity.
+%The executive state of the traveller.
     \item \texttt{route: List<Infrastracture>} \\
-The route of urban entities that the entity has to tread.
+The route of urban entities that the traveller has to tread.
     \item \texttt{maxSpeed: Unsigned Int} \\
-The maximum possible speed for the entity.
+The maximum possible speed for the traveller.
   \end{itemize}
   \item \textbf{\ops}
   \begin{itemize}
-  \item[\#]  \texttt{MoveableAgent(route: List<Infrastracture>)} \\
-Creates a moveable agent setting its route.
+  \item[\#]  \texttt{Traveller(route: List<Infrastracture>)} \\
+Creates a traveller setting its route.
     %\item \texttt{changeState(state: ActiveEntityState)} \\
-%Change the entity state. This method is used internally by public methods to 
-%change the entity behaviour.
+%Change the traveller state. This method is used internally by public methods to 
+%change the traveller behaviour.
     \item[+] \texttt{getId() : Unsigned Int} \\
-Returns the id of the entity.
+Returns the id of the traveller.
    \item[+] \texttt{getMaxSpeed() : Unsigned Int} \\
-Returns the maximum speed of the entity.
+Returns the maximum speed of the traveller.
     \item[+] \texttt{setMaxSpeed(speed: Unsigned Int)} \\
-Updates the maximum speed of the entity.
+Updates the maximum speed of the traveller.
     \item[+]  \texttt{act()} \\
 Consumes a piece of its route.
     \item[+] \texttt{notify(facility: Facility) : Collection<Person>} \\

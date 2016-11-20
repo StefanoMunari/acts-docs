@@ -15,11 +15,11 @@
     \item \texttt{District()} \\
     Private and unique constructor because the class provides only static methods 
     so there are no reasons a client creates instances of it.
-    \item[+] \texttt{\underline{enter(agent: MoveableAgent) : boolean}} \\
-    Notifies the district to add a new urban actor to the population.
+    \item[+] \texttt{\underline{enter(traveller: Traveller) : boolean}} \\
+    Notifies the district to add a new traveller to the population.
     Returns true if the process completes neatly, false otherwise.
-    \item[+] \texttt{\underline{exit(agent: MoveableAgent) : boolean}} \\
-    Notifies the district to pass a urban actor from the roadMap to the 
+    \item[+] \texttt{\underline{exit(traveller: Traveller) : boolean}} \\
+    Notifies the district to pass a traveller from the roadMap to the 
     application layer interface which communicates to the middleware layer.
     Returns true if the process completes neatly, false otherwise.
     \item[+] \texttt{\underline{startup(config: FilePath) : boolean}} \\

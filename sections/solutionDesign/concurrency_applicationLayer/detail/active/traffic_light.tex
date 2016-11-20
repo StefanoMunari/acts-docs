@@ -14,9 +14,9 @@ crossroads/observer.
   \item \textbf{\attrs}
   \begin{itemize}
     %\item \texttt{state: ActiveEntityState} \\
-%The executive state of the entity.
+%The executive state of the traffic light.
     \item \texttt{color: TrafficLightColor} \\
-The color undertaken by the entity.
+The color undertaken by the traffic light.
     \item \texttt{crossroads: Collection<Crossroads>} \\
 The observers that needs to be notified when the traffic light \textit{color} 
 changes.
@@ -24,11 +24,11 @@ changes.
   \item \textbf{\ops}
   \begin{itemize}
     %\item \texttt{changeState(state: ActiveEntityState)} \\
-%Change the entity state. This method is used internally by public methods to 
-%change the entity behaviour.
+%Change the traffic light state. This method is used internally by public methods to 
+%change the traffic light behaviour.
     \item \texttt{changeColor(color: TrafficLightColor)} \\
-Change the entity color. This method is used internally by public methods to 
-switch between entity colors.
+Change the traffic light color. This method is used internally by public methods to 
+switch between traffic light colors.
     \item \texttt{notify(color: TrafficLightColor)} \\
 Loops through the observer collection updating each crossroads state with the 
 color passed as parameter. 

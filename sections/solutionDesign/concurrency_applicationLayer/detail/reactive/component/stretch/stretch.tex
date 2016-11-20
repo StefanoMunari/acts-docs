@@ -13,21 +13,21 @@
   \begin{itemize}
     \item \texttt{size: Unsigned Int} \\
 The size of the stretch/treading queue.
-    \item \texttt{treadingAgents: AbstractQueue<MoveableAgent>} \\
-The queue of urban actors which are treading the stretch. If the concrete type
-is PriorityQueue then the stretch allows the overtaking between the urban actors.
+    \item \texttt{treaders: AbstractQueue<Traveller>} \\
+The queue of travellers which are treading the stretch. If the concrete type
+is PriorityQueue then the stretch allows the overtaking between the travellers.
 This is implemented through a priority queue ordered by decreasing speed.
-    \item \texttt{waitingAgents: AbstractQueue<MoveableAgent>} \\
-The queue of urban actors which are waiting to tread the stretch. 
+    \item \texttt{incomers: AbstractQueue<Traveller>} \\
+The queue of travellers which are waiting to tread the stretch. 
   \end{itemize}
   \item \textbf{\ops}
   \begin{itemize}
     \item[\#] \texttt{Stretch(size: Unsigned Int)} \\
 Creates a stretch object with a specific size.
-    \item[+] \texttt{tread(agent: MoveableAgent)} \\
-Implements the stretch treading. The current speed of the urban actor
-is calculated first, then the entity is placed in a treading queue which has a  
-timeout. When this timeout expires, the queue is flushed and the entity can
+    \item[+] \texttt{tread(traveller: Traveller)} \\
+Implements the stretch treading. The current speed of the traveller
+is calculated first, then the traveller is placed in a treading queue which has a  
+timeout. When this timeout expires, the queue is flushed and the traveller can
 proceed along their route.
   \end{itemize}
 \end{itemize}

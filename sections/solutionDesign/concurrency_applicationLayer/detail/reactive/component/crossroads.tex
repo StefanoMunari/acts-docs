@@ -14,20 +14,20 @@
     \item \texttt{state: CrossroadsState} \\
 The traffic light state tells which crossroads' queues can be processed in
 order to make waiting vehicles tread the crossroads.
-    \item \texttt{treadingAgents: Map<Direction, AbstractQueue<MoveableAgent>>} \\
-The queue of urban actors which are treading the crossroads.
-    \item \texttt{waitingAgents: Map<Direction, AbstratQueue<MoveableAgent>>} \\
-The queue of urban actors which are waiting to tread the crossroads. 
+    \item \texttt{treaders: Map<Direction, AbstractQueue<Traveller>>} \\
+The queue of travellers which are treading the crossroads.
+    \item \texttt{incomers: Map<Direction, AbstratQueue<Traveller>>} \\
+The queue of travellers which are waiting to tread the crossroads. 
   \end{itemize}
   \item \textbf{\ops}
   \begin{itemize}
     \item[+] \texttt{Crossroads(state : CrossroadsState)} \\
 Creates a crossroads specifying its state.
-    \item[+] \texttt{tread(agent: MoveableAgent)} \\
+    \item[+] \texttt{tread(traveller: Traveller)} \\
 Implements the treading of the crossroads.
     \item[+] \texttt{update(state: CrossroadsState)} \\
 Updates the state value of the crossroads.
-    \item[+] \texttt{addQueue(queue: AbstratQueue<MoveableAgent>, direction: 
+    \item[+] \texttt{addQueue(queue: AbstratQueue<Traveller>, direction: 
 Direction)} \\
 Add a new queue to waiting and treading maps with the specified direction.
   \end{itemize}
