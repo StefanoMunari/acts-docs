@@ -1,36 +1,36 @@
 \subsubsection{Middleware}
 \subsubsubsection{Application - Middleware}
-The communication protocol between application layer and middleware layer 
-\paragraph{Fire and forget} 
-It is a one-way message pattern (the service sends a message without expecting 
-a response). Since the application and the middleware will reside on the same 
-physical node we can assume that the communication is reliable, once a message 
-is sent from the application layer it arrives to the middleware layer and 
-viceversa. The asynchronous communication decouples (when possible) 
-the computation of the application from the computation of the middleware 
-and viceversa. The standard interfaces for communication 
-implemented by application layer and middleware layer enables the use of 
-heterogeneous technologies for each one. Defining a standard interface 
+The communication protocol between application layer and middleware layer
+\paragraph{Fire and forget}
+It is a one-way message pattern (the service sends a message without expecting
+a response). Since the application and the middleware will reside on the same
+physical node we can assume that the communication is reliable, once a message
+is sent from the application layer it arrives to the middleware layer and
+viceversa. The asynchronous communication decouples (when possible)
+the computation of the application from the computation of the middleware
+and viceversa. The standard interfaces for communication
+implemented by application layer and middleware layer enables the use of
+heterogeneous technologies for each one. Defining a standard interface
 is fundamental to abstract from the underlying technologies (implementation).
 
 \subsubsubsection{Middleware - Middleware}
 
-The communication between the middleware layers implies the design of different 
-services. Taking into account the distributed nature of the system we have 
-studied specific solutions for each service, the ideas applied come from 
+The communication between the middleware layers implies the design of different
+services. Taking into account the distributed nature of the system we have
+studied specific solutions for each service, the ideas applied come from
 well known patterns used in distributed systems:
 \begin{itemize}
-  \item Lamport logical clocks: in a distributed system we are interested 
-in the logical sequence of the events and not the wall clock time which is 
+  \item Lamport logical clocks: in a distributed system we are interested
+in the logical sequence of the events and not the wall clock time which is
 impossible to know perfectly and could lead to synchronization errors;
-  \item Lamport timestamps algorithm\footnote{Leslie Lamport \textit{Time, 
-clocks, and the ordering of events in a distributed system}, ACM 21, 
-pp. 558-565, July 1978}: this algorithm contains the keystone 
-of each distributed service which implies a form of synchronization 
+  \item Lamport timestamps algorithm\footnote{Leslie Lamport \textit{Time,
+clocks, and the ordering of events in a distributed system}, ACM 21,
+pp. 558-565, July 1978}: this algorithm contains the keystone
+of each distributed service which implies a form of synchronization
 between parties;
-  \item Bully algorithm: this algorithm is used in the first part of the 
-shutdown process. It works dynamically and implies the election of a master 
-node. 
+  \item Bully algorithm: this algorithm is used in the first part of the
+shutdown process. It works dynamically and implies the election of a master
+node.
 \end{itemize}
 
 \subsubsubsection{Election Protocol}
@@ -83,7 +83,7 @@ Notes and side cases:
 
 \subsubsubsection{System Boostrap}
 As pointed out in Problem Analysis (\ref{sec:pa-distribution}), the system has
-to start neatly. Hence, we need to design a protocol in order to accomplish 
+to start neatly. Hence, we need to design a protocol in order to accomplish
 this goal.
 
 The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
@@ -94,12 +94,12 @@ The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
       \item \textbf{MW}:  middleware layer
       \item \textbf{APP}: application layer
   \end{itemize}
-    Since the middleware has to be application-independent, it only assumes 
-    that the application layer exposes an interface through which it is 
+    Since the middleware has to be application-independent, it only assumes
+    that the application layer exposes an interface through which it is
     possible to start the application neatly;
-  \item \textbf{Named arrow}: it represents a message that is sent from a 
+  \item \textbf{Named arrow}: it represents a message that is sent from a
 logical node through another one with the name as its payload;
-  \item \textbf{Number}: it represents the progress of the logical system clock 
+  \item \textbf{Number}: it represents the progress of the logical system clock
 during the bootstrap process.
 \end{itemize}
 
@@ -115,7 +115,7 @@ $l$) at time 0, the protocol is defined as follows:
 
 \begin{enumerate}
   \item The leftmost node $l$ in figure \ref{fig:sys-bootstrap-protocol}
-    starts its own middleware services.  
+    starts its own middleware services.
   \item $l$ sends a \texttt{Start\_mw} message to the set $S$ of all its
     neighbors. Clearly, if it was the first node in the system to receive
     \texttt{Start\_mw}, then it will be also the last node to complete the
