@@ -195,9 +195,9 @@ Several problems arose from this issues:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Concurrency}\label{sec:pa-concurrency}
-Looking at the applicative domain, there are several situations that clearly
+Looking at the applicative domain, there are several situations that inherently
 express concurrent interactions between entities, for example more road users
-that proceed in the same street stretch.
+that proceed in the same street segment.
 
 We will show which concurrency issues we took into account during the beginning
 of the project.
@@ -210,7 +210,8 @@ leverage concurrency.
 \begin{itemize}
 \item The system will present concurrency between some of its entities
 \item The critical sections of each entity need to be identified
-\item The critical sections of each entity  must be accessed in mutual exclusion
+\item The critical sections of each entity  must be accessed in mutual
+  exclusion
 \item Time spent in critical sections will be reduced as much as possible
 \item Blocking operations that are placed inside critical sections will be
   considered errors
@@ -222,8 +223,8 @@ leverage concurrency.
 \item Non-valid entity states should be pointed out so that we are able to
   think possible countermeasures to recover a preceeding valid state
 \item Since in section \ref{sec:pa-distribution} we express our willingness to
-  be capable of obtain consistent snapshot, each entity could have a concurrent
-  part that handles the incoming and outgoing flow of information
+  be capable of obtaining consistent snapshots, each entity should provide a
+  means to make a (possibly concurrent) dump of its internal state
 \end{itemize}
 
 \paragraph{Problems} \mbox{} \\
@@ -235,9 +236,13 @@ Concurrency requirements led us to make some questions about concurrency.
 \item How concurrent accesses will be managed? Will it make sense to discern
   side-effect accesses (\emph{procedures}) from read-only accesses
   (\emph{functions})?
-\item Which entities have to be active?
-\item Which entities have to be reactive?
-\item Which entities have to be passive?
+\item Which entities have to be active? Which reactive? Which passive?
+  \begin{itemize}
+    \item Active entities perform actions according to their own will;
+    \item Reactive entities are stateful and change their state in reaction to
+      interaction with active entities;
+    \item Passive entities are stateless.
+  \end{itemize}
 \item Should we use any formal technique to proof the correctness
 of the system properties relating to concurrence?
 \item Do we have the possibility to incur a non-valid state? If so, how do we
