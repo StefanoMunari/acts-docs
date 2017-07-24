@@ -17,12 +17,12 @@ Moving entities enter a lane by simply entering its first stretch.
 
 \paragraph{Entering a road stretch}
 Moving entities who want to enter a new road stretch
-can do it whenever there is room for them in that stretch. 
-In particular, a roadway lane stretch can be trod for at most 
+can do it whenever there is room for them in that stretch.
+In particular, a roadway lane stretch can be trod for at most
 one vehicle at a time.
 
-\paragraph{Zebra crossings} Vehicles which want to enter a road stretch 
-with painted zebra crossings, have to wait for 
+\paragraph{Zebra crossings} Vehicles which want to enter a road stretch
+with painted zebra crossings, have to wait for
 pedestrians or bikes to free all stretches of the crossing.
 
 \paragraph{Changing roadway lane} A vehicle that is on the i-th road stretch
@@ -38,12 +38,12 @@ for vehicles to follow the yield rules we described in
 However there could be a situation in which there is a standstill,
 for example when four cars simultaneously want to go straight in
 a four-way crossroads each one by entering a different way of it.
-In this case, the crossroads has to make a car yield the right-of-way 
+In this case, the crossroads has to make a car yield the right-of-way
 to another one.
 
 Pedestrians can only walk on the corner of the crossroads, thus passing to the
-adjacent piece of road. For example, a pedestrian that is coming from 
-the ``southern'' side of the western road can only enter the southern street 
+adjacent piece of road. For example, a pedestrian that is coming from
+the ``southern'' side of the western road can only enter the southern street
 on the ``western'' side.
 
 \paragraph{Entering a building} When a moving entity is in the stretch where
@@ -53,8 +53,8 @@ are in the intermediate stretches to move away.
 
 \paragraph{Exiting a building} When a moving entity is exiting a building, it
 has to check whether there is room for it to move out.
-If such an entity is a vehicle, it has to yield the right-of-way to 
-upcoming vehicles and to wait for potential sidewalks or 
+If such an entity is a vehicle, it has to yield the right-of-way to
+upcoming vehicles and to wait for potential sidewalks or
 bicycle path stretches facing the building to be empty too.
 
 \paragraph{Choosing to use a vehicle} A person $p$ who wants to leave a
@@ -72,18 +72,18 @@ until the most capacious vehicle, among the available, ones become full.
 
 Nevertheless $p$ can leave $a$ with a vehicle only if:
 \begin{itemize}
-  \item the capacity of $b$'s car park is greater than the sum of all 
+  \item the capacity of $b$'s car park is greater than the sum of all
 vehicles being already there and the ones which are coming there; or
-  \item there are at least another people in $a$ 
+  \item there are at least another people in $a$
   \begin{itemize}
     \item having a path containing $b$; and
-    \item ending with a building $d$, having a car park capacity 
-    that is greater than 
-	the sum of all vehicles being already there and the ones 
+    \item ending with a building $d$, having a car park capacity
+    that is greater than
+	the sum of all vehicles being already there and the ones
 	which are coming there.
   \end{itemize}
 \end{itemize}
-Hence, if the condition is met, the destination building books 
+Hence, if the condition is met, the destination building books
 a parking lot for the vehicle.
 
 \begin{figure}[H]
@@ -94,16 +94,16 @@ a parking lot for the vehicle.
   \label{fig:app-inter-vehicle}
 \end{figure}
 
-\paragraph{Waiting for a bus} 
-Whenever a pedestrian is on a bus stop stretch, 
+\paragraph{Waiting for a bus}
+Whenever a pedestrian is on a bus stop stretch,
 it can decide to wait for a bus.
 
-Firstly, the pedestrian checks whether its path is (even partially) 
+Firstly, the pedestrian checks whether its path is (even partially)
 matched by the busses one.
-If at least one of them does, then it waits 
+If at least one of them does, then it waits
 for a limited amount of time for a bus to arrive.
 
-If this timeout expires, 
+If this timeout expires,
 then it continues travelling by foot to the next stretch.
 
 \begin{figure}[H]
@@ -133,7 +133,7 @@ pedestrian will board it only if:
 \paragraph{Getting off a bus} A person $p$ will get off a bus when it reaches
 the last stop $s$ belonging to the route of $p$.
 
-\paragraph{Respecting street code} Roads and crossroads have to contain 
+\paragraph{Respecting street code} Roads and crossroads have to contain
 all the logic which is needed to make moving entities follow the street rules.
 
 \paragraph{Performing an overtaking} This action is possible only when a

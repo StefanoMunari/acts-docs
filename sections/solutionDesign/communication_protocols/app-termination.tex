@@ -1,16 +1,17 @@
 \subsubsubsection{Termination}
-When describing the shutdown of the whole system, we assumed 
-the application terminates gracefully.
-In this section we show the algorithm that is used to achieve this goal.
+When describing the shutdown of the whole system, we assumed the application
+terminates gracefully.
+In this section we show the algorithm we devised to achieve this goal.
 
 As we can see from figure \ref{fig:app-proc-tree}, the termination follows the
 opposite order of the bootstrap.
 
+%TODO: Review termination process
 \begin{enumerate}
   \item The \textit{Master} task $M$ stops active entities, e.g. pedestrians;
   \item After stopping active entities, $M$ saves their state into a file;
-  \item $M$ saves into a file the state of reactive entities. 
-  It is important to notice their internal state is now safetely savable, 
+  \item $M$ saves into a file the state of reactive entities.
+  It is important to notice their internal state is now safetely savable,
   since no active entities can modify it anymore;
   \item $M$ sends an \texttt{app\_shut} message to the middleware;
   \item $M$ terminates itself and the entire application consequently stops.
@@ -22,7 +23,7 @@ The middleware layer can request the application to stop via the
 The last operation the \textit{Master} task does is to send a message for apprising
 the middleware layer of the successful termination of the application one.
 Similarly to the bootstrap phase, the middleware expects to receive this
-message within a certain amount of time. 
+message within a certain amount of time.
 In order to do so, when sending the message, $M$ also starts a timeout.
-Wherefore if it expires before receiving a response message from the middleware layer, 
+Wherefore if it expires before receiving a response message from the middleware layer,
 it calls again the \texttt{app.shutdown} procedure the application exposes.
