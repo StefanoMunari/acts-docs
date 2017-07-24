@@ -12,21 +12,23 @@ one of its lane that meets two requirements:
     then the lane has to be treadable in the direction $d_0 \rightarrow d_1$.
 \end{itemize}
 
+%TODO: @Stefano Review if it is ok with your AI module
 \paragraph{Entering a lane}
 Moving entities enter a lane by simply entering its first stretch.
 
+%TODO: @Stefano Review if it is ok with your AI module
 \paragraph{Entering a road stretch}
-Moving entities who want to enter a new road stretch
-can do it whenever there is room for them in that stretch.
-In particular, a roadway lane stretch can be trod for at most
-one vehicle at a time.
+Moving entities who want to enter a new road stretch can do it whenever there
+is room for them in that stretch.
+In particular, a roadway lane stretch can be trod for at most one vehicle at a
+time.
 
-\paragraph{Zebra crossings} Vehicles which want to enter a road stretch
-with painted zebra crossings, have to wait for
-pedestrians or bikes to free all stretches of the crossing.
+\paragraph{Zebra crossings}
+Vehicles which want to enter a road stretch with painted zebra crossings have
+to wait for pedestrians or bikes to free the crossing.
 
-\paragraph{Changing roadway lane} A vehicle that is on the i-th road stretch
-which desires to change lane has to wait until the (i+1)-th stretch in the
+\paragraph{Changing roadway lane} A vehicle that is on the $i$-th road stretch
+which desires to change lane has to wait until the $(i+1)$-th stretch in the
 wanted direction is empty.
 
 \paragraph{Crossroads} Every road that is connected to a crossroads is marked
@@ -41,71 +43,75 @@ a four-way crossroads each one by entering a different way of it.
 In this case, the crossroads has to make a car yield the right-of-way
 to another one.
 
-Pedestrians can only walk on the corner of the crossroads, thus passing to the
-adjacent piece of road. For example, a pedestrian that is coming from
-the ``southern'' side of the western road can only enter the southern street
-on the ``western'' side.
+Pedestrians and bikes can only walk on the corner of the crossroads, thus
+passing to the adjacent piece of road.
+For example, a pedestrian that is coming from the ``southern'' side of the
+western road can only enter the southern street on the ``western'' side.
 
-\paragraph{Entering a building} When a moving entity is in the stretch where
-there is the entrance of a building, then it can enter the building.
-If such an entity is a vehicle, it has to wait for all other entities who
-are in the intermediate stretches to move away.
+\paragraph{Entering a building}
+When a moving entity is in the stretch where there is the entrance of a
+building, then it can enter the building.
+% Following: Deprecated stuff -- maybe left for increment
+%If such an entity is a vehicle, it has to wait for all other entities who
+%are in the intermediate stretches to move away.
 
-\paragraph{Exiting a building} When a moving entity is exiting a building, it
-has to check whether there is room for it to move out.
-If such an entity is a vehicle, it has to yield the right-of-way to
-upcoming vehicles and to wait for potential sidewalks or
-bicycle path stretches facing the building to be empty too.
+\paragraph{Exiting a building}
+When a moving entity is exiting a building, it has to check whether there is
+room for it to move out.
+% Following: Deprecated stuff -- maybe left for increment
+%If such an entity is a vehicle, it has to yield the right-of-way to upcoming
+%vehicles and to wait for potential sidewalks or bicycle path stretches facing
+%the building to be empty too.
 
-\paragraph{Choosing to use a vehicle} A person $p$ who wants to leave a
-building $a$ to move to a $b$ one can decide to take an available vehicle.
+\paragraph{Choosing to use a vehicle}
+A person $p$ who wants to leave a building $b_1$ to move to $b_2$ can decide
+to take an available vehicle.
 
-When $p$ requires to get out it with a vehicle,
-all other people in $a$
+When $p$ requires to get out it with a vehicle, all other people in $b_1$
 \begin{itemize}
-  \item sharing the same path; or
-  \item having a destination $c$ contained into $p$'s path; or
-  \item having a path containing $b$
+\item sharing the same path; or
+\item having a destination $c$ contained into $p$'s path; or
+\item having a path containing $b_2$
 \end{itemize}
-can decide to leave $a$ with $p$ sharing a vehicle
+can decide to leave $b_1$ with $p$ sharing a vehicle
 until the most capacious vehicle, among the available, ones become full.
 
-Nevertheless $p$ can leave $a$ with a vehicle only if:
+Nevertheless $p$ can leave $b_1$ with a vehicle only if:
 \begin{itemize}
-  \item the capacity of $b$'s car park is greater than the sum of all
+\item the capacity of $b_2$'s car park is greater than the sum of all
 vehicles being already there and the ones which are coming there; or
-  \item there are at least another people in $a$
+\item there is at least another person in $b_1$
   \begin{itemize}
-    \item having a path containing $b$; and
-    \item ending with a building $d$, having a car park capacity
-    that is greater than
-	the sum of all vehicles being already there and the ones
-	which are coming there.
+  \item having a path containing $b_2$; and
+  \item ending with a building $d$, having a car park capacity that is
+    greater than the sum of all vehicles being already there and the ones
+    which are coming there.
   \end{itemize}
 \end{itemize}
 Hence, if the condition is met, the destination building books
 a parking lot for the vehicle.
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=\columnwidth,trim=1 0 0 0,clip]
-    {images/solution/going_out_with_vehicle.eps}
-  \caption{Exiting a building with a vehicle}
-  \label{fig:app-inter-vehicle}
+\centering
+\includegraphics[width=\columnwidth,trim=1 0 0 0,clip]
+  {images/solution/going_out_with_vehicle.eps}
+\caption{Exiting a building with a vehicle}
+\label{fig:app-inter-vehicle}
 \end{figure}
 
 \paragraph{Waiting for a bus}
-Whenever a pedestrian is on a bus stop stretch,
-it can decide to wait for a bus.
+Whenever a pedestrian is on a bus stop stretch, it can decide to wait for a
+bus.
 
-Firstly, the pedestrian checks whether its path is (even partially)
-matched by the busses one.
-If at least one of them does, then it waits
-for a limited amount of time for a bus to arrive.
+Firstly, the pedestrian checks whether its path is (even partially) matched by
+the bus's one.
+If at least one of them does, then it waits for a limited amount of time for a
+bus to arrive.
 
-If this timeout expires,
-then it continues travelling by foot to the next stretch.
+If this timeout expires, then it continues travelling by foot to the next
+stretch.
 
+% TODO: The method name does not match the actual implementation
 \begin{figure}[H]
   \centering
   \includegraphics[width=\columnwidth,trim=1 0 2 0,clip]
@@ -114,13 +120,9 @@ then it continues travelling by foot to the next stretch.
   \label{fig:app-inter-wait-bus}
 \end{figure}
 
-\paragraph{Boarding a bus} When a bus arrives at a bus stop, then a waiting
-pedestrian will board it only if:
-
-\begin{itemize}
-  \item there is enough room for it; and
-  \item this bus shortens the expected route for it.
-\end{itemize}
+\paragraph{Boarding a bus}
+When a bus arrives at a bus stop, then a waiting pedestrian will board it only
+if there is enough room for it.
 
 \begin{figure}[H]
   \centering
@@ -136,6 +138,7 @@ the last stop $s$ belonging to the route of $p$.
 \paragraph{Respecting street code} Roads and crossroads have to contain
 all the logic which is needed to make moving entities follow the street rules.
 
+% TODO: Review after having implemented it
 \paragraph{Performing an overtaking} This action is possible only when a
 vehicle is able to change lane. It might be triggered by a timeout which
 expires when it is waiting too much for entering the next straightaway stretch.
