@@ -73,6 +73,31 @@ code:
   the left (right) side of the street.
 \end{itemize}
 
+Let us define exactly how we abstracted the structure of a city:
+
+\begin{itemize}
+  \item \textbf{Intersections} are either crossroads between three or four
+    different roads
+  \item We will call \textbf{street segment} the piece of road which lies
+    between two consecutive intersections (i.e., a street segment touches
+    \textit{exactly} two intersections). Since we will use frequently this
+    component during the development of the simulator, we will simply refer to
+    it as a \textit{street} for conciseness from now on.
+    \begin{itemize}
+      \item A street is composed of several ways. \textbf{Ways} are sets of
+        adjacent lanes of the same type. A way can be a footway (i.e., a
+        sidewalk), a bikeway or a roadway.
+      \item A way is composed of lanes. \textbf{Lanes} are arrays of stretches
+        treadable in just \textit{one} direction. A lane can be a footway lane,
+        a bikeway lane or a roadway lane.
+      \item A lane is made up of several stretches. A \textbf{stretch} is the
+        basic structural unit of our reference city abstraction and, depending
+        on the traveller type that can move on it (besides a few exceptions
+        like zebra crossings), a stretch can be a footway stretch, a bikeway
+        stretch or a roadway stretch.
+    \end{itemize}
+\end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% DISTRIBUTION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
