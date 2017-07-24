@@ -1,3 +1,7 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CONCURRENCY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{Solution to Concurrency Problems}
 
 Our solution addresses the problems we pointed out in section
@@ -66,6 +70,10 @@ last valid snapshot.
 The application will be designed to overcome starvation or deadlock scenarios.
 In fact, active entities do not hold resources.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% APPLICATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{Solution to Application Problems}
 
 In section \ref{sec:pa-app-problems} some problems inherently related to the
@@ -95,3 +103,65 @@ more than one active entity can potentially act in parallel in a district.
 \paragraph{Yield rules}
 The logic to manage yield rules will be encapsulated in crossroads, which has
 to ensure the respect of the street code.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TIME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Solution to Time Problems}
+
+In section \ref{sec:pa-time-problems} we point out some questions we made
+ourselves about time management in our simulations; hereafter we provide
+answers on how we designed the flow of time in our system.
+
+\paragraph{How can we simulate road users proceeding (regarding to travelling
+  speed)?}
+Our system will be comprehensive of a scheduler, which executes actions
+according to an internal agenda.
+This agenda is a priority queue in which each entry is matched to a specific
+logic instant in time, during which a list of actions has to be executed. This
+means active entities will conform to a common interface through which the
+scheduler can make them run.
+
+When all the actions for a specific time instant will be executed, the
+scheduler will notify other nodes and will wait for a signal (called
+\textbf{tick}) to start processing the next entry of its agenda.
+
+%TODO: A cool figure which depicts a scheduler's agenda sample
+
+We will make some speed ranges correspond to a given deferral, so that
+travellers with different speeds will take more time to tread stretches with
+the same length. For example, a pedestrian might take $25$ logical instants to
+move from the beginning to the end of a stretch, whereas a car could take only
+$2$ instants to travel the same distance.
+
+We made this choice so that, in the case of a simulation running on several
+nodes, our system is far less susceptible to time drift.
+
+\paragraph{How can we simulate crossroads (regarding to road users' arrivals
+  time)?}
+Crossroads logic will be managed by means of an Ada Protected Object. By
+carefully handling concurrent accesses to these objects, we aim to provide the
+exact semantic for intersections between roads.
+
+\paragraph{How long do people stay in facilities for? How much precise do these
+  intervals have to be?}
+Time spent in facilities is decided arbitrarily as a configuration parameter.
+These time periods will have the best accuracy provided by the resolution
+chosen for the scheduler.
+
+\paragraph{How are semaphores going to be able to synchronize? Which of them
+  decide how much time do they have to wait for?}
+Semaphores will be active entities, and therefore their actions will be
+periodically scheduled.
+
+The period of a semaphore will be a configuration parameter.
+
+\paragraph{When is it suitable to use logical clocks instead of local system
+  clock?}
+As for our simulations, logical time will be used for nearly everything so that
+our application will not suffer to drift caused by computation on different
+nodes.
+
+However, we will seldom rely on wall clock time for specific operations, like
+request timeouts for RPCs.
