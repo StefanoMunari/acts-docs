@@ -104,13 +104,26 @@ Let us define exactly how we abstracted the structure of a city:
 
 \subsection{Distribution}\label{sec:pa-distribution}
 As we pointed out in section \ref{sec:pa-domain}, our system will be composed
-of streets that are joined together by crossroads.
+of streets that are joined together by intersections.
+Starting from this, we would like to distribute our system across several
+computing nodes to attenuate the burden of running each simulation on single
+nodes. We can do this by leveraging the knowledge we have at configuration time
+about the geographical disposition of the structural macro-units of a city,
+that is, street and intersections. In fact, we expect high interaction between
+\textit{adjacent} structural macro-units.
+More precisely, we will call \textbf{district} a set of streets and
+intersections. Therefore, we will divide a city in districts and then we will
+make them run in separated computing nodes.
+% TODO: @Stefano, what do you say about the term "computing node"? Is it ok
+%                 for a container?
 
-Hence, in this section we will discuss about how we analyzed distribution issues.
+Hence, in this section we will discuss about how we thought about distribution
+issues.
 
 \paragraph{Requirements} \mbox{} \\
 
-In the following list we’ll express qualities that our system should have to leverage distribution.
+In the following list we will express qualities our system should have to
+effectively leverage distribution.
 
 \begin{itemize}
 \item The system should be distributed: we expect the simulator to manage many
