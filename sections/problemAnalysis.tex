@@ -13,6 +13,8 @@ initial phase of the project:
   will act concurrently in the system, since the city traffic intrinsically
   contains more than one control unit\footnote{for control unit we mean each
   one of the single agents which represents a source of action}
+\item \textbf{Application}: after outlining the domain of our simulations, we
+  have to single out the major problems our level of abstraction entails
 \item \textbf{Time}: finally we outline the question we posed ourselves about
   the time flow during simulations
 \end{itemize}
@@ -250,11 +252,16 @@ of the system properties relating to concurrence?
 \item How can we avoid possible starvation scenarios?
 \end{itemize}
 
-\subsubsection{Domain Problems}\label{sec:pa-domain-problems}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% APPLICATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-There are some domain problems which are strictly related to concurrency.
+\subsection{Application Problems}\label{sec:pa-app-problems}
+
+The way we abstracted city traffic bring new issues out and the way we can
+resolve them is not straightforward.
 We will use figure \ref{fig:pa-sample-street} and figure
-\ref{fig:pa-sample-crossroad} to show examples in which possible problems we
+\ref{fig:pa-sample-crossroad} to show examples in which tangled situations we
 found out lie.
 
 \begin{figure}[H]
