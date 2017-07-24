@@ -21,17 +21,18 @@ services. Taking into account the distributed nature of the system we have
 studied specific solutions for each service, the ideas applied come from
 well known patterns used in distributed systems:
 \begin{itemize}
-  \item Lamport logical clocks: in a distributed system we are interested
-in the logical sequence of the events and not the wall clock time which is
-impossible to know perfectly and could lead to synchronization errors;
-  \item Lamport timestamps algorithm\footnote{Leslie Lamport \textit{Time,
-clocks, and the ordering of events in a distributed system}, ACM 21,
-pp. 558-565, July 1978}: this algorithm contains the keystone
-of each distributed service which implies a form of synchronization
-between parties;
-  \item Bully algorithm: this algorithm is used in the first part of the
-shutdown process. It works dynamically and implies the election of a master
-node.
+\item Lamport logical clocks: in a distributed system we are interested
+  in the logical sequence of the events and not the wall clock time which is
+  impossible to know perfectly and could lead to synchronization errors;
+\item Lamport timestamps algorithm\footnote{Leslie Lamport \textit{Time,
+  clocks, and the ordering of events in a distributed system}, ACM 21,
+  pp. 558-565, July 1978}: this algorithm contains the keystone
+  of each distributed service which implies a form of synchronization
+  between parties;
+\item Bully algorithm: this algorithm is used in the first part of the
+  shutdown process. It works dynamically and implies the election of a master
+  node.
+% TODO: Add checkpoint system cited in the CDS slides?
 \end{itemize}
 
 \subsubsubsection{Election Protocol}
