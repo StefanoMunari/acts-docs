@@ -49,12 +49,11 @@ of a coordinator node. This version tries to improve the efficiency of the bully
 The protocol works as follows:
 \begin{enumerate}
 \item A node N sends an \texttt{election} message to each node M with
-  \textit{higher} priority/ID than it;
-\item N sets a timeout for each node M. If the timeout elapses then the
-  receiver D is considered dead;
+  \textit{higher} priority/ID than itself;
+\item N sets a timeout for each node M. If the timeout elapses, then the
+  receiver D is considered dead; %TODO: Unreachable?
 \item M\footnote{M is any node with higher priority/ID than N} replies with an
-  \texttt{ok} message, which means that M is ready to continue the election
-  process;
+  \texttt{ok} message, which means M is ready to continue the election process;
 \item M repeats the points 1. and 2. until the highest priority/ID node H is
   reached;
 \item If N has detected at least one dead node then N sends a \texttt{crash}
@@ -82,6 +81,8 @@ Notes and side cases:
   is elected as coordinator.
 \item This solution tries to reduce the timeout costs notifying higher
   priority/ID nodes when a dead node is detected;
+% TODO: Should we change the beginning of the next sentence?
+%\item The communication is always between a node and a set of higher priority nodes.
 \item The communication is always between a lower priority node and a set of
   higher priority nodes. Only during the \texttt{coordinator} phase messages
   are broadcasted to all lower priority/ID nodes;
@@ -128,6 +129,7 @@ logical node through another one with the name as its payload;
 during the bootstrap process.
 \end{itemize}
 
+% TODO: Name leftmost node as 'l'
 \begin{figure}[H]
   \centering
   \includegraphics[width=\columnwidth]{images/solution/bootstrap.eps}
@@ -139,21 +141,23 @@ Assuming that a \texttt{Start\_mw} message arrives to a non-booted node (say
 $l$) at time 0, the protocol is defined as follows:
 
 \begin{enumerate}
-  \item The leftmost node $l$ in figure \ref{fig:sys-bootstrap-protocol}
-    starts its own middleware services.
-  \item $l$ sends a \texttt{Start\_mw} message to the set $S$ of all its
-    neighbors. Clearly, if it was the first node in the system to receive
-    \texttt{Start\_mw}, then it will be also the last node to complete the
-    boot process.
-  \item $l$ waits for each node in $S$ to complete the boot. $l$ waits for all
-nodes in $S$ to send an \texttt{Ack\_mw} message back;
-  \item The middleware MW of $l$ grants the application APP to start;
-  \item $l$ then sends an \texttt{Ack\_mw} message back.
+\item The leftmost node $l$ in figure \ref{fig:sys-bootstrap-protocol}
+  starts its own middleware services.
+\item $l$ sends a \texttt{Start\_mw} message to the set $S$ of all its
+  %TODO:         Is it really clear?
+  %             /
+  neighbors. Clearly, if it was the first node in the system to receive
+  \texttt{Start\_mw}, then it will be also the last node to complete the
+  boot process.
+\item $l$ waits for each node in $S$ to complete the boot. $l$ waits for all
+  nodes in $S$ to send an \texttt{Ack\_mw} message back;
+\item The middleware MW of $l$ grants the application APP to start;
+\item $l$ then sends an \texttt{Ack\_mw} message back.
 \end{enumerate}
 
 As it can be seen in the figure, this behaviour is replicated recursively
-by all nodes of the system. If a node has already been booted, then it only
-sends \texttt{Ack\_mw} back.
+by all nodes of the system. If a node has already received a boot request,
+then it only sends \texttt{Ack\_mw} back.
 
 \subsubsubsection{System Termination}
 Also, the system has to shutdown neatly. Therefore we designed a protocol to
@@ -165,6 +169,7 @@ The protocol is represented in figure \ref{fig:sys-termination-protocol}, where
 the conventions are the same as the ones used in figure
 \ref{fig:sys-bootstrap-protocol}.
 
+% TODO: Name leftmost node as 'l'
 \begin{figure}[H]
   \centering
   \includegraphics[width=\columnwidth]{images/solution/termination.eps}
@@ -173,19 +178,20 @@ the conventions are the same as the ones used in figure
 \end{figure}
 
 Assuming that a \texttt{Shutdown\_mw} message arrives to a non-terminated node
-$l$ (let it be the leftmost one in the picture) at time instant 0, the protocol
-is defined as follows:
+$l$ (let it be the leftmost one in the picture) at time instant $0$, the
+protocol is defined as follows:
 
 \begin{enumerate}
-  \item The middleware MW of $l$ asks to terminate the application APP;
-  \item $l$ sends a \texttt{Shutdown\_mw} message to the set
-    $S$ of all the nodes it knows;
-  \item $l$ waits for each node in $S$ to terminate, i.e. $l$ waits for all
-    nodes in $S$ to send an \texttt{Ack\_mw} message back;
-  \item $l$ stops its own middleware services;
-  \item $l$ then sends an \texttt{Ack\_mw} message back.
+\item The middleware MW of $l$ asks to terminate the application APP;
+\item $l$ sends a \texttt{Shutdown\_mw} message to the set
+  $S$ of all the nodes it knows;
+\item $l$ waits for each node in $S$ to terminate, i.e. $l$ waits for all
+  nodes in $S$ to send an \texttt{Ack\_mw} message back;
+\item $l$ waits for its own application layer APP to stop;
+\item $l$ stops its own middleware services;
+\item $l$ then sends an \texttt{Ack\_mw} message back.
 \end{enumerate}
 
 As it can be seen in the related figure, this behaviour is replicated
-recursively by all nodes of the system. If a node has already terminated, then
-it only sends \texttt{Ack\_mw} back.
+recursively by all nodes of the system. If a node has already received a
+termination request, then it only sends \texttt{Ack\_mw} back.
