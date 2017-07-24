@@ -4,7 +4,7 @@ The communication protocol between application layer and middleware layer
 \paragraph{Fire and forget}
 It is a one-way message pattern (the service sends a message without expecting
 a response). Since the application and the middleware will reside on the same
-physical node we can assume that the communication is reliable, once a message
+physical node, we can assume that the communication is reliable: once a message
 is sent from the application layer it arrives to the middleware layer and
 viceversa. The asynchronous communication decouples (when possible)
 the computation of the application from the computation of the middleware
