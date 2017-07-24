@@ -127,10 +127,11 @@ effectively leverage distribution.
 
 \begin{itemize}
 \item The system should be distributed: we expect the simulator to manage many
-  streets and much traffic. Thus, the system is probably going to handle load balancing
-  in a better way if it allots partition of the city to different nodes rather than assigning
-  all the load to a single node. This is specifically true in the case of special events,
-  when the traffic load will greatly increase and the system must prove to be scalable
+  streets and much traffic. Thus, the system is probably going to handle load
+  balancing in a better way if it allots partition of the city to different
+  nodes rather than handing out all the load to a single node. This is
+  specifically true in the case of special events, when the traffic load will
+  greatly increase and the system must prove to be scalable
 \item The system should appear as a single unit to its end user, in order to
   have an acceptable degree of transparency
 \item The system might be composed of heterogeneous parts: whilst this issue
@@ -138,7 +139,8 @@ effectively leverage distribution.
 \item The system should be scalable: considering the nature of our project (a
   city simulator), we would like it to be scalable in possible directions
   (e.g. number of road users, city size, etc.)
-\item The possibly scalable components of the system should be decoupled as much as possible from others
+\item The possibly scalable components of the system should be decoupled as
+  much as possible from others
 \item There should be a clearly defined protocol for the communication between
   each part of the system
 \item When possible, the communication between two nodes of our system will be
@@ -150,10 +152,12 @@ effectively leverage distribution.
 \item The system should be fault tolerant, \emph{reactive} to possible faults
 \item The system should be able to replicate and/or restore parts of itself,
   in order to be more fault tolerant
-\item The system should be splitted in isolated parts, in order to isolate possible faults
+\item The system should be splitted in isolated parts, in order to isolate
+  possible faults
 \item The system should be able to locate each part of itself through a system
   of unique names
-\item The replication/restoration operations should be transparent to the end user
+\item The replication/restoration operations should be transparent to the end
+  user
 \end{itemize}
 
 \paragraph{Problems} \mbox{} \\
@@ -180,7 +184,9 @@ Several problems arose from this issues:
 \item How errors will be managed by our system so that it can reach a certain
   degree of fault tolerancy?
 \item How can we react to known distributed systems network-related
-problems\footnote{considering \href{https://blogs.oracle.com/jag/resource/Fallacies.html?cm_mc_uid=82650292107114582847614&cm_mc_sid_50200000=1458564821}{The eight fallacies of distributed computing}: excluding the point 4,5,6 because the topology of a city is statically defined and security issues are out of the project's scope}?
+  problems\footnote{considering \href{https://blogs.oracle.com/jag/resource/Fallacies.html?cm_mc_uid=82650292107114582847614&cm_mc_sid_50200000=1458564821}{The eight fallacies of distributed computing}: excluding the point 4,5,6
+  because the topology of a city is statically defined and security issues are
+  out of the project's scope}?
 \item Are the answers at the previous questions providing a scalable solution?
 \end{itemize}
 
