@@ -1,20 +1,18 @@
 \subsubsection{Solution to Concurrency Problems}
 
 Our solution addresses the problems we pointed out in section
-\ref{sec:pa-concurrency}.
-Therefore here we are providing answers to the questions
-we made ourselves at the beginning of the development.
+\ref{sec:pa-concurrency}. Therefore here we are providing answers to the
+questions we made ourselves at the beginning of the development.
 
 \paragraph{How can we recognize that a situation is suitable to present
 concurrency?}
-There are several active entities in our application:
-pedestrians, cars, bikes and buses.
-They act because of their own initiative,
-so they are likely to be considered as active tasks.
+There are several active entities in our application: pedestrians, cars, bikes
+and buses. They act because of their own initiative, so they are likely to be
+considered as active tasks.
 
 Moreover, their actions cause side-effects to reactive entities like roads.
-Consequently, our application does not only need to be parallel
-but also \textit{concurrent}.
+Consequently, our application needs to embody concurrency, i.e., potential
+parallelism.
 
 \paragraph{How concurrent accesses will be managed? Will it make sense to
 discern side-effect accesses (procedures) from read-only accesses
@@ -26,10 +24,11 @@ i.e. resources that can be accessed in concurrent read
 It indeed makes sense to have the mentioned separation.
 It may be useful to modify roads' status when vehicles travel through them.
 Furthermore it might be useful to get information from them
-when someone asks for it (without causing side-effects).
+when someone asks for it without causing side-effects.
 
 \paragraph{Which entities have to be active?}
-In light of active entities undertake spontaneous actions, in our context they are:
+In light of active entities undertake spontaneous actions, in our context they
+are:
 \begin{itemize}
   \item Moving entities, which move around the city according to their own will;
   \item Semaphores, which autonomously change their color by the time elapses.
@@ -38,39 +37,40 @@ In light of active entities undertake spontaneous actions, in our context they a
 \paragraph{Which entities have to be reactive?}
 Roads (with all their parts) and crossroads should be reactive entities:
 \begin{itemize}
-  \item A road is used to travel towards a destination
-  and it takes actions only when it is trodden.
-  However, the state of a road is composed of the states
-  of the reactive sub-entities it comprises, i.e. stretches and houses;
-  \item A crossroads coordinates the traffic at road intersections
-  exclusively whenever a moving entity requires to cross it.
+  \item A road is used to travel towards a destination and it takes actions
+    only when it is trod.
+    However, the state of a road is composed of the states of the reactive
+    sub-entities it comprises, e.g., stretches and houses;
+  \item A crossroads coordinates the traffic at road intersections exclusively
+    whenever a moving entity requires to cross it.
 \end{itemize}
 
 \paragraph{Which entities have to be passive?}
-Passive entities can not alter their internal state.
-Therefore, road signs fit perfectly in this definition, since
-they represent some immutable information that is read by road users.
+Passive entities are stateless. Therefore, road signs fit perfectly in this
+definition, since they represent immutable information that is read by road
+users.
 
 \paragraph{Should we use any formal technique to proof the correctness
 of the system properties relating to concurrence?}
-We will strive to motivate the correctness of our application
-but we deliberately do not choose any specific technique.
+We will strive to motivate the correctness of our application but we
+deliberately do not choose any specific technique.
 
 \paragraph{Do we have the possibility to incur a non-valid state?
 If so, how do we handle the problem?}
-The application will be designed to avoid non-valid states.
-However, if the system recognizes it is in a non-valid state,
-it resumes the execution from the last valid snapshot.
+The application will be designed to avoid non-valid states. However, if the
+system recognizes it is in a non-valid state, it resumes the execution from the
+last valid snapshot.
 % resumes: see https://www.cs.york.ac.uk/rts/books/RTSbookThirdEdition/chap6.pdf
 
 \paragraph{How can we avoid possible starvation scenarios?}
-The application will be designed to overcome starvation scenarios.
+The application will be designed to overcome starvation or deadlock scenarios.
+In fact, active entities do not hold resources.
 
-\subsubsection{Solution to Domain Problems}
+\subsubsection{Solution to Application Problems}
 
-In section \ref{sec:pa-app-problems} some problems
-inherently related to the application domain are explained,
-and our solution design is thought to solve them.
+In section \ref{sec:pa-app-problems} some problems inherently related to the
+application domain are explained, and our solution design is thought to solve
+them.
 
 \paragraph{Pedestrian Deadlock}
 This problem will be avoided ``by design'' by organizing sidewalks in
@@ -83,16 +83,15 @@ Since pedestrians proceeding in opposite directions will not compete to enter
 the same sidewalk stretch, there can not be any pedestrian deadlock.
 
 \paragraph{Rear-end Collisions}
-If the next road stretch of a moving entity route is already occupied,
-the entity will wait for the stretch to become free before moving on.
+If the next road stretch of a moving entity route is already taken, the entity
+will wait for the stretch to become free before moving on.
 
 \paragraph{Stretch Parallelism}
-One road stretch (e.g. a sidewalk stetch) may contain more
-than one entity of the same type (e.g. pedestrians) at a time.
-Hence, it is necessary to introduce a counter which represents
-the number of entities currently treading the stretch.
-It is indeed useful for denying the possibility to enter a stretch if it is ``full''.
+One road stretch (e.g., a sidewalk stetch) may contain more than one entity of
+the same type (e.g., pedestrians) at a time.
+Parallelism is achieved by using a system of worker threads thanks to which
+more than one active entity can potentially act in parallel in a district.
 
 \paragraph{Yield rules}
-The logic to manage yield rules will be encapsulated in crossroads,
-which has to ensure the respect of the street code.
+The logic to manage yield rules will be encapsulated in crossroads, which has
+to ensure the respect of the street code.
