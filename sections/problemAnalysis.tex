@@ -6,16 +6,16 @@ initial phase of the project:
 \begin{itemize}
 \item \textbf{Domain Analysis}: description of the applicative context we
   considered to model
-\item \textbf{Distribution}: a need to distribute the system arises from the
-  domain analysis. In this section we will discuss issues we encountered while
-  designing the distribution of the city traffic simulator
+\item \textbf{Distribution}: since a need to distribute the system arises from
+  the domain analysis, in this section we will discuss issues we encountered
+  while designing the distribution of the city traffic simulator
 \item \textbf{Concurrency}: it is reasonable to believe that some entities
   will act concurrently in the system, since the city traffic intrinsically
   contains more than one control unit\footnote{for control unit we mean each
   one of the single agents which represents a source of action}
 \item \textbf{Application}: after outlining the domain of our simulations, we
   have to single out the major problems our level of abstraction entails
-\item \textbf{Time}: finally we outline the question we posed ourselves about
+\item \textbf{Time}: finally we outline the questions we posed ourselves about
   the time flow during simulations
 \end{itemize}
 
@@ -26,14 +26,14 @@ initial phase of the project:
 \subsection{Domain Analysis}\label{sec:pa-domain}
 The goal of this project is to represent the traffic of a city. Among all the
 different options we could choose, we decided to simulate some lively cities of
-the United States of America (i.e. San Francisco).
+the United States of America (i.e., San Francisco).
 
 Therefore, we can make some assumptions about this reality:
 
 \begin{itemize}
-\item the city is likely to have a lot of commuters;
-\item the city is likely to have a lot of crossroads and
-traffic lights to regulate the traffic;
+\item the city is likely to have many commuters;
+\item the city is likely to have many crossroads and traffic lights to
+  regulate the traffic;
 \item the city traffic can grow in certain days due to special events or
   recurrences;
 \item cars are used mostly by a single person;
@@ -50,7 +50,7 @@ ones (besides \textbf{pedestrian} traffic): \textbf{bikes}, \textbf{cars} and
 \textbf{buses}.
 
 Every street segment could have sidewalks, bicycle paths and motor vehicles
-lanes. In our reference city road users must respect the following traffic
+lanes. In our reference city, road users must respect the following traffic
 code:
 
 \begin{itemize}
@@ -59,8 +59,7 @@ code:
 \item each road user has to proceed in his/her street part: for example,
   pedestrians can not tread a road in the middle of a car lane unless it has a
   zebra crossing on it;
-% TODO: What to do with this statement?
-%\item each crossroad can either be or not be regulated by traffic lights;
+\item each crossroad will be regulated by traffic lights;
 \item road users must not proceed faster than an eventual speed limit posted
   on a street segment;
 \item vehicles can not enter a one-way in the wrong direction;
