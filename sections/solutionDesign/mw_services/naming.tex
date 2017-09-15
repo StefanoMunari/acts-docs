@@ -1,1 +1,9 @@
 \subsubsection{Naming service}
+The Naming service, provided with an entity id and its type, finds the node on
+which a given entity resides.
+
+This is done in a completely decoupled way with respect to the application
+layer, which just provides the identifier and the type of the entity in the
+headers of the message handed over to the middleware. Then, the middleware
+Naming component will just have to look for this entity in a configuration
+file.
