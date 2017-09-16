@@ -104,6 +104,33 @@ more than one active entity can potentially act in parallel in a district.
 The logic to manage yield rules will be encapsulated in crossroads, which has
 to ensure the respect of the street code.
 
+\paragraph{Booking a park spot}
+A traveller which is going out of a building with a vehicle will try to book
+beforehand a spot in the destination building garage, so that when she'll
+arrives at destination she will find room to park her vehicle.
+
+Even if this may not seem a concurrency problem at first glance, it is indeed:
+two travellers may be leaving from each other's destination, and try to book a
+spot in the garages they are leaving.
+Therefore, if they both retain a lock on the garage to hold the vehicle they
+are coming out with, they are exposed to a deadlock hazard.
+
+We address this issue by making the garage implementation thread-safe, namely
+having it be composed of three protected objects:
+
+\begin{itemize}
+  \item \textbf{Parked vehicles:} vehicles which are parked in the garage
+    without anyone onboard
+  \item \textbf{Leaving vehicles:} vehicles which are currently exiting the
+    garage
+  \item \textbf{Pending vehicles:} vehicles which are not yet arrived in the
+    garage
+\end{itemize}
+
+Thanks to this division, we are able to avoid holding a lock on the garage
+object and access its state concurrently without blocking inside the critical
+regions.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TIME
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
