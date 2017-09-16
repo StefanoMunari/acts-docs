@@ -1,6 +1,6 @@
 \subsubsection{Interlayer service}
 
-This component is responsible of the communication that is performed among
+This component is responsible of the communication that is performed between
 different layers, namely the one which it belongs (the \textbf{middleware}) and
 another one who uses the middleware layer, that is the \textbf{application}
 layer.
@@ -14,5 +14,10 @@ then we will show in detail each module that composes this component.
   \caption{Middleware's Interlayer service}
   \label{fig:mw-interlayer}
 \end{figure}
+
+Since some runtimes may handle strings in a different format with respect to
+what Elixir does, we defined a `Formatter` behaviour for cope with these issues.
+We implemented a couple of formatters, one for Elixir (it does nothing but
+return the message as it is) and one for Ada.
 
 %TODO: Bla bla bla describe

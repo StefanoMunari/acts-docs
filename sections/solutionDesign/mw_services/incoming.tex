@@ -1,6 +1,7 @@
 \subsubsection{Incoming service}
 The Incoming service is responsible of receiving messages from other
-middleware nodes and to dispatch them.
+middleware nodes and to dispatch these messages to the appropriate middleware
+service.
 However, before dispatching this component process the message by applying some
 checks: in fact, a message may be directed to another node or it might have to
 be withheld if a snapshot is occurring.
