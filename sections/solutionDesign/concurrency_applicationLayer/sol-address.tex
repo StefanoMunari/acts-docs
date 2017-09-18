@@ -143,27 +143,13 @@ answers on how we designed the flow of time in our system.
 
 \paragraph{How can we simulate road users proceeding (regarding to travelling
   speed)?}
-Our system will be comprehensive of a scheduler, which executes actions
-according to an internal agenda.
-This agenda is a priority queue in which each entry is matched to a specific
-logic instant in time, during which a list of actions has to be executed. This
-means active entities will conform to a common interface through which the
-scheduler can make them run.
+Our system will be comprehensive of a scheduler, which executes actions:
+active entities will implement a common interface through which the scheduler
+is able to run them.
 
-When all the actions for a specific time instant will be executed, the
-scheduler will notify other nodes and will wait for a signal (called
-\textbf{tick}) to start processing the next entry of its agenda.
-
-%TODO: A cool figure which depicts a scheduler's agenda sample
-
-We will make some speed ranges correspond to a given deferral, so that
-travellers with different speeds will take more time to tread stretches with
-the same length. For example, a pedestrian might take $25$ logical instants to
-move from the beginning to the end of a stretch, whereas a car could take only
-$2$ instants to travel the same distance.
-
-We made this choice so that, in the case of a simulation running on several
-nodes, our system is far less susceptible to time drift.
+Actions are enqueued by using the package \texttt{Ada.Real\_Time} and one-shot
+timers: when each timer expires, a callback will be responsible of pushing the
+action on a queue consumed by a set of worker threads.
 
 \paragraph{How can we simulate crossroads (regarding to road users' arrivals
   time)?}
@@ -186,9 +172,7 @@ The period of a semaphore will be a configuration parameter.
 
 \paragraph{When is it suitable to use logical clocks instead of local system
   clock?}
-As for our simulations, logical time will be used for nearly everything so that
-our application will not suffer to drift caused by computation on different
-nodes.
-
-However, we will seldom rely on wall clock time for specific operations, like
-request timeouts for RPCs.
+We will use the local system clock of the nodes so that we will be able to
+have real concurrency between nodes (if an entity is scheduled for a given
+time moment, it should not block waiting to be synchronized in order to be
+executed), enabling better scalability for the whole system.
