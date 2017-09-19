@@ -1,16 +1,17 @@
 \subsubsubsection{Active entities}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/agent.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/people_carrier.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/person.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/traveller.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/travel_strategy.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/simple_travel.tex}
-%\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/active_entity_state.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/pedestrian.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/vehicle.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/bicycle.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/bus.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/private_motor_vehicle.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/private_motor_vehicle_type.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/traffic_light.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/active/traffic_light_color.tex}
+This package includes the hierarchies for active entities, along with some
+additional scaffolding to make them work (e.g., builders or Utils packages).
+
+At the root of this hierarchy there is the \texttt{Agent} interface, which is
+used by the scheduler's worker threads to run active entities. Here we can also
+find other interfaces and abstract classes, like \texttt{PeopleCarrier},
+\texttt{Traveller} and \texttt{Vehicle}.
+
+In particular, the traveller hierarchy has a parallel hierarchy of
+\textbf{extractors}: these modules are needed to extract state information from
+the travellers when they have to be marshalled.
+
+We used several architectural design patterns, for instance the
+\textit{Decorator} or the \textit{Strategy} patterns. For example, a private
+motor vehicle (e.g., a car) could land some of its passengers before invoking
+the Traveller's superclass implementation, which makes it advance its travel.
