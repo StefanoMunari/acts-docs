@@ -1,39 +1,39 @@
 \subsubsubsection{Reactive entities}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/district.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/district_starter.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/district_stopper.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/entity_registry.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/direction.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/infrastructure.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/crossroads.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/street.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/roadway.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/bikepath.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/sidewalk.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/lane/lane.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/lane/roadway_lane.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/lane/bike_lane.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/lane/sidewalk_lane.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/lane/decoration/lane_decorator.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/lane/decoration/lane_sign_decorator.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/stretch.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/roadway_stretch.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/bike_lane_stretch.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/sidewalk_stretch.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/decoration/stretch_decorator.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/decoration/stretch_sign_decorator.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/decoration/road_sign_name.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/decoration/lodgeable.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/decoration/facility.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/decoration/crossing.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/decoration/pedestrian_crossing.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/component/stretch/decoration/bike_crossing.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/build/config_reader.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/build/crossroads_config_reader.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/build/street_config_reader.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/build/crossroads_builder.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/build/street_builder.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/factory/street_factory.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/factory/roadway_factory.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/factory/sidewalk_factory.tex}
-\input{sections/solutionDesign/concurrency_applicationLayer/detail/reactive/factory/bikepath_factory.tex}
+This is one of the largest packages of our system: it contains all the types of
+reactive entities (streets, lanes, stretches, etc.) as well as their builders
+and factories, the district class (which acts more or less as a controller for
+the system), the entity registries and directories (subdivided by entity types),
+and finally some scaffolding like Utils packages.
+
+Here the most important interfaces are \texttt{Infrastructure} and
+\texttt{Treadable}, which respectively represents an infrastructural object and
+a piece of infrastructure which is treadable, that is stretches and
+intersections.
+In fact, even if streets and lanes would actually be treadable (in the ``real''
+world), in our system we will think of them just as containers which use the
+\textit{Composite} pattern: a \texttt{Street} is a composition of \texttt{Way}s,
+which in turn are composed of \texttt{Lane}s, which finally are composed of
+\texttt{Stretch}es.
+For the sake of ease, we will think of stretches as the basic treadable unit
+for streets, handling the concurrency at this tiny architectural level (thus
+enabling a high level of potential parallelism in our system).
+
+The other treadable entity is \texttt{Intersection}: they reserve one of its
+entries for a traveller if it is a vehicle, otherwise it is just bypassed by
+pedestrians and bicycles.
+
+Treadable objects do not make worker threads block in critical regions: each
+time a traveller moves on them, treadables attempt to make it enter. If this
+operation is successful, travellers advance in the next piece of infrastructure
+and leave the former one, otherwise they are rescheduled for a little time ahead
+to retry the operation (without leaving the reactive entity they are currently
+in).
+
+In this package we can find also the decorators for stretches and lanes: they
+override basic operations by composition and enrich some of them with custom
+behaviour: for example:
+\begin{itemize}
+  \item before entering a new lane it may be applied a given speed limit;
+  \item before treading a stretch, further checks may be required if it is a
+    part of a pedestrian/bicycle crossing
+ \end{itemize}
