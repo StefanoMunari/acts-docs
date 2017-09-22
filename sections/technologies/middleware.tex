@@ -1,17 +1,18 @@
 \subsection{Middleware}
-We have chosen Elixir (an Erlang\footnote{Erlang is a general-purpose,
+We have chosen Elixir 1.5 (an Erlang\footnote{Erlang is a general-purpose,
 concurrent, garbage-collected programming language} dialect) to implement
 our middleware. Elixir comes with a series of features like meta programming,
-the Mix build tool and the ExUnit test framework which will help us to make
-the project maintainable.
+advanced build tools and Erlang compatibility which allow Elixir to make the
+Erlang ecosystem more accessible for newcomers.
 However, the main reasons to choose Elixir/Erlang are the BEAM virtual machine
 and the OTP library.
-BEAM is the Erlang runtime which provides an enviroment to build portable,
-distributed, fault-tolerant and soft real-time applications.
+BEAM (Bogdan's Erlang Abstract Machine) is the Erlang runtime which provides an
+enviroment to build portable, distributed, fault-tolerant and soft real-time
+applications.
 Since Erlang does not have a formal specification for its runtime we will
- base our motivations on a comparison between BEAM and the JVM
-Hotspot implementation)\footnote{T. Pool \textit{Comparison of Erlang Runtime
-System and Java Virtual Machine}, University of Tartu, Estonia, May 2015}.
+base our motivations on a comparison between BEAM and the JVM Hotspot
+implementation)\footnote{T. Pool \textit{Comparison of Erlang Runtime System
+and Java Virtual Machine}, University of Tartu, Estonia, May 2015}.
 
 \paragraph{BEAM and OTP}
 \begin{itemize}
