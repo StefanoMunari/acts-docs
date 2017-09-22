@@ -1,35 +1,37 @@
-\subsection{Application::Back End}
-The Ada 2005 language\footnote{Benjamin M. Brosgol \textit{Ada 2005: A 
-Language for High-Integrity Applications}, CROSSTALK - The Journal of Defense 
-Software Engineering, Hill AFB, UT, USA, vol. 19, pp. 8-11, August 2006} 
-has been chosen to implement the application back end.
+\subsection{Application::Backend}
+We chose the Ada 2012 language to implement the application layer of the
+backend.
 
 The Ada language standard was originally designed in the early 1980s to promote
-sound software engineering. The latest version (Ada 2005) offers particular 
-innovations that improves support for high-integrity systems in three major 
+sound software engineering. With the advent of Ada 2005, new features
+sensitevely improve the support for high-integrity systems in three major
 areas: object-oriented programming, tasking, and real-time features.
 
-We have reason to believe that the properties of the application layer 
-that we are looking for, particularly for concurrency, could be supported 
+The latest version (Ada 2012) brings further improvements, among which for-each
+loops (\texttt{for .. of}) which enhances both the code readability and the
+productivity.
+
+We have reason to believe that the properties of the application layer
+that we are looking for, particularly for concurrency, could be supported
 by the following features that Ada provides:
 \begin{itemize}
-    \item Protected Object: a structured and efficient mechanism to handle 
+    \item Protected Object: a structured and efficient mechanism to handle
 shared resources access
     \item Locking and scheduling policies
     \item Avoidance of race conditions during system initialization
     \item Avoidance of silent task termination
     \item Possibility to define language profiles (using pragma restrictions)
-    \item Timing events: to define async/time-based events with associated 
+    \item Timing events: to define async/time-based events with associated
 handlers
     \item Buffer overflow and dangling reference prevention
 \end{itemize}
 
-Other important properties of the language that will help to avoid error-prone 
+Other important properties of the language that will help to avoid error-prone
 code:
 \begin{itemize}
-    \item Safety: writing programs with high assurance does not introduce 
-hazards 
-    \item Reliability: preventing errors with detection at compile time 
+    \item Safety: writing programs with high assurance does not introduce
+hazards
+    \item Reliability: preventing errors with detection at compile time
 (if possible)
     \item Static typing: type checking at compile time
 \end{itemize}
