@@ -12,27 +12,44 @@ loops (\texttt{for .. of}) which enhances both the code readability and the
 productivity.
 
 We have reason to believe that the properties of the application layer
-that we are looking for, particularly for concurrency, could be supported
-by the following features that Ada provides:
+that we are looking for, especially for concurrency, could be supported by the
+following features Ada comes with:
 \begin{itemize}
-    \item Protected Object: a structured and efficient mechanism to handle
-shared resources access
-    \item Locking and scheduling policies
-    \item Avoidance of race conditions during system initialization
-    \item Avoidance of silent task termination
-    \item Possibility to define language profiles (using pragma restrictions)
-    \item Timing events: to define async/time-based events with associated
-handlers
-    \item Buffer overflow and dangling reference prevention
+  \item Protected Object: a structured and efficient mechanism to handle
+        shared resources access, which distinguishes functions (read-only
+        operations) from procedures (read-and-write operations)
+  \item Avoidance of race conditions during system initialization
+  \item Avoidance of silent task termination
+  \item Possibility to define language profiles (using pragma restrictions)
+  \item Timing events: to define async/time-based events with associated
+        handlers
+  \item Strong type system: possibility to define our own types
+  \item Buffer overflow and dangling reference prevention
+  \item Object orientation, packages and child units to organize code in a much
+        more structured way
 \end{itemize}
 
-Other important properties of the language that will help to avoid error-prone
-code:
+Other important properties of the language that will help us to avoid
+error-prone code are:
 \begin{itemize}
-    \item Safety: writing programs with high assurance does not introduce
-hazards
-    \item Reliability: preventing errors with detection at compile time
-(if possible)
-    \item Static typing: type checking at compile time
+  \item \textbf{Safety}: writing programs with high assurance does not
+        introduce hazards
+  \item \textbf{Reliability}: preventing errors with detection at compile time
+        (if possible)
+  \item \textbf{Static typing}: type checking at compile time
 \end{itemize}
-% should we \textit{...} these three features like in Technologies::Middleware?
+
+\subsubsection{Tests}
+We used AUnit for the application layer tests.
+Also, we widely took advantage of dependency injection in our code in order to
+be able to mock dependencies when testing packages. Therefore, there will be
+some constructors or factory methods with a long list of parameters, most of the
+which can be classified as dependency injections.
+
+We don't think this practice degraded too much our code quality (since we knew
+the reason behind these injected parameters), but we acknowledge we may could
+have decided to follow another (and probably cleaner) path, by setting these
+injections directly inside the tests since they are child packages.
+
+We automatized the run of several test suites by using batch files, in which we
+specified which suites we want to execute.
