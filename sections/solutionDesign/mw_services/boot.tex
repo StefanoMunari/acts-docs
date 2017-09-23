@@ -27,3 +27,12 @@ service forwards the marker to all its neighbor and wait for all of them to
 reply (i.e, for them to be booted).
 When all the neighbors are booted, the application layer gets booted as
 well and the Boot service sends a boot marker back.
+
+The whole process is depicted in Figure \ref{fig:mw-boot}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\columnwidth]{images/solution/mw/boot.eps}
+  \caption{Boot service: activity diagram}
+  \label{fig:mw-boot}
+\end{figure}
