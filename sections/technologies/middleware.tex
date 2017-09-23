@@ -14,6 +14,7 @@ base our motivations on a comparison between BEAM and the JVM Hotspot
 implementation)\footnote{T. Pool \textit{Comparison of Erlang Runtime System
 and Java Virtual Machine}, University of Tartu, Estonia, May 2015}.
 
+\paragraph{Notation}
 When talking about middleware and Elixir, we will often the term
 \textbf{process} as lightweight thread, as well as \textbf{application} in place
 of ``architectural macro-component''. This is because we will strive to adhere
@@ -59,4 +60,21 @@ names since it was born and developed for another context, i.e., telephony.
     \item \textit{Location transparency}: the implementation needed to invoke a
         remote procedure/send a message to a remote process is actually the same
         of using a local procedure/send a message to a local process.
+\end{itemize}
+
+\paragraph{Elixir-specific features}
+\begin{itemize}
+  \item \textit{Productivity}: the Mix tool enables both good short-term
+        productivity as well as long-term productivity and maintainability;
+  \item \textit{Extensibility and Compatibility}: the most part of the Elixir
+        language is written in Elixir itself. This is because the smallest
+        programming units (e.g., \texttt{if} statements) are written using
+        macros which are unfolded at compile time, thus guaranteeing no loss of
+        performance and smooth compatibility w.r.t. Erlang , as well as a way
+        to easily define DSLs;
+  \item \textit{GenStage}: from Elixir 1.4, Flow and the GenStage behaviour
+        (i.e., the equivalent of an abstract class in OOP) has been available
+        to be used. The GenStage behaviour is built on top GenServer (Generic
+        Server, the basic OTP actor) and provides handy producer-consumer
+        features.
 \end{itemize}
