@@ -1,7 +1,7 @@
 \subsection{Middleware}
 We have chosen Elixir 1.5 (an Erlang\footnote{Erlang is a general-purpose,
 concurrent, garbage-collected programming language} dialect) to implement
-our middleware. Elixir comes with a series of features like meta programming,
+our middleware. Elixir comes with a series of features like metaprogramming,
 advanced build tools and Erlang compatibility which allow Elixir to make the
 Erlang ecosystem more accessible for newcomers.
 However, the main reasons to choose Elixir/Erlang are the BEAM virtual machine
@@ -14,14 +14,24 @@ base our motivations on a comparison between BEAM and the JVM Hotspot
 implementation)\footnote{T. Pool \textit{Comparison of Erlang Runtime System
 and Java Virtual Machine}, University of Tartu, Estonia, May 2015}.
 
+When talking about middleware and Elixir, we will often the term
+\textbf{process} as lightweight thread, as well as \textbf{application} in place
+of ``architectural macro-component''. This is because we will strive to adhere
+to the Erlang/Elixir notation, which has these old fashioned/slightly inaccurate
+names since it was born and developed for another context, i.e., telephony.
+
 \paragraph{BEAM and OTP}
 \begin{itemize}
   \item \textit{Concurrency model}: the Elixir concurrency model relies on
         asynchronous message passing instead of sharing the state between
         threads like Java does, so that the runtime itself handles concurrency;
-  \item \textit{Functional}: Elixir is a pure functional language
-        so each message is passed by copy, thus makes the testing easier and the
-        semantics of local and remote failures the same;
+  \item \textit{Functional}: Elixir is a pure functional language so each
+        message is passed by copy, thus makes the testing easier and the
+        semantics of local and remote failures the same.
+        Other alternatives (e.g., Scala) do not guarantee anything about
+        immutable state if not explicitly defined so, therefore the state of an
+        actor may change due to external factors when processing a message
+        (!)
   \item \textit{Lightweight processes}: every thread in the JVM is mapped
         one-to-one to an OS level thread, in BEAM the mapping is n-to-m using
         lightweight threads (not OS threads) and supporting true multi-threading
@@ -35,14 +45,18 @@ and Java Virtual Machine}, University of Tartu, Estonia, May 2015}.
         next process in its queue;
   \item \textit{Isolation}: the JVM uses a shared heap among all existing
         threads. In BEAM each Elixir process/actor has its own heap;
-  \item \textit{Heap Management}: BEAM processes isolation makes garbage
-        collection easier and more efficient than Java. The garbage collection
-        process does not affect other running processes because there isn't any
-        global pause in the application like in the JVM;
+  \item \textit{Heap Management}: BEAM process isolation makes garbage
+        collection easier and more efficient than in Java. The garbage
+        collection process does not affect other running processes because
+        there isn't any global pause in the application like in the JVM;
     \item \textit{Hot code swapping}: BEAM supports hot code swapping, allowing
-        to update the code whithout stopping the process which is running it;
+        to update the code whithout stopping the process which is running it
+        and defining procedures to employ when swapping code at runtime;
     \item \textit{Supervision trees}: OTP provides primitives to structure a
         fault-tolerant application in a hierarchical tree of processes where
         the parent can handle the faulty behaviour of the children with
-        different strategies.
+        different strategies;
+    \item \textit{Location transparency}: the implementation needed to invoke a
+        remote procedure/send a message to a remote process is actually the same
+        of using a local procedure/send a message to a local process.
 \end{itemize}
