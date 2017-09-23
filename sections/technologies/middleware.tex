@@ -29,10 +29,14 @@ names since it was born and developed for another context, i.e., telephony.
   \item \textit{Functional}: Elixir is a pure functional language so each
         message is passed by copy, thus makes the testing easier and the
         semantics of local and remote failures the same.
-        Other alternatives (e.g., Scala) do not guarantee anything about
-        immutable state if not explicitly defined so, therefore the state of an
-        actor may change due to external factors when processing a message
-        (!)
+  \item \textit{Actor model}: OTP fits perfectly in the actor model, since the
+        state and the behaviour of an actor are neatly separated: the behaviour
+        of an actor is able to change its state only after having finished to
+        process a message.
+        In other actor model implementations this is not always true: for
+        example, in some mutable OOP language an actor may suffer of concurrent
+        modifications at its state \textit{even when it is processing a
+        message};
   \item \textit{Lightweight processes}: every thread in the JVM is mapped
         one-to-one to an OS level thread, in BEAM the mapping is n-to-m using
         lightweight threads (not OS threads) and supporting true multi-threading
