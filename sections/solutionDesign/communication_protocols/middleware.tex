@@ -32,12 +32,12 @@ well known patterns used in distributed systems:
 \item Bully algorithm: this algorithm is used in the first part of the
   shutdown process. It works dynamically and implies the election of a master
   node.
-% TODO: Add checkpoint system cited in the CDS slides?
 \end{itemize}
 
 \subsubsubsection{Election Protocol}
 This protocol tries to resolve the problem of the global consensus in a distributed system through the election
 of a coordinator node. This version tries to improve the efficiency of the bully algorithm through the notification in case of a crash detection. The protocol assumption are as follows:
+
 \begin{itemize}
 \item Each node knows the total number of nodes in the system (this
   information is gained during the census process);
@@ -46,7 +46,9 @@ of a coordinator node. This version tries to improve the efficiency of the bully
   user-defined bound could be set as a system parameter before starting the
   process.
 \end{itemize}
+
 The protocol works as follows:
+
 \begin{enumerate}
 \item A node N sends an \texttt{election} message to each node M with
   \textit{higher} priority/ID than itself;
@@ -66,7 +68,9 @@ The protocol works as follows:
 \item When the last node K has replied, H has received all \texttt{ack}
   messages thus completing the election process.
 \end{enumerate}
+
 Notes and side cases:
+
 \begin{itemize}
 \item If none of the M nodes reply then N elects itself as the coordinator
   sending a \texttt{coordinator} message to each node L which has lower
