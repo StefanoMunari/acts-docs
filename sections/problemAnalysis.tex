@@ -56,7 +56,7 @@ code:
 \begin{itemize}
 \item motor vehicles must stop in order to let pedestrians and bikes walk over
   respective zebra crossings;
-\item each road user has to proceed in his/her street part: for example,
+\item each road user has to proceed in his/her street region: for example,
   pedestrians can not tread a road in the middle of a car lane unless it has a
   zebra crossing on it;
 \item each crossroad will be regulated by traffic lights;
@@ -320,11 +320,9 @@ for C to turn right because B's and C's trajectories do not intersect;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Time}\label{sec:pa-time-problems}
-Even if a traffic simulator would be appropriate for a real-time application,
-we will limit us to think about consistency in a general way though putting our
-best effort to make choices that minimize the drift among nodes and entities.
-
-Thus, we will strive to solve in the most realistic way the following issues:
+A traffic simulator is certainly appropriate for a real-time application.
+Hence, we will strive to address in the most realistic way the following
+issues:
 
 \begin{itemize}
 \item How can we simulate road users proceeding (regarding to travelling
