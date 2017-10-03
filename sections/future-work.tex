@@ -1,2 +1,108 @@
 \section{Future Work}
-% TODO: Add possible improvements
+In this section we will cover some features we deliberately left for future
+work, since their implementation would have costed too much time for us to
+integrate it.
+Nevertheless, we tried to sketch blueprints of possible solutions for these
+problems, in order to show they would actually be feasible.
+
+\subsection{Overcoming worker threads greediness}
+In our system, an executor loads work items on a single queue, which is
+concurrently consumed by worker threads that fetch items from its head.
+Clearly, if we increased the available cores and the number of worker threads,
+this work queue could become a bottleneck since each worker thread tries to
+extract a work item from the queue head as soon as there is one.
+
+One possible way to tackle this problem would be to have more queues, one for
+each worker thread. In this way, an executor may be able to choose among
+different policies (round robin, fair-weighted queues, ...) to populate the
+work item queues.
+
+\subsection{Dynamically sized thread pool}
+For the sake of simplicity, we set a fixed size (4) for the thread pool of
+worker threads which execute actions of active entities in our system.
+Instead of doing this, we may want to elastically shrink or enlarge the thread
+pool size with respect to different parameters, e.g., the work load or the
+number of cores.
+
+\subsection{More flexible topologies}
+We generated the configuration files for the city instances with a custom
+Python simulator. We built this tool in order to be able to produce large
+instances without having to do it manually, as well as to have a higher degree
+of variability from run to run (if we run several instances).
+
+Even if we can tune several parameters in our generator, it is limited to a
+certain set of topologies: for example, we assume to have a street composed by
+a sidewalk, a bikeway, a roadway and again a bikeway and a sidewalk.
+This hinders clearly the flexibility of our simulator, but it eased our work
+when we had to verify the correctness of the system.
+
+\subsection{Uber-like services}\label{sec:future-uber}
+The application layer presents two types of RPC:
+
+\begin{enumerate}
+  \item a traveller moving from a district to an adjacent one;
+  \item a traveller booking a parking spot.
+\end{enumerate}
+
+In the second case, the message is intended to be sent to a possibly
+non-adjacent node. Therefore, the middleware has a system of naming and routing
+capable of forwarding the message to the more suitable next-hop node.
+
+Uber-like services are on-demand transport services offered by (1) normal
+travellers which are driving a car or (2) taxis. In both cases, a traveller
+which \textit{requests} a Uber-like service has to reach a mobile entity.
+This factor would have made our system more complex in one of two possible
+ways:
+
+\begin{enumerate}
+  \item if the Uber-like provider is specified by who is making the request,
+    then we would have to track active entities at middleware layer (at the
+    moment we don't have the need to, so we don't do it)
+  \item if the Uber-like request does not specify an intended provider, then it
+    should be propagated until it finds an available provider, if any.
+\end{enumerate}
+
+The first scenario would have led us to a more complex system of name
+resolution, whereas the latter would have caused us to add to the middleware
+interface the possibility to perform a RPC which spreads (possibly) all over
+the system until satisfied.
+
+\subsection{Emergency services}
+Similarly to the previous point (section \ref{sec:future-uber}), we could add
+another service to our application layer, i.e., emergency services like
+ambulances.
+
+This feature would be easier than Uber-like services to implement, since for a
+traveller in a state of emergency this operation would be analogous to book a
+parking spot (obviously with a different semantic after the booking operation).
+
+\subsection{Fault tolerance -- Middleware}
+The middleware is fault tolerant in the sense it is resilient against failures
+during the boot phase, when sending messages to the application layer, and in
+other scenarios.
+
+However, in some cases a failure of the middleware may cause impediment in the
+normal flow of the system: for example, if the process which is currently
+supervising a snapshot dies, then when it is respawned there are chances it
+never ends the snapshot.
+This means that in this and other situations the system might suffer of a low
+degree of fault tolerance. However, this lack of resiliency could be fixed by
+addressing each possible problem with a suitable patch: for example, snapshot
+daemons may send snapshot markers again after a while if no response is
+arriving from a given neighbor.
+
+\subsection{Hierarchical naming}
+We initially started the project by assigning integer identifiers to both
+active and reactive entities. As we moved forward in the project, we leveraged
+Ada's strong type system by performing a refactoring and defining two different
+types for active and reactive identifiers, namely \texttt{Agent.Agent\_Id} and
+\texttt{Infra\_Id}.
+
+While for the former we chose to use strings (more precisely, Ada's Unbounded
+Strings) to encode the identifier, for the latter we decided to keep using
+integer numbers.
+
+This decision was not so wise a posteriori, since we were not able to implement
+a hierarchical name system for reactive entities, like \texttt{x.y.w.z}, where
+\texttt{x} refers to the street, \texttt{y} to the way, \texttt{w} to the lane
+and \texttt{z} to the specific stretch.
