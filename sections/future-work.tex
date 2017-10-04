@@ -106,3 +106,41 @@ This decision was not so wise a posteriori, since we were not able to implement
 a hierarchical name system for reactive entities, like \texttt{x.y.w.z}, where
 \texttt{x} refers to the street, \texttt{y} to the way, \texttt{w} to the lane
 and \texttt{z} to the specific stretch.
+
+\subsection{Dynamic routing}
+Our middleware currently bases its routing mechanism on static forwarding
+tables. This is surely not a flexible choice, but we chose to do it so for the
+sake of simplicity.
+
+An alternative feasible solution could be to perform dynamic lookup for the
+route when the message has to be sent in the first place by using some dynamic
+routing protocol (e.g., AODV).
+
+\subsection{Consistency of local snapshots}
+The consistency of application layer snapshot is not currently guaranteed,
+since they might contain duplicates or some travellers might disappear.
+
+Clearly, a local snapshot is not a consistent checkpoint to resume the system
+in case of failures. Therefore, we could also have added the following
+features:
+
+\begin{itemize}
+  \item Snapshot Validator: a daemon which checks the integrity of an
+        application-layer snapshot. If this snapshot is not valid, then it may
+        act according to different policies, for example requiring another
+        snapshot or simply dropping the invalid one;
+  \item Snapshot Corrector: a daemon which works after a validation check for
+        an application-layer snapshot fails. This component could try to fix
+        the snapshot so it becomes feasible. E.g., if no traveller disappeared
+        and the snapshot is invalid due to duplicates, it may simply
+        arbitrarily drop some travellers from some stretches and make it valid,
+        avoiding subsequent requests for valid snapshots;
+  \item Resumption from a valid epoch: if we had the chance to guarantee a
+        snapshot it's valid, we could make the system restart from a valid,
+        distributed snapshot in case of failures. Clearly, this procedure would
+        also stop nodes which are running without problems, just to make them
+        restart executing from the last valid point in time.
+        We also think that this procedure could be used to minimize clock
+        drift across several nodes, though it may not be a the best solution
+        to do it.
+\end{itemize}
