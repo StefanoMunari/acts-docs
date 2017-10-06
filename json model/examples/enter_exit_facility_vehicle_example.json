@@ -1,6 +1,6 @@
 {
 	"travellerId": 2,
 	"facilityId": 46,
-	"travellerKind": "VEHICLE",
+	"carrier": "TRUE",
 	"passengers": [1, 4, 6]
 }
