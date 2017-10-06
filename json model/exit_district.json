@@ -1,0 +1,5 @@
+{
+	"travellerId": <number>, //O
+	"districtId": <number> //O
+}
+// O = campo obbligatorio

@@ -1,0 +1,7 @@
+{
+	"travellerId": <number>, //O
+	"infrastructureId": <number>, //O
+	"travellerType": Enum<"PEDESTRIAN"|"VEHICLE"|"BYCICLE"> //O
+}
+// O = campo obbligatorio
+// N.B.: l'enum di travellerType può avere anche altri valori per altri tipi di traveller

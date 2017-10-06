@@ -1,0 +1,6 @@
+{
+	"travellerId": 2,
+	"facilityId": 46,
+	"travellerKind": "VEHICLE",
+	"passengers": [1, 4, 6]
+}
