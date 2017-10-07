@@ -29,14 +29,14 @@ names since it was born and developed for another context, i.e., telephony.
         threads like Java does, so that the runtime itself handles concurrency;
   \item \textit{Functional}: Elixir is a pure functional language so each
         message is passed by copy, thus makes the testing easier and the
-        semantics of local and remote failures the same.
+        semantics of local and remote failures the same;
   \item \textit{Actor model}: OTP fits perfectly in the actor model, since the
         state and the behaviour of an actor are neatly separated: the behaviour
         of an actor is able to change its state only after having finished to
         process a message.
         In other actor model implementations this is not always true: for
-        example, in some mutable OOP language an actor may suffer of concurrent
-        modifications at its state \textit{even when it is processing a
+        example, in Scala an actor may suffer of concurrent
+        modifications of its state \textit{even when it is processing a
         message};
   \item \textit{Lightweight processes}: every thread in the JVM is mapped
         one-to-one to an OS level thread, in BEAM the mapping is n-to-m using
