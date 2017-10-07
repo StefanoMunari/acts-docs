@@ -15,18 +15,23 @@ We have reason to believe that the properties of the application layer
 that we are looking for, especially for concurrency, could be supported by the
 following features Ada comes with:
 \begin{itemize}
-  \item Protected Object: a structured and efficient mechanism to handle
-        shared resources access, which distinguishes functions (read-only
-        operations) from procedures (read-and-write operations)
+  \item Protected Object (PO): a structured mechanism to handle
+        mutual exclusive access to shared resources.
+        It distinguishes functions (read-only
+        operations) from procedures (read-and-write operations). I also
+        implements the eggshell model, which allows to avoid race condition and
+        polling in a concurrent environment by providing two level of access
+        to its state
   \item Avoidance of race conditions during system initialization
   \item Avoidance of silent task termination
   \item Possibility to define language profiles (using pragma restrictions)
   \item Timing events: to define async/time-based events with associated
         handlers
-  \item Strong type system: possibility to define our own types
+  \item Strong type system: possibility to define our own types, also restricting
+  the standard types to check the range of values at static time
   \item Buffer overflow and dangling reference prevention
-  \item Object orientation, packages and child units to organize code in a much
-        more structured way
+  \item Object orientation, packages and child units to organize code in a
+  structured way
 \end{itemize}
 
 Other important properties of the language that will help us to avoid
@@ -39,8 +44,15 @@ error-prone code are:
   \item \textbf{Static typing}: type checking at compile time
 \end{itemize}
 
+\subsubsection{Build}
+Unfortunately, we have not be able to use the GNAT Project Manager (GPR)
+to build the core project. Our application uses an AI written in C++,
+to integrate it into the build of the project we implement a custom program
+which first generates the Ada spec of the AI and then
+links the AI's object files to the Ada entrypoint through the g++ linker.
+
 \subsubsection{Tests}
-We used AUnit for the application layer tests.
+We used AUnit for the application layer unit tests.
 Also, we widely took advantage of dependency injection in our code in order to
 be able to mock dependencies when testing packages. Therefore, there will be
 some constructors or factory methods with a long list of parameters, most of the
@@ -51,5 +63,17 @@ the reason behind these injected parameters), but we acknowledge we may could
 have decided to follow another (and probably cleaner) path, by setting these
 injections directly inside the tests since they are child packages.
 
-We automatized the run of several test suites by using batch files, in which we
-specified which suites we want to execute.
+
+The testing process has been completely automate through makefile, python and
+GNAT Project Manager (GPR): a developer can specify a set of test which he wants
+to run, the system takes cares of compiling and running the specified subset of
+tests (e.g. a set of test suites).
+
+During the development of the project we used a AWS EC2 instance
+equipped with Jenkins and Docker to have automated and continuous testing with
+reports provided to the developers via email. The developers were notified
+only in case of broken builds or failed tests.
+
+Also, the build of this document has been automated. This time using DockerHub.
+It notifies a server after each build, the server formats the received message
+and then sends it to a specific channel of the team on slack (our team chat).
