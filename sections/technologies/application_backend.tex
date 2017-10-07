@@ -21,27 +21,27 @@ following features Ada comes with:
         operations) from procedures (read-and-write operations). I also
         implements the eggshell model, which allows to avoid race condition and
         polling in a concurrent environment by providing two level of access
-        to its state
+        to its state;
   \item Avoidance of race conditions during system initialization
-  \item Avoidance of silent task termination
-  \item Possibility to define language profiles (using pragma restrictions)
+  \item Avoidance of silent task termination;
+  \item Possibility to define language profiles (using pragma restrictions);
   \item Timing events: to define async/time-based events with associated
-        handlers
+        handlers;
   \item Strong type system: possibility to define our own types, also restricting
-  the standard types to check the range of values at static time
-  \item Buffer overflow and dangling reference prevention
+  the standard types to check the range of values at static time;
+  \item Buffer overflow and dangling reference prevention;
   \item Object orientation, packages and child units to organize code in a
-  structured way
+  structured way.
 \end{itemize}
 
 Other important properties of the language that will help us to avoid
 error-prone code are:
 \begin{itemize}
   \item \textbf{Safety}: writing programs with high assurance does not
-        introduce hazards
+        introduce hazards;
   \item \textbf{Reliability}: preventing errors with detection at compile time
-        (if possible)
-  \item \textbf{Static typing}: type checking at compile time
+        (if possible);
+  \item \textbf{Static typing}: type checking at compile time.
 \end{itemize}
 
 \subsubsection{Build}
