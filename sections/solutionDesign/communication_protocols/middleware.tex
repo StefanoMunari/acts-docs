@@ -11,8 +11,32 @@ the computation of the application from the computation of the middleware
 and viceversa. The standard interfaces for communication
 implemented by application layer and middleware layer enables the use of
 heterogeneous technologies for each one. Defining a standard interface
-is fundamental to abstract from the underlying technologies (implementation).
-%TODO: Remove     (implementation)     ?
+is fundamental to abstract from the underlying technologies.
+
+\paragraph{Communication model}
+Even if it is not much elegant, we decided to use raw sockets to exchange
+information between the application and the middleware.
+We chose to do so because the technologies we used for the two layers are very
+different, and therefore we did not find any technology which allowed us to
+operate at a higher level.
+
+In order to avoid the middleware to be application-dependent, we decided to
+attach some headers to the messages we send down from the application to the
+middleware.
+These headers are comprehensive of, but not limited to:
+\begin{itemize}
+  \item \texttt{Recipient} -- if present, provides the logical identifier of an
+    entity the message is addressed to;
+  \item \texttt{RecipientType} -- if present, identifies the type of the
+    \texttt{Recipient} field. The middleware will be completely unaware
+    of the type of the \texttt{Recipient} and \texttt{RecipientType} fields,
+    which will be used just to look up the entity address with a name
+    resolution procedure;
+  \item \texttt{Request} -- identifies the type of the request. The middleware
+    exposes only \texttt{BOOT}, \texttt{TERMINATION} and \texttt{SNAPSHOT} as
+    available services. Any other custom request will be treated as opaque and
+    classified as a pure application-level request.
+\end{itemize}
 
 \subsubsection{Middleware - Middleware}
 
