@@ -24,6 +24,18 @@ As we can see from Figure \ref{fig:sd-sys-arch-overall}, we have:
   \item a \textbf{Frontend}, which offers streaming services to end users.
 \end{itemize}
 
+We believe this architecture can scale in each of its parts: the backend is
+loosely coupled to the application server, which receives updates via a
+publish-subscribe mechanism; the application server is almost stateless, since
+it just has to store the incoming information from the backend to a database
+and to keep very little information for each connected user.
+
+We will try to make the backend respect good architectural principles like
+transparency at our best: for example, the middleware will have to be unaware
+of the specific domain of our application logic, and at the same time we will
+assume that the application exposes a generic-enough interface for operations
+like boot or termination.
+
 Each one of these architectural macro-components can be distributed as well: we
 focused our efforts on distributing the backend over multiple computation nodes
 by using a \textit{2D-wrap-around topology}.
