@@ -1,10 +1,19 @@
 \subsubsection{Termination}
+
 When describing the shutdown of the whole system, we assumed the application
 terminates gracefully.
 In this section we show the algorithm we devised to achieve this goal.
 
 As we can see from figure \ref{fig:app-proc-tree}, the termination follows the
 opposite order of the bootstrap.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.4,keepaspectratio]
+    {images/solution/app_proc_tree.eps}
+  \caption{Application Process Tree}
+  \label{fig:app-proc-tree}
+\end{figure}
 
 %TODO: Review termination process
 \begin{enumerate}
