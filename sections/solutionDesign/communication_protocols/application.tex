@@ -19,16 +19,16 @@ easily substitute technologies of the same level.
 The following sub-layers compose Interface Layer:
 
 \begin{itemize}
-	\item \textit{Session Layer} --
-	handles remote connections though a TCP socket;
-	\item \textit{Presentation Layer} --
-	handles messages formats and conversions;
-	\item \textit{Service Layer} --
-	implements an event loop with a worker pool and different kind of queues
-	for the requests (i.e. synchronous and asynchronous). It converts the
-	requests into procedure calls by leveraging a skeleton object.
-	Also, it offers the specular service through a stub object and a pipeline,
-	necessary to build specific remote requests.
+  \item \textit{Session Layer} --
+  handles remote connections by means of a TCP socket;
+  \item \textit{Presentation Layer} --
+  handles messages formats and conversions;
+  \item \textit{Service Layer} --
+  implements an event loop with a worker pool and different kind of queues
+  for the requests (i.e. synchronous and asynchronous). It converts the
+  requests into procedure calls by leveraging a skeleton object.
+  Also, it offers the specular service through a stub object and a pipeline,
+  necessary to build specific remote requests.
 \end{itemize}
 \input{sections/solutionDesign/communication_protocols/app-bootstrap.tex}
 \input{sections/solutionDesign/communication_protocols/app-termination.tex}
