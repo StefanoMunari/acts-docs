@@ -4,7 +4,7 @@
 
 \subsubsection{Solution to Concurrency Problems}
 
-Our solution addresses the problems we pointed out in section
+Our solution addresses the problems we pointed out in Section
 \ref{sec:pa-concurrency}.
 Therefore here we are providing details on how we tackled the questions we
 made ourselves at the beginning of the development.
@@ -102,9 +102,9 @@ callbacks.
 
 \subsubsection{Solution to Application Problems}
 
-In section \ref{sec:pa-app-problems} some problems inherently related to the
-application domain are explained, and our solution design is thought to solve
-them.
+In Section \ref{sec:pa-app-problems} some problems inherently related to the
+application domain are explained, and here we show how we implemented a
+solution for them.
 
 \paragraph{Pedestrian Deadlock}
 This problem will be avoided ``by design'' by organizing sidewalks in
@@ -116,15 +116,28 @@ agile way.
 Since pedestrians proceeding in opposite directions will not compete to enter
 the same sidewalk stretch, there can not be any pedestrian deadlock.
 
+We re-applied the same trick to crossings (both for pedestrians and bikes): we
+assign an arbitrary direction at initialization time, but we do it
+\textit{only for the topology file which we feed the AI with}: the backend is
+completely unaware of the fact a crossing may have a direction.
+
 \paragraph{Rear-end Collisions}
 If the next road stretch of a moving entity route is already taken, the entity
 will wait for the stretch to become free before moving on.
+This is done by regulating concurrent accesses to a stretch internal state via
+a protected object; as we said before, we don't want our worker threads to
+block on entries, therefore if the stretch is taken then a worker thread will
+be rescheduled for a later moment in time to check again.
 
 \paragraph{Stretch Parallelism}
 One road stretch (e.g., a sidewalk stetch) may contain more than one entity of
 the same type (e.g., pedestrians) at a time.
 Parallelism is achieved by using a system of worker threads thanks to which
 more than one active entity can potentially act in parallel in a district.
+
+Other than this, there is potential parallelism since locks are not held on the
+whole street (/way/lane), but only on the stretch a traveller is willing to
+tread (and for a very short time).
 
 \paragraph{Yield rules}
 The logic to manage yield rules will be encapsulated in crossroads, which has
@@ -136,9 +149,9 @@ beforehand a spot in the destination building garage (which has limited
 capacity), so that when she'll arrives at destination she will find room to
 park her vehicle.
 
-Even if this may not seem a concurrency problem at first glance, it is indeed:
-two travellers may be leaving from each other's destination, and try to book a
-spot in the garages they are leaving.
+Even if this may not seem a concurrency problem at a first glance, it is
+indeed: two travellers may be leaving from each other's destination, and try
+to book a spot in the garages they are leaving.
 Therefore, if they both retain a lock on the garage to hold the vehicle they
 are coming out with, they are exposed to a deadlock hazard.
 
@@ -157,6 +170,22 @@ having it be composed of three protected objects:
 Thanks to this division, we are able to avoid holding a lock on the garage
 object and access its state concurrently without blocking inside the critical
 regions.
+
+\paragraph{Zebra Crossings} \mbox{} \\
+Zebra crossings grants the right of being trod with a higher priority by
+\textit{privileged} entities: in the case of pedestrian crossings, these
+entities are (obviously) pedestrians, meanwhile bikes are the privileged
+entities in the case of bike crossings.
+
+Whenever a privileged entity attempts to tread a crossing stretch, it is
+inserted in a list. If an unprivileged entity tries to enter the same stretch
+after a privileged entity was inserted in the queue, it will not be allowed to
+tread the stretch, meanwhile another privileged entity might enter the stretch
+under the same conditions (and if there is enough room).
+Hence, unprivileged travellers will be able to tread zebra crossing stretches
+only if they enter them \textit{before} a privileged entity performs the same
+request.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TIME
