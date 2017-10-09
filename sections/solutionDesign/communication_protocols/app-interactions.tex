@@ -51,17 +51,10 @@ western road can only enter the southern street on the ``western'' side.
 \paragraph{Entering a building}
 When a moving entity is in the stretch where there is the entrance of a
 building, then it can enter the building.
-% Following: Deprecated stuff -- maybe left for increment
-%If such an entity is a vehicle, it has to wait for all other entities who
-%are in the intermediate stretches to move away.
 
 \paragraph{Exiting a building}
 When a moving entity is exiting a building, it has to check whether there is
 room for it to move out.
-% Following: Deprecated stuff -- maybe left for increment
-%If such an entity is a vehicle, it has to yield the right-of-way to upcoming
-%vehicles and to wait for potential sidewalks or bicycle path stretches facing
-%the building to be empty too.
 
 \paragraph{Choosing to use a vehicle}
 A person $p$ who wants to leave a building $b_1$ to move to $b_2$ can decide
@@ -111,7 +104,6 @@ bus to arrive.
 If this timeout expires, then it continues travelling by foot to the next
 stretch.
 
-% TODO: The method name does not match the actual implementation
 \begin{figure}[H]
   \centering
   \includegraphics[width=\columnwidth,trim=1 0 2 0,clip]
@@ -138,14 +130,10 @@ the last stop $s$ belonging to the route of $p$.
 \paragraph{Respecting street code} Roads and crossroads have to contain
 all the logic which is needed to make moving entities follow the street rules.
 
-% TODO: Review after having implemented it
 \paragraph{Performing an overtaking} This action is possible only when a
 vehicle is able to change lane. It might be triggered by a timeout which
 expires when it is waiting too much for entering the next straightaway stretch.
 
 When a vehicle tries to overtake another one, it will always try to return to
 the lane where it started the operation before entering the last stretch.
-% look for "manovra" translation
-
-% \paragraph{Uber} % Is it a TODO?
 
