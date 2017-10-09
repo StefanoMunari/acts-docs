@@ -144,3 +144,14 @@ features:
         drift across several nodes, though it may not be a the best solution
         to do it.
 \end{itemize}
+
+\subsection{Election protocol}
+Even if we design the election protocol for our system, we did not implement it
+because we did not need it for our system to work in the way we require: in
+fact, we believe a simulation makes sense if all of its nodes are running (and
+therefore the coordinator is always one specific node).
+
+However, in some cases it could be useful to have a way to make the system
+perform distributed operations gracefully even if some nodes are not working.
+In those situations, an election protocol like the one described in Section
+\ref{sec:election} would definitely be useful.
