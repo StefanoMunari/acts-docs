@@ -293,14 +293,31 @@ road user, for example sidewalk segments.
 As shown in figure \ref{fig:pa-sample-street}, there could be more road users
 proceeding in the same direction (F2) or even in opposite directions (A3).
 
-% TODO: Zebra crossings? Or are they clearly a problem without mentioning 'em?
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.6\columnwidth]{images/analysis/crossroads.eps}
   \caption{Sample crossroad}
   \label{fig:pa-sample-crossroad}
 \end{figure}
+
+\paragraph{Zebra Crossings} \mbox{} \\
+
+If there is a zebra crossing on a road segment, pedestrians (or bikes, if it
+is a bike crossings) should be able to tread these stretches if they are free.
+A concurrent attempt of another type of entity (e.g., car) to go over a
+pedestrian crossing should be blocked so that the non-prioritized type of
+entity would give the way to the privileged type of traveller (in our case,
+the pedestrian).
+
+\paragraph{Booking a Park Spot} \mbox{} \\
+
+Even if it is an operation which might entail remote communication, the booking
+of a park spot in another building will incur into concurrency issues when it
+will be actually carried out.
+
+In fact, there is a single garage out of which travellers are exiting, possibly
+at the same time in which a remote booking operation is arriving. Therefore,
+we will need to establish a protocol to regulate the dynamics of a garage.
 
 \paragraph{Yield rules} \mbox{} \\
 
