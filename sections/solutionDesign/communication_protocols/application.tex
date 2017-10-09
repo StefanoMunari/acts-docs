@@ -11,18 +11,19 @@ The Application is composed of two different sub-components (Figure
     middleware).
 \end{itemize}
 
-Thus, the Application Layer communicates with
-other applications transparently without knowing if they are local or remote.
-This approach has been inspired by the TCP/IP and OSI models.
+Thus, the Application Layer is able to communicate with other applications
+transparently without knowing if they are local or remote. This modular
+approach has been inspired by the TCP/IP and OSI models, in which you can
+easily substitute technologies of the same level.
 
 The following sub-layers compose Interface Layer:
 
 \begin{itemize}
-	\item \textit{Session Layer} -
+	\item \textit{Session Layer} --
 	handles remote connections though a TCP socket;
-	\item \textit{Presentation Layer} -
+	\item \textit{Presentation Layer} --
 	handles messages formats and conversions;
-	\item \textit{Service Layer} -
+	\item \textit{Service Layer} --
 	implements an event loop with a worker pool and different kind of queues
 	for the requests (i.e. synchronous and asynchronous). It converts the
 	requests into procedure calls by leveraging a skeleton object.
