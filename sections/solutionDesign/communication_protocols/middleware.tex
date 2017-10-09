@@ -1,5 +1,5 @@
-\subsubsection{Middleware}
-\subsubsubsection{Application - Middleware}
+\subsection{Middleware}
+\subsubsection{Application - Middleware}
 The communication protocol between application layer and middleware layer
 \paragraph{Fire and forget}
 It is a one-way message pattern (the service sends a message without expecting
@@ -14,7 +14,7 @@ heterogeneous technologies for each one. Defining a standard interface
 is fundamental to abstract from the underlying technologies (implementation).
 %TODO: Remove     (implementation)     ?
 
-\subsubsubsection{Middleware - Middleware}
+\subsubsection{Middleware - Middleware}
 
 The communication between the middleware layers implies the design of different
 services. Taking into account the distributed nature of the system we have
@@ -34,7 +34,7 @@ well known patterns used in distributed systems:
   node.
 \end{itemize}
 
-\subsubsubsection{Election Protocol}
+\subsubsection{Election Protocol}
 This protocol tries to resolve the problem of the global consensus in a distributed system through the election
 of a coordinator node. This version tries to improve the efficiency of the bully algorithm through the notification in case of a crash detection. The protocol assumption are as follows:
 
@@ -95,7 +95,7 @@ Notes and side cases:
   election processes.
 \end{itemize}
 
-\subsubsubsubsection{Example}
+\subsubsubsection{Example}
 
 \begin{figure}[H]
   \centering
@@ -111,7 +111,7 @@ Notes and side cases:
   \label{fig:election-protocol-ex}
 \end{figure}
 
-\subsubsubsection{System Boostrap}
+\subsubsection{System Boostrap}
 As pointed out in Problem Analysis (\ref{sec:pa-distribution}), the system has
 to start neatly. Hence, we need to design a protocol in order to accomplish
 this goal.
@@ -163,7 +163,7 @@ As it can be seen in the figure, this behaviour is replicated recursively
 by all nodes of the system. If a node has already received a boot request,
 then it only sends \texttt{Ack\_mw} back.
 
-\subsubsubsection{System Termination}
+\subsubsection{System Termination}
 Also, the system has to shutdown neatly. Therefore we designed a protocol to
 stop the entire system; please notice that this one could be seen as a
 symmetric version of the System Bootstrap protocol.

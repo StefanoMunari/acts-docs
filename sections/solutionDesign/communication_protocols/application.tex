@@ -1,16 +1,22 @@
-\subsubsection{Application}
-The Application is further decomposed into two different layers
-(Figure \ref{fig:sd-app-init}:
+\subsection{Application}
+The Application is composed of two different sub-components (Figure
+\ref{fig:sd-app-init}):
+
 \begin{itemize}
-	\item \textit{Interface Layer} - provides the remote services to Application Layer by acting as an interface
- towards the underlying layers (i.e. middleware).
-	\item \textit{Application Layer} - handles the application logic.
+  \item \textbf{Application Logic Layer}: handles the application logic
+    (slightly abusing the notation, we will often refer to it simply as
+    \textit{Application Layer});
+  \item \textbf{Interface Layer}: provides the remote services to Application
+    Layer by acting as an interface towards the underlying backend layer (i.e.,
+    middleware).
 \end{itemize}
+
 Thus, the Application Layer communicates with
 other applications transparently without knowing if they are local or remote.
 This approach has been inspired by the TCP/IP and OSI models.
-\\
+
 The following sub-layers compose Interface Layer:
+
 \begin{itemize}
 	\item \textit{Session Layer} -
 	handles remote connections though a TCP socket;
