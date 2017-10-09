@@ -17,13 +17,6 @@ each worker thread. In this way, an executor may be able to choose among
 different policies (round robin, fair-weighted queues, ...) to populate the
 work item queues.
 
-\subsection{Dynamically sized thread pool}
-For the sake of simplicity, we set a fixed size (4) for the thread pool of
-worker threads which execute actions of active entities in our system.
-Instead of doing this, we may want to elastically shrink or enlarge the thread
-pool size with respect to different parameters, e.g., the work load or the
-number of cores.
-
 \subsection{More flexible topologies}
 We generated the configuration files for the city instances with a custom
 Python simulator. We built this tool in order to be able to produce large
@@ -155,3 +148,76 @@ However, in some cases it could be useful to have a way to make the system
 perform distributed operations gracefully even if some nodes are not working.
 In those situations, an election protocol like the one described in Section
 \ref{sec:election} would definitely be useful.
+
+\subsection{Test coverage}
+Even if we tested many of the main components of our system, we may want to
+raise the test coverage for the backend.
+
+Some backend packages are not tested at all, but their logic is very simple.
+
+This is true for the middleware too (even if this layer has been thorougly
+tested), in which some tests may gain accuracy by refactoring the code and
+defining the dependencies in the configuration files for \textit{all} the
+modules (as described in this
+\href{http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/}{blog post} by Jos\'e Valim).
+
+\subsection{Code documentation}
+We strove ourselves to make our code easily understandable, also because we
+were working on a small-sized team.
+Therefore, in absence of comments, we tried to make the flow of the code itself
+self-explanatory; on the other hand, we pointed out complex pieces of code and
+add explanation to them in the cases we thought it was not enough clear as it
+was.
+
+Always in this direction, we provided ourselves READMEs and explanations on how
+to build and run our (sub)system(s). Also, the middleware source code is
+accompanied by small guides to set up the configuration variables for the
+different environments (\texttt{dev}, \texttt{test} and \texttt{prod}).
+
+However:
+\begin{itemize}
+  \item middleware modules do not present a per-module documentation;
+  \item middleware modules do not contain CLI\footnote{more precisely
+    \textbf{iex}, that is Elixir's main REPL} examples on how to use them;
+  \item only a fraction of backend packages have a detailed header. We decided
+    to omit it in the case the header was incomplete;
+  \item since the OOP model of Ada is quite distant from the standard ones and
+    Elixir does not have any\footnote{actually there are mixins and
+    interfaces, but we did not use them}, we used a short number of class
+    diagrams to document our architecture.
+\end{itemize}
+
+\subsection{Shared references}
+We implemented (but not used, except for seldom exceptions) a system of shared
+references.
+Shared references are basically smart pointers, i.e., augmented pointers which
+keep count of the variables which are using them: in this way, if no variable
+is no longer referencing a heap region, it can be freed without any risky.
+
+Features like shared references are surely handy in the Ada runtime, since it
+has no garbage collection. None of the implementations we found online were
+actually working, so we implemented ourselves a custom one for non-limited
+types.
+
+Unfortunately, we came up with this idea too late and a refactoring would have
+been too much burdensome: we just integrated shared references for a couple of
+types to evaluate this refactoring, but we eventually gave up to carry on this
+work for the whole application layer.
+In fact, other than being onerous, we would have needed to implement a non
+limited version of shared references (so they can be used along with some
+Ada.Containers) and to implement shared references for limited types.
+
+\subsection{Clock synchronization}
+We did not make any effort to synchronize the clocks of different nodes.
+In the case we did it (maybe sending absolute or relative timestamps to have 
+some kind of alignment), we might have experienced some improvements in
+time-dependent operations.
+
+\subsection{Middleware communication semantics}
+Thanks to RabbitMQ's persistent queues, we managed to have RR1
+(\textit{Request Retry}) as our communication semantics at middleware layer.
+
+We did implement neither DF (\textit{Duplicate Filter}) nor RR2
+(\textit{Request Retransmit}), simply because we implemented the middleware in
+a way we don't need them (it is safe against duplicates and idempotent
+computations).
