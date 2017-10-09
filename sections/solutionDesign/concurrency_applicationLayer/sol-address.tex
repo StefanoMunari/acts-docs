@@ -193,19 +193,24 @@ request.
 
 \subsubsection{Solution to Time Problems}
 
-In section \ref{sec:pa-time-problems} we point out some questions we made
+In Section \ref{sec:pa-time-problems} we point out some questions we made
 ourselves about time management in our simulations; hereafter we provide
-answers on how we designed the flow of time in our system.
+details on how we implemented the time management in our system.
 
 \paragraph{How can we simulate road users proceeding (regarding to travelling
   speed)?}
 Our system will be comprehensive of a scheduler, which executes actions:
-active entities will implement a common interface through which the scheduler
-is able to run them.
+active entities will implement a common interface (\texttt{Active.Agent})
+through which the scheduler is able to run them.
 
 Actions are enqueued by using the package \texttt{Ada.Real\_Time} and one-shot
 timers: when each timer expires, a callback will be responsible of pushing the
 action on a queue consumed by a set of worker threads.
+
+Active entities will therefore be rescheduled with a delay which is inversely
+proportional to their speed. We will use a minimum time period for the maximum
+speed achievable and calculate the deferral time for the next action by
+dividing the speed of a traveller by this value.
 
 \paragraph{How can we simulate crossroads (regarding to road users' arrivals
   time)?}
@@ -213,11 +218,14 @@ Crossroads logic will be managed by means of an Ada Protected Object. By
 carefully handling concurrent accesses to these objects, we aim to provide the
 exact semantic for intersections between roads.
 
+Other than this, each crossroad is regulated by a set of traffic lights. They
+change color as the time flows, and this causes the intersection to activate
+only some of the exits from time to time.
+
 \paragraph{How long do people stay in facilities for? How much precise do these
   intervals have to be?}
-Time spent in facilities is decided arbitrarily as a configuration parameter.
-These time periods will have the best accuracy provided by the resolution
-chosen for the scheduler.
+Time spent in facilities is decided arbitrarily as a fixed configuration
+parameter.
 
 \paragraph{How are semaphores going to be able to synchronize? Which of them
   decide how much time do they have to wait for?}
