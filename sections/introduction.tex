@@ -6,15 +6,21 @@ academic project ``SCD'' (Simulator for Commuters in Districts), a city traffic
 simulator.
 
 \subsection{Product purpose}\label{productPurpose}
-The purpose of this project is to implement a distributed and concurrent city
-traffic simulator along with a user panel through which it is possible to
-watch live simulations.
+The purpose of the project is to implement a distributed and concurrent city
+traffic simulator and provide a user interface through which it is possible to
+select and watch the live simulations.
 
-The simulator is intended to make us reason about several complications that
-are common when developing a both distributed and concurrent system. For
+The simulator is intended to make us reason about several problems that
+are common to most distributed and concurrent systems. For
 example, our system has to boot and terminate gracefully.
 Users of the system can start their own simulations, as well as attach to live
 views of ongoing simulations.
 
-Another challenge we decided to face (in line with the professor) is to have
-a heterogenous system, which is comprehensive of several technologies.
+Furthermore, we build an heterogeneous system.
+Like a surgeon uses different knives to cure his patient, we use different
+technologies to shape our system.
+Indeed, we recognize that different technologies are useful to solve
+different problems. For example, we use Python to easily parse json files,
+Ada to cleanly handle concurrency, Elixir/Erlang to manage
+the distributed part and Docker to ship the whole system as a
+single portable product.
