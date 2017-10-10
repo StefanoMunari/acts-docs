@@ -106,7 +106,7 @@ We abstracted the city structure in the following way:
 \subsection{Distribution}\label{sec:pa-distribution}
 As we pointed out in section \ref{sec:pa-domain}, our system will be composed
 of streets that are joined together by intersections.
-Starting from this, we would like to distribute our system across several
+For scalability reasons, we would like to distribute our system across several
 computing nodes to attenuate the burden of running each simulation on single
 nodes. We can do this by leveraging the knowledge we have at configuration time
 about the geographical disposition of the structural macro-units of a city,
@@ -114,16 +114,19 @@ that is, street and intersections. In fact, we expect high interaction between
 \textit{adjacent} structural macro-units.
 More precisely, we will call \textbf{district} a set of streets and
 intersections. Therefore, we will divide a city in districts and then we will
-make them run in separated computing nodes.
+make them run in separated computing nodes. This definition lets us to achieve
+a fine grained scalability at this level of abstraction because it is not
+fixed but gives us only the necessary information to map a slice of the city
+into a computational node.
 % TODO: @Stefano, what do you say about the term "computing node"? Is it ok
-%                 for a container?
+%                 for a container? Yep [Stefano]
 
 Hence, in this section we will discuss about how we thought about distribution
 issues.
 
 \paragraph{Requirements} \mbox{} \\
 
-In the following list we will express qualities our system should have to
+In the following we will describe the qualities which our system should have to
 effectively leverage distribution.
 
 \begin{itemize}
@@ -132,33 +135,36 @@ effectively leverage distribution.
   balancing in a better way if it allots partition of the city to different
   nodes rather than handing out all the load to a single node. This is
   specifically true in the case of special events, when the traffic load will
-  greatly increase and the system must prove to be scalable
+  greatly increase and the system must prove to be scalable;
 \item The system should appear as a single unit to its end user, in order to
-  have an acceptable degree of transparency
+  have an acceptable degree of transparency;
 \item The system might be composed of heterogeneous parts: whilst this issue
-  is not mandatory, it makes the system more realistic
-\item The system should be scalable: considering the nature of our project (a
-  city simulator), we would like it to be scalable in possible directions
-  (e.g., number of road users, city size, etc.)
+  is not mandatory, it makes the system realistic;
+\item The system should be scalable: considering the nature of our project,
+we would like it to be scalable in possible directions
+  (e.g., number of road users, city size, etc.);
 \item The possibly scalable components of the system should be decoupled as
-  much as possible from others
+  much as possible from others;
 \item There should be a clearly defined protocol for the communication between
-  each part of the system
+  each part of the system;
 \item When possible, the communication between two nodes of our system will be
-  asynchronous: this quality leverages scalability
+  asynchronous: this quality leverages scalability;
 \item The system should boot/terminate consistently and ordered: with a fixed
   algorithm it is easier to ensure that all nodes are ready to execute/stop the
-  system
-\item The system should be able to save a consistent global state
-\item The system should be fault tolerant, \emph{reactive} to possible faults
+  system;
+\item The system should be able to save a consistent global state;
+\item The system should be fault tolerant, \emph{reactive} to possible faults;
 \item The system should be able to replicate and/or restore parts of itself,
-  in order to be more fault tolerant
+  in order to be more fault tolerant;
 \item The system should be splitted in isolated parts, in order to isolate
-  possible faults
+  possible faults;
 \item The system should be able to locate each part of itself through a system
-  of unique names
-\item The replication/restoration operations should be transparent to the end
-  user
+  of unique names;
+\item The replication/reactivation operations should be transparent to the end
+  user;
+\item The agents of the system should travel in a local district or in different
+districts during their journey. We must ensure that each agent can find a path
+without incurring in a perpetual search if a path does not exists.
 \end{itemize}
 
 \paragraph{Problems} \mbox{} \\
@@ -175,8 +181,8 @@ Several problems arose from this issues:
 \item The system might be seen in a control panel as if it were a film:
   \begin{itemize}
   \item what will it be able to show?
-  \item will it offer different modalities an user can consume?
-  \item how can we make the control panel see the traffic simulator as a
+  \item will it offer different views an user can consume?
+  \item how can the control panel show the traffic simulator as a
     single unit?
   \item will the stream show live events, deferred events or both?
   \end{itemize}
@@ -185,10 +191,12 @@ Several problems arose from this issues:
   entities should we place in each node?
 \item How errors will be managed by our system so that it can reach a certain
   degree of fault tolerancy?
-\item How can we cope with well-known distributed systems network-related
+\item How can we cope with common distributed systems network-related
   problems\footnote{considering \href{https://blogs.oracle.com/jag/resource/Fallacies.html?cm_mc_uid=82650292107114582847614&cm_mc_sid_50200000=1458564821}{The eight fallacies of distributed computing}: excluding the point 4,5,6
   since the topology of a city is statically defined and security issues are
   out of the project's scope}?
+\item How can we guarantee a local agent to always find a path in
+a city distributed in different nodes?
 \item Are the answers at the previous questions providing a scalable solution?
 \end{itemize}
 
@@ -206,27 +214,27 @@ of the project.
 
 \paragraph{Requirements} \mbox{} \\
 
-In the following list we will express qualities our system should have to
+In the following we list the qualities which our system should have to
 leverage concurrency.
 
 \begin{itemize}
-\item The system will present concurrency between some of its entities
-\item The critical sections of each entity need to be identified
-\item The critical sections of each entity  must be accessed in mutual
-  exclusion
-\item Time spent in critical sections will be reduced as much as possible
+\item A set of entities of the system should be concurrent;
+\item The critical sections of each entity need to be identified;
+\item The critical sections of each entity must be accessed in mutual
+  exclusion;
+\item Time spent in critical sections will be reduced as much as possible;
 \item Blocking operations that are placed inside critical sections will be
-  considered errors
-\item We have to be able to show evidence of the fact that our system avoids
-  deadlocks and livelocks
-\item Causal dependencies between entities have to be outlined
+  considered errors;
+\item We must show evidence of the fact that our system avoids
+  deadlocks and livelocks;
+\item Causal dependencies between entities have to be outlined;
 \item Each valid state of an entity should be studied carefully so that
-  protocols between entities operate in a correct way
-\item Non-valid entity states should be pointed out so that we are able to
-  think possible countermeasures to recover a preceeding valid state
+  protocols between entities operate in a correct way;
+\item Invalid entity states should be pointed out. Thus, it will be easier to
+  think about possible countermeasures to recover a preceding valid state;
 \item Since in Section \ref{sec:pa-distribution} we express our willingness to
   be capable of obtaining consistent snapshots, each entity should provide a
-  means to make a (possibly concurrent) dump of its internal state
+  means to make a (possibly concurrent) dump of its internal state.
 \end{itemize}
 
 \paragraph{Problems} \mbox{} \\
@@ -247,7 +255,7 @@ Concurrency requirements led us to make some questions about concurrency.
   \end{itemize}
 \item Should we use any formal technique to proof the correctness
 of the system properties relating to concurrence?
-\item Do we have the possibility to incur a non-valid state? If so, how do we
+\item Is there any chance to incur in an invalid state? If so, how do we
   handle the problem?
 \item How can we avoid possible starvation scenarios?
 \end{itemize}
