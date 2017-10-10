@@ -197,6 +197,8 @@ Several problems arose from this issues:
   out of the project's scope}?
 \item How can we guarantee a local agent to always find a path in
 a city distributed in different nodes?
+\item Which role does the time plays in a distributed system? Do we have to
+worry about it? If so, how do we model it in our system?
 \item Are the answers at the previous questions providing a scalable solution?
 \end{itemize}
 
@@ -266,11 +268,11 @@ of the system properties relating to concurrence?
 
 \subsection{Application Problems}\label{sec:pa-app-problems}
 
-The way we abstracted city traffic bring new issues out and the way we can
-resolve them is not straightforward.
+The way we abstracted city traffic brings new issues whose solution
+is not straightforward.
 We will use figure \ref{fig:pa-sample-street} and figure
-\ref{fig:pa-sample-crossroad} to show examples in which tangled situations we
-found out lie.
+\ref{fig:pa-sample-crossroad} to show examples in which the tangled situations
+we found out lie.
 
 \begin{figure}[H]
   \centering
@@ -289,9 +291,9 @@ pedestrians in F6 can not proceed in an already full segment F7 and viceversa.
 \paragraph{Rear-end Collisions} \mbox{} \\
 
 Look at motor vehicles' lane segments D4 and D5. If car in D4 is going too
-fast, there is a risk that it is going to collide with car in D5.
+fast, it could collide with car in D5.
 
-Thus, we will have to find a solution to avoid rear-end collisions.
+Thus, we have to find a solution to avoid rear-end collisions.
 
 \paragraph{Segment Parallelism} \mbox{} \\
 
@@ -312,10 +314,10 @@ proceeding in the same direction (F2) or even in opposite directions (A3).
 
 If there is a zebra crossing on a road segment, pedestrians (or bikes, if it
 is a bike crossings) should be able to tread these stretches if they are free.
-A concurrent attempt of another type of entity (e.g., car) to go over a
-pedestrian crossing should be blocked so that the non-prioritized type of
-entity would give the way to the privileged type of traveller (in our case,
-the pedestrian).
+A concurrent attempt of another type of entity (e.g. car) to go over a
+pedestrian crossing should be blocked. Thus, the type of
+entity with the minor priority would give the way to the
+privileged one (i.e. the pedestrian).
 
 \paragraph{Booking a Park Spot} \mbox{} \\
 
@@ -323,9 +325,10 @@ Even if it is an operation which might entail remote communication, the booking
 of a park spot in another building will incur into concurrency issues when it
 will be actually carried out.
 
-In fact, there is a single garage out of which travellers are exiting, possibly
-at the same time in which a remote booking operation is arriving. Therefore,
-we will need to establish a protocol to regulate the dynamics of a garage.
+Indeed, consider a single garage scenario where a defined number of travellers
+are exiting from the garage and, at the same time, multiple remote booking
+operation are delivered to the aforementioned garage. Clearly,
+it is necessary to define a protocol to regulate the described scenario.
 
 \paragraph{Yield rules} \mbox{} \\
 
@@ -353,9 +356,8 @@ issues:
 \item How can we simulate road users proceeding (regarding to travelling
   speed)?
 \item How can we simulate crossroads (regarding to road users' arrivals time)?
-\item How long do people stay in facilities for? How much precise do these
-  intervals have to be?
-\item How are semaphores going to be able to synchronize? Which of them decide
-  how much time do they have to wait for?
+\item How long do people stay in facilities for?
+How much fine grained do these intervals should be?
+\item How can the traffic lights get synchronized?
 \item When is it suitable to use logical clocks instead of local system clock?
 \end{itemize}
