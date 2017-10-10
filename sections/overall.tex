@@ -79,7 +79,7 @@ services enables our system to scale horizontally. Indeed, each service is wrapp
 into a container such that we can replicate it when needed. This is the major advantage
 of this approach. The drawback consists in the complexity to manage a set of decoupled
 services instead of a monolithic one. Due to this we need an external entity which
-will have the responsibility to manage and monitor all the services: e.g. when a node crashes it should reschedule another one or reactivate it. The orchestrator will
+will have the responsibility to manage and monitor all the services: e.g., when a node crashes it should reschedule another one or reactivate it. The orchestrator will
 manipulate the \textit{node} abstraction level, without knowing anything about what is inside each node. This is extremely important because it lets us to assign
 a single responsibility to the orchestrator and clearly separate the services from
 the orchestrator.
