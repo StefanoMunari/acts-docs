@@ -2,9 +2,11 @@
 As we previously said, our system is a simulator whose computation spreads
 across multiple nodes.
 
-We thought it was reasonable to divide our system in four subsystems, in order
-to reason more easily about it. An overall view of our architecture is depicted
-in Figure \ref{fig:sd-sys-arch-overall}:
+\subsection{Macro components}
+
+We thought it was reasonable to divide our system in four macro components,
+in order to reason more easily about it. An overall view of our architecture
+is depicted in Figure \ref{fig:sd-sys-arch-overall}:
 
 \begin{figure}[H]
   \centering
@@ -14,43 +16,50 @@ in Figure \ref{fig:sd-sys-arch-overall}:
   \label{fig:sd-sys-arch-overall}
 \end{figure}
 
-As we can see from Figure \ref{fig:sd-sys-arch-overall}, we have:
+As we can see from Figure \ref{fig:sd-sys-arch-overall}, the system consists of:
 
 \begin{itemize}
-  \item a \textbf{Backend}, composed by the \textbf{Application} and the
+  \item \textbf{Backend} - composed by the \textbf{Application} and the
     \textbf{Middleware} layers;
-  \item the \textbf{Application Server}, which is responsible of handling
+  \item \textbf{Message broker} - which is responsible to filter, format
+  and eventually enrich the messages which flow between the other components;
+  \item \textbf{Application Server} - which is responsible of handling
     information that arrives from the backend and to serve it to the frontend;
-  \item a \textbf{Frontend}, which offers streaming services to end users.
+  \item \textbf{Frontend} - which offers streaming services to end users.
 \end{itemize}
 
-We believe this architecture can scale in each of its parts: the backend is
-loosely coupled to the application server, which receives updates via a
-publish-subscribe mechanism; the application server is almost stateless, since
-it just has to store the incoming information from the backend to a database
-and to keep very little information for each connected user.
+We believe this architecture can scale in each of its parts: the backend and
+the application server are loosely coupled. They communicate using a
+publish-subscribe mechanism, so they do not know directly each other but their
+communication is managed through a set of different queues.
+The application server keeps very little information for
+each connected user and is linked to a persistent separated component
+which will eventually store set of specific messages
+(if a persistent consumer is enabled).
 
-We will try to make the backend respect good architectural principles like
-transparency at our best: for example, the middleware will have to be unaware
-of the specific domain of our application logic, and at the same time we will
-assume that the application exposes a generic-enough interface for operations
-like boot or termination.
+We will try to make the backend transparent to the middleware and vice versa.
+The middleware has to be unaware
+of the specific domain of our application logic.
+Thus, the application should expose an interface for the generic operations of
+a computational node, like boot and shutdown.
 
-Each one of these architectural macro-components can be distributed as well: we
+Each one of these architectural macro components can be distributed as well: we
 focused our efforts on distributing the backend over multiple computation nodes
 by using a \textit{2D-wrap-around topology}.
 We thought this is an interesting approach to distribute our system since it
 fits perfectly the way we can divide a simulated city, besides the fact this is
 a topology which scales well when it comes to distribute network traffic.
 
-In particular, we think this topology fits our needs because in our city the
-most frequent application-level actions which spans over multiple nodes are
-represented by a traveller which moves from a district to (obviously) an
-adjacent one to continue its travel.
-Therefore, if adjacent backend nodes contain adjacent districts we are able to
+In particular, we think this topology fits our needs. Indeed, the
+most frequent application-level actions are
+represented by a traveller which moves from a district to an
+adjacent one to continue its travel. Obviously this actions span over
+multiple nodes.
+
+Therefore, if adjacent backend nodes contain adjacent districts, we are able to
 avoid a significant amount of unnecessary network traffic. In Figure
-\ref{fig:sd-sys-arch-topology} we show a sample city, in which each district
-$D_i$ is a backend node and the edges starting from each district are the links
+\ref{fig:sd-sys-arch-topology} we show a sample city in which each district
+$D_i$ is a backend node, the edges starting from each district are the links
 between backend nodes:
 
 \begin{figure}[H]
@@ -59,4 +68,26 @@ between backend nodes:
     {images/solution/topology.eps}
   \caption{Sample topology for our system}
   \label{fig:sd-sys-arch-topology}
+\end{figure}
+
+
+\subsection{Microservice architecture}
+
+We further decoupled each macro component into a set of isolated services
+which communicate by exchanging messages. The decoupling into micro isolated
+services enables our system to scale horizontally. Indeed, each service is wrapped
+into a container such that we can replicate it when needed. This is the major advantage
+of this approach. The drawback consists in the complexity to manage a set of decoupled
+services instead of a monolithic one. Due to this we need an external entity which
+will have the responsibility to manage and monitor all the services: e.g. when a node crashes it should reschedule another one or reactivate it. The orchestrator will
+manipulate the \textit{node} abstraction level, without knowing anything about what is inside each node. This is extremely important because it lets us to assign
+a single responsibility to the orchestrator and clearly separate the services from
+the orchestrator.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5,keepaspectratio]
+    {images/solution/microservices.eps}
+  \caption{The microservice architecture of the city system}
+  \label{fig:sd-sys-arch-micro}
 \end{figure}
