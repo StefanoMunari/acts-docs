@@ -74,5 +74,22 @@ entity is handled:
 
 \paragraph{Callbacks}
 
-% TODO: Fix
-BLA BLA BLA CALLBACKS...
+Here we will spend two words about callbacks, which are mentioned in a Q\&A
+entry of Section \ref{sec:sol-conc-problems}; we do it here because we decided
+to put them in the scheduling package, and also because they fit in after
+having explained how the scheduler works.
+
+As we can see from the code, we implemented four callbacks (i.e., two pairs).
+We felt the necessity to introduce this mechanism in our system to avoid
+blocking on synchronous remote calls.
+In fact, if we chose to block on synchronous calls, there could be an item in
+the work queue awaiting to be executed with all the worker threads currently
+blocked on several remote calls.
+
+It is glaring that this behaviour would sensibly harm concurrency: therefore we
+decided to separate the blocking part of a remote call and the actions to take
+in response to a given outcome for it, like the NodeJS runtime does.
+We bound these pairs of callbacks to an asynchronous queue triggered by network
+interruptions, thus being able to free the worker thread and minimizing the
+blocking overhead.
+% TODO: Retry transmission?
