@@ -19,8 +19,9 @@ We can see that the Interlayer service embodies two flows of information, each
 one directed in the opposite direction as the other (the orange band represents
 the middleware).
 
-The AppMwInterface module just listens on a socket waiting for messages from
+The AppMwInterface module just listens on a port waiting for messages from
 the application layer and passes them to other services in the middleware.
+It is capable of receiving different messages in parallel.
 
 The MwAppInterface receives requests by other middleware services to send
 messages to the application layer. Instead of blocking the requesting process on
@@ -34,6 +35,8 @@ Since some runtimes may handle strings in a different format with respect to
 what Elixir does, we defined a \texttt{Formatter} behaviour for cope with these
 issues.
 We implemented a couple of formatters, one for Elixir (it does nothing but
-return the message as it is) and one for Ada.
+return the message as it is) and one for Ada. In particular, Ada does not
+output the actual character sequence when using \texttt{'Output}: in this case
+the receiving sockets reads additional meta-information along with the string.
 
 %TODO: Bla bla bla describe
