@@ -24,7 +24,6 @@ reported in the agenda.
 
 \paragraph{Execution}
 
-% TODO: Fix
 In Figure \ref{fig:schedule-execution} we show how a request to schedule an
 entity is handled:
 
@@ -51,8 +50,27 @@ entity is handled:
 
 \paragraph{Termination}
 
-% TODO: Fix
-BLA BLA BLA TERMINATION...
+In Figure \ref{fig:schedule-termination} we show how a request to schedule an
+entity is handled:
+
+\begin{enumerate}
+  \item First, the \texttt{Scheduler} asks the \texttt{Executor}s to shutdown;
+  \item \texttt{SimpleExecutor} stops itself and then loads, in the work queue,
+    as many poison pills as many linked worker threads;
+  \item Eventually each worker thread will fetch a poison pill from the work
+    queue;
+  \item When trying to consume a poison pill, a worker thread will stop
+    itself and will notify a proxy between it and the Executor;
+  \item Finally, when all the workers are stopped, the Executor is unblocked
+    from the synchronous entry provided by the Proxy.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5,keepaspectratio]{images/solution/app/backend/scheduling-termination.eps}
+\caption{Scheduling termination}
+\label{fig:schedule-termination}
+\end{figure}
 
 \paragraph{Callbacks}
 
