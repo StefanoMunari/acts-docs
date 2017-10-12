@@ -1,0 +1,11 @@
+\subsection{Backend::Cache}
+Sometimes it has been useful and convenient to store small pieces of
+information in a fast and lightweight cache, which implements the CRUD basic
+operations on common data structures.
+
+We chose to use Redis for this purpose, because it's very simple and handy to
+use and it had all the features listed above.
+Also, since we take advantage of caching mechanisms from the middleware layer,
+we looked from a technology which was easy to integrate with Elixir, and this
+is true for Redis thanks to Redix (an adapter developed by one Elixir
+development team member).
