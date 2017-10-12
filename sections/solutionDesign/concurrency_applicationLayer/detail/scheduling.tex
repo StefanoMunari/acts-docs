@@ -1,7 +1,12 @@
 \subsubsubsection{Scheduling}
-The scheduling package contains all the logic needed to have static threads
+The scheduling package contains all the logic needed to have worker threads
 which consume work items, which correspond to the actions that occur in our
 simulations.
+
+The scheduling system instantiates two executors, one for the travellers and
+one for traffic lights: this is done to minimize time drifts among different
+traffic lights (which can toggle their state smoother, without having to
+compete with travellers to be dequeued and executed).
 
 In Figure \ref{fig:schedule-workflow} we show how a request to schedule an
 entity is handled:
@@ -28,3 +33,5 @@ entity is handled:
 \caption{Schedule workflow}
 \label{fig:schedule-workflow}
 \end{figure}
+
+% TODO: Talk about callbacks
