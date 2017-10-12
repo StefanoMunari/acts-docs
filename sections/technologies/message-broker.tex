@@ -9,10 +9,18 @@ We chose RabbitMQ over other options for several reasons:
   \item \textit{Important pedigree}: RabbitMQ is known to be among the
         most widely deployed open source message brokers. In fact, even if it
         is written in Erlang (which is an uncommon technology when considering
-        the whole software industry), RabbitMQ is widespread as it provides many
-        tools for the most popular programming languages;
+        the whole software industry), RabbitMQ is widespread as it provides
+        many tools for the most popular programming languages;
   \item \textit{Easy and light}: RabbitMQ is both easy to deploy and light,
-  	causing very little overhead;
+    causing very little overhead;
   \item \textit{Configurable}: RabbitMQ supports several messaging protocols.
-        Nevertheless, we will use the (common) AMQP 0-9-1 protocol.
+        Nevertheless, we will use the (common) AMQP 0-9-1 protocol;
+  \item \textit{Simple to integrate}: as said before, RabbitMQ is written in
+        Erlang and therefore it is straightforward to integrate it in an Elixir
+        system.
+        Other than this, there has been recent work in the Elixir community to
+        provide wrappers for RabbitMQ, with \textbf{Wabbit} among these. Wabbit
+        is a RabbitMQ adapter which is built on top of GenStage, allowing the
+        programmer to just think of how to process an incoming stream of
+        messages.
 \end{itemize}
