@@ -7,7 +7,21 @@ The scheduling system instantiates two executors, one for the travellers and
 one for traffic lights: this is done to minimize time drifts among different
 traffic lights (which can toggle their state smoother, without having to
 compete with travellers to be dequeued and executed).
+However, these two executors are the same package, just instantiated twice with
+a different number of worker threads.
 
+We will present our scheduling component by first describing how our system
+starts, then how it executes work items and how it stops.
+Finally, we will have a quick look at the \texttt{Callback} hierarachy.
+
+\paragraph{Start}
+
+% TODO: Fix
+BLA BLA BLA START...
+
+\paragraph{Execution}
+
+% TODO: Fix
 In Figure \ref{fig:schedule-workflow} we show how a request to schedule an
 entity is handled:
 
@@ -34,4 +48,12 @@ entity is handled:
 \label{fig:schedule-workflow}
 \end{figure}
 
-% TODO: Talk about callbacks
+\paragraph{Termination}
+
+% TODO: Fix
+BLA BLA BLA TERMINATION...
+
+\paragraph{Callbacks}
+
+% TODO: Fix
+BLA BLA BLA CALLBACKS...
