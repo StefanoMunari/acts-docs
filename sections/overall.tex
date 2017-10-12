@@ -21,8 +21,10 @@ As we can see from Figure \ref{fig:sd-sys-arch-overall}, the system consists of:
 \begin{itemize}
   \item \textbf{Backend} - composed by the \textbf{Application} and the
     \textbf{Middleware} layers;
-  \item \textbf{Message broker} - which is responsible to filter, format
-  and eventually enrich the messages which flow between the other components;
+  \item \textbf{(Message) Broker} - which is responsible to filter, format
+    and eventually enrich the messages which flow between the other components.
+    Please keep in mind that this component is \textit{not} RabbitMQ itself,
+    but an architectural component we decided to put in our system;
   \item \textbf{Application Server} - which is responsible of handling
     information that arrives from the backend and to serve it to the frontend;
   \item \textbf{Frontend} - which offers streaming services to end users.
@@ -42,6 +44,15 @@ The middleware has to be unaware
 of the specific domain of our application logic.
 Thus, the application should expose an interface for the generic operations of
 a computational node, like boot and shutdown.
+
+The message broker contributes to the scalability of the system as well: if we
+were to replicate application servers to cope with a rising amount of
+sessions, we could instantiate more than one broker per city (actually, one
+per application server connected to a specific city).
+Also, these brokers provide a useful means to enrich the topic of the messages
+by inspecting their content. Therefore, (probably) lighter versions of the
+same incoming message, but with a more specific topic, will be sent out by the
+broker towards to the application server.
 
 Each one of these architectural macro components can be distributed as well: we
 focused our efforts on distributing the backend over multiple computation nodes
