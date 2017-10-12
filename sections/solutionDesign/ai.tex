@@ -1,1 +1,15 @@
 \subsection{Artificial Intelligence (AI)}
+
+Our AI offers three path finding algorithms:
+\begin{itemize}
+  \item Greedy Search;
+  \item Uniform Cost Search;
+  \item A* Search.
+\end{itemize}
+
+The first one is incomplete and not optimal because of the local search which looks only one step ahead (visiting
+only the neighbors). The last two algorithm are both complete and optimal under certain assumptions. They have been defined
+to guarantee our agents to always find the best possible path with the minimum number of visited nodes in the search graph.
+To guarantee completeness we need to assume that each graph is a strong connected component. Basically, it means that there are no isolated components. Thus, the agent knows that there will always be at least a path between the source and the destination of his plan.
+Furthermore, our AI considers not grid based maps: which means that some common heuristics are not applicabile a priori (e.g. manhattan distance, euclidean distance). Also, since grid based maps are a subset of all possible maps we can say that our AI is independent on the map toopology. To solve the path finding problem we reason about the specific domain and its abstractions in terms of infrastructure builduing blocks and travellers. We found an admissibile and consistent heuristic for A* and in general other informed algorithms. To concretely guarantee that the assumptions hold for all the graph configurations we apply the Tarjan
+algorithm. Tarjan validates our graphs at build time by ensuring that there is only one strong connected component for each graph, otherwise it reports and error and shows the isolated component. Finally, the AI is agent independent which means that we can use it to calculate the path of different kinds of agents: bycicles which move on bycicle lanes, pedestrians who move on sidewalks and motor vehicles which move on roads.
