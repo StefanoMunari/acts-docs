@@ -221,3 +221,9 @@ We did implement neither DF (\textit{Duplicate Filter}) nor RR2
 (\textit{Request Retransmit}), simply because we implemented the middleware in
 a way we don't need them (it is safe against duplicates and idempotent
 computations).
+
+\subsection{High-level automation tool}
+Most of our system is built and run by means of scripts which have a very
+low-level feel. We could have gone instead for sophisticated build automation
+systems like Chef or Puppet, but we deliberately did not because they would
+have introduced further dependencies on the user side.
