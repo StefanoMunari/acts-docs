@@ -1,5 +1,6 @@
 {
 	"travellerId": <number>, //O
 	"districtId": <number> //O
+	"passengers": Array<number>
 }
 // O = campo obbligatorio
