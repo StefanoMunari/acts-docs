@@ -4,6 +4,10 @@ is very simple, since it just has an interface (\texttt{MQProxy}) and its
 implementation, \texttt{RabbitSender}.
 
 Basically, a \texttt{RabbitSender} takes a message as input and guarantees to
-send it to the intended recipient, which is another middleware node.
-At the same time, it also sends any message to an exchange on which brokers to
-the application server will be listening for updates.
+send it to the intended recipient, which could be middleware node or a
+RabbitMQ pub/sub queue directed to our brokers.
+\texttt{RabbitSender}s are able to make this decision by simply looking if the
+messages they are handling are events or node-to-node communication. In the
+first case (events), messages are propagated towards the frontend of the
+application (and therefore to the brokers). In the other case, messages are
+just sent to the node the sender finds in the recipient field of the message.
