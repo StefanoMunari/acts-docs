@@ -1,0 +1,24 @@
+\subsection{Broker}
+
+We decided to put an intermediate broker between the middleware(s) and the
+application server(s) to make our system more scalable.
+
+In fact, messages outgoing from the middleware suffers of three unconveniences:
+
+\begin{enumerate}
+  \item \textit{Weight} -- middleware messages carry a significant amount of
+    information, because middleware does not perform deep inspection of the
+    payload (the application domain is completely transparent) and, therefore,
+    messages are forwarded as they are received from the upper application
+    layer;
+  \item \textit{Poor semantics} -- middleware outputs events with its best
+    effort, but it can only read the headers of application layer messages.
+    Therefore, messages' topics are just a concatenation of little detailed
+    information obtained by the application.
+\end{enumerate}
+
+Our message broker tries to overcome these problems by performing deep
+inspection on the payloads of the messages, filtering information from them and
+building more meaningful topics for the messages (we will provide more details
+% TODO: The following yields ??
+in Section \ref{sec:impl-broker}).
