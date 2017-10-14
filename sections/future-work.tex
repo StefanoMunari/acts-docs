@@ -241,3 +241,15 @@ Therefore, we were not able to decouple these two components with little
 effort: instead, we think that it would probably be simpler if we built
 ourselves the frontend stack in order to have more control on how to separate
 the different parts in several Docker containers.
+
+\subsection{On-demand transmissions}
+Our simulator currently streams only live events, i.e., ongoing city traffic
+simulations. However, a feasible alternative could be to stream the ``movie''
+of an already-executed simulation upon a user request.
+This might be achieved by resuming simulation messages from a database and
+providing them to the user in such a way that she does not notice the
+simulation is not live streamed.
+
+A further possibility may be to provide enhanced capabilities to our browser
+player, which could also rewind the transmission of a simulation or
+fast-forward to the present moment, if it is live.
