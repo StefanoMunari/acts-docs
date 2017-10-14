@@ -36,3 +36,36 @@ It does so with the help of a series of Extractors modules\footnote{we did not
 defined an Elixir Protocol, i.e., intereface for them but it would have been
 quite easy} which actuate the process. There is also a \texttt{VoidExtractor}
 module, which basically is a fallback case for an unidentified request.
+
+\paragraph{Achieving transparency}
+In order to have a glimpse of the reason why we say the application is
+transparent to the middleware and viceversa, here we will make an example which
+involves the broker subsystem.
+
+When travellers manage to tread a new piece of infrastructure, they publish an
+event by issuing an asynchronous request to the middleware. However, they do it
+without knowing (or specifying) if the tread operation was local or remote,
+because (despite the qualified name of the Callbacks package) travellers just
+state a Tread operation was completed.
+For what concers the middleware, it sees an asynchronous request named
+``TREAD''. Since the middleware does not know anything about the application
+logic domain, it just recognizes an asynchronous event was issued by the
+application layer and forwards the message to our broker.
+The broker subsystem is instead able to distinguish if a movement was local or
+remote by means of a little hack:
+
+\begin{itemize}
+  \item the application layer states the operation involves a treadable entity,
+    and it refers to it by its logical identifier
+  \item upon the message reception, the middleware looks up for the recipient
+    node by performing name resolution on the identifier specified in the
+    message headers
+  \item the middleware then appends the recipient and sender fields to the
+    (middleware-layer) message, which gets forwarded to the broker. We do not
+    lose transparency, since the recipient and sender fields carry information
+    about the backend nodes involved in the operation;
+  \item if the broker reads two different values for the sender and the
+    recipient fields, then it knows this is a remote operation, whilst in the
+    case the sender and the recipient fields are equal it knows a traveller did
+    not move to another district.
+\end{itemize}
