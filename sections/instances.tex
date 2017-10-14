@@ -1,0 +1,43 @@
+\section{City Instances}
+
+In order to use valid instances for our simulations, we automatized the build
+of configuration files for a given city with a Python program (Slartibartfast)
+and a collection of Bash scripts.
+
+Slartibartfast does its work in two steps: in the first it creates
+descriptive information about the city (e.g., number of streets, their
+disposition, number of pedestrians, ...) and then it creates JSON configuration
+files that are valid with respect to the input generated during the first step.
+
+These cities are all structured as a grid, therefore:
+
+\begin{itemize}
+    \item in each corner two streets meet;
+    \item at the edges, three streets meet (the two on the edge and other one
+        towards the inside of the grid);
+    \item otherwise, intersections have four exits.
+\end{itemize}
+
+Another simplification we adopt is to always have a street composed in the
+following way:
+
+% TODO: Replace with figure?
+
+\begin{verbatim}
+F0 F1 B0 B1 R0 R1 B2 B3 F2 F3
+\end{verbatim}
+
+Where \texttt{FX} are sidewalk lanes, \texttt{BX} are bikeway path lanes and
+\texttt{RX} are roadway lanes. Furthermore, two lanes can be treaded in the
+same direction iff their suffixes have the same parity (e.g., B0 and B2
+could be both directed from North to South, whereas B0 and B3 have opposite
+orientation).
+
+Slartibartfast produces JSON with possible redundant information: this has
+been handy to deal with the different needs of different parts of our system.
+Clearly, some information can be completely ignored by some architectural
+macro-components: for example, the backend application layer is completely
+unaware of the disposition of the ways in a street.
+
+Finally, a collection of scripts copies all the information to our source code
+repository, so it becomes available to us for running simulations.
