@@ -102,3 +102,38 @@ the orchestrator.
   \caption{The microservice architecture of the city system}
   \label{fig:sd-sys-arch-micro}
 \end{figure}
+
+
+\subsection{Deployment}
+In light of the above, we designed the deployment of our system. Even
+if a single city simulation would be composed of all the blocks in Figure
+\ref{fig:sd-sys-arch-micro}, it is not reasonable to instantiate all of them
+each time a new simulation for a city is requested.
+We instead propose a different approach: multiple users share the same frontend
+(regardless of the fact they are consuming the same simulation) and all the
+blocks from the message broker to the application are replicated for each city.
+Finally, we identify the RabbitMQ broker as the Application Server endpoint for
+the MessageBrokers of the different city instances.
+
+Our proposed solution has a visual representation in Figure
+\ref{fig:ovrl-deployment}, in which we used the following notation:
+
+\begin{itemize}
+  \item \textbf{City\_X:} instance of a city, which is composed of a backend,
+    a MessageBroker and the RabbitMQ broker between them;
+  \item \textbf{RabbitMQ to AS:} node which basically provides bidirectional
+    communication between the cities and the frontend. Cities send events to
+    the frontend, whereas the latter starts city instances by means of this
+    broker;
+  \item \textbf{Frontend:} Node which is composed of the ApplicationServer and
+    the user client. It keeps track of which city simulations are currently
+    running and serves live streaming services to end users.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5,keepaspectratio]
+    {images/overall/deployment.eps}
+  \caption{System deployment}
+  \label{fig:ovrl-deployment}
+\end{figure}
