@@ -3,7 +3,13 @@ We have built a heterogeneous system
 (Elixir, Ada, C++, Python, Redis, Postgres, RabbitMQ)
 and made it completely portable by packaging each service in a Docker
 container.
-Also, using other Docker tools we composed and linked the services together.
+Also, using docker-compose we composed and linked the services together while with docker-swarm
+we orchestrated the entire system. By using docker-swarm in conjunction with docker-compose we
+have been able to deploy each city individually as a single stack of services. Furthermore, we
+have defined specific restarting policies for each service to recover them in case of failures
+(e.g., restart the service with a maximum number of tries and with a specific delay between each restart).
+Docker-swarm is an interesting tool to orchestrate our system because it enables to define rescheduling policies
+for docker nodes and scale factor for specific services.
 
 Finally, we provided three different deployment environments for each of the
 containers:
