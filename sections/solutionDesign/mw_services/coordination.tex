@@ -1,108 +1,18 @@
 \subsubsection{Coordination service}
 
-This component is responsible of the coordinating middleware nodes by
-providing mechanisms with which the system is able to operate cohesively.
+This component is responsible of the supervising the life-cycle of an
+application run on our middleware, so our backend is able to operate
+cohesively.
 
-We show in figure \ref{fig:mw-coordination} the architecture of this service
-and then we will show in detail each module that composes this component.
+There are just two architectural units which compose this service:
 
-%\begin{figure}[H]
-%  \centering
-%  \includegraphics[width=\columnwidth]{images/solution/mw/coordination.eps}
-%  \caption{Middleware's Coordination service}
-%  \label{fig:mw-coordination}
-%\end{figure}
-% TODO: Add diagram
-
-% TODO: All class diagrams have to be added
-\subsubsubsection{coordination.Coordination}
-% TODO: Class diagram
-\FloatBarrier
-\begin{itemize}
-  \item \textbf{Description} \\
-    This module is the Fa\c cade of the Coordination service. It is responsible
-    to boot neatly and supervise all processes in Coordination.
-  \item \textbf{Attributes}
-  \item \textbf{Operations}
-  \begin{itemize}
-    \item \texttt{+ start()} \\
-    Starts the Coordination service.
-    \item \texttt{+ handleMessage(message: String)} \\
-    % TODO: check this out: Message will really be a String?
-    Receives a message and delegates the proper handling of it to an internal
-    module.
-  \end{itemize}
-\end{itemize}
-
-\subsubsubsection{coordination.coordinationInfo}
-% TODO: Class diagram
-\FloatBarrier
-\begin{itemize}
-  \item \textbf{Description} \\
-    Process that holds the current state of the coordination.
-  \item \textbf{Attributes}
-    \begin{itemize}
-      \item \texttt{- state: Map<Atom,Any>} \\
-    Information about coordination.
-    \end{itemize}
-  \item \textbf{Operations}
-  \begin{itemize}
-    \item \texttt{+ startLink()} \\
-    Starts the process and initialize \texttt{state} as an empty map.
-    \item \texttt{+ getInfo(key: Atom)} \\
-    Returns the information contained in the state at the entry \texttt{key}.
-    \item \texttt{+ setInfo(key: Atom, value: Any)} \\
-    Modifies the state held by the process by setting the entry \texttt{key}
-    to the value \texttt{value}.
-  \end{itemize}
-\end{itemize}
-
-\subsubsubsection{coordination.election.Election}
-% TODO: Class diagram
-% TODO: Explode class in interface and implementation
-\FloatBarrier
-\begin{itemize}
-  \item \textbf{Description} \\
-    Process that is responsible to manage the election of a system coordinator.
-  \item \textbf{Attributes}
-    % TODO
-  \item \textbf{Operations}
-    % TODO
-\end{itemize}
-
-\subsubsubsection{coordination.time.HeartbeatMaker}
-% TODO: Class diagram
-\FloatBarrier
-\begin{itemize}
-  \item \textbf{Description} \\
-    Process that has to produce an heartbeat (i.e., a signal that represents
-    the logical clock ticking in the system) for all the nodes in the
-    system.
-  \item \textbf{Attributes}
-  \item \textbf{Operations}
-  \begin{itemize}
-    \item \texttt{+ start()} \\
-    Starts HeartbeatMaker process.
-    \item \texttt{+ enable()} \\
-    Makes HeartbeatMaker begin producing heartbeats.
-    \item \texttt{+ disable()} \\
-    Makes HeartbeatMaker stop producing heartbeats.
-  \end{itemize}
-\end{itemize}
-
-\subsubsubsection{coordination.time.HeartbeatListener}
-% TODO: Class diagram
-\FloatBarrier
-\begin{itemize}
-  \item \textbf{Description} \\
-    Process that listens to heartbeats. It is responsible to delivering them
-    to the application layer.
-  \item \textbf{Attributes}
-  \item \textbf{Operations}
-  \begin{itemize}
-    \item \texttt{+ start()} \\
-    Starts HeartbeatListener process.
-    \item \texttt{+ beat()} \\
-    Notifies the application layer of a new heartbeat.
-  \end{itemize}
-\end{itemize}
+\begin{enumerate}
+\item a \texttt{Coordinator} initiates the boot process when requested and the
+  termination process when the time limit for the application elapses;
+\item \texttt{Monitor}s supervise the status of some services. In
+  particular, we instantiated two monitor processes, one for the boot process
+  and another one for the termination process. If a process $X$ does not end
+  within a pre-configured time limit (we arbitrarily set 15 seconds for this
+  parameter) after being started, the monitor issues again a request to
+  perform $X$.
+\end{enumerate}
