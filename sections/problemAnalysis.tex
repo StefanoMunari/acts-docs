@@ -121,8 +121,7 @@ into a computational node.
 % TODO: @Stefano, what do you say about the term "computing node"? Is it ok
 %                 for a container? Yep [Stefano]
 
-Hence, in this section we will discuss about how we thought about distribution
-issues.
+Hence, in this subsection we will consider the distribution issues.
 
 \paragraph{Requirements} \mbox{} \\
 
@@ -169,7 +168,7 @@ without incurring in a perpetual search if a path does not exists.
 
 \paragraph{Problems} \mbox{} \\
 
-Several problems arose from this issues:
+The aforementioned requirements arise the following questions:
 
 \begin{itemize}
 \item How will we distribute our system?
@@ -211,16 +210,16 @@ worry about it? If so, how do we model it in our system?
 
 \subsection{Concurrency}\label{sec:pa-concurrency}
 Looking at the applicative domain, there are several situations that inherently
-express concurrent interactions between entities, for example more road users
-that proceed in the same street segment.
+express concurrent interactions between entities (e.g., multiple road users
+proceeding in the same street segment).
 
 We will show which concurrency issues we took into account during the beginning
 of the project.
 
 \paragraph{Requirements} \mbox{} \\
 
-In the following we list the qualities which our system should have to
-leverage concurrency.
+In the following we list the qualities that our system should have to
+leverage concurrency:
 
 \begin{itemize}
 \item A set of entities of the system should be concurrent;
@@ -244,7 +243,7 @@ leverage concurrency.
 
 \paragraph{Problems} \mbox{} \\
 
-Concurrency requirements led us to make some questions about concurrency.
+The concurrency requirements led us to reason about the following problems:
 
 \begin{itemize}
 \item How can we recognize that a situation is suitable to present concurrency?
@@ -271,8 +270,7 @@ of the system properties relating to concurrence?
 
 \subsection{Application Problems}\label{sec:pa-app-problems}
 
-The way we abstracted city traffic brings new issues whose solution
-is not straightforward.
+The way we abstracted city traffic has brought new issues whose solution is not straightforward.
 We will use figure \ref{fig:pa-sample-street} and figure
 \ref{fig:pa-sample-crossroad} to show examples in which the tangled situations
 we found out lie.
