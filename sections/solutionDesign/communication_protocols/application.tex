@@ -16,7 +16,8 @@ transparently without knowing if they are local or remote. This modular
 approach has been inspired by the TCP/IP and OSI models, in which you can
 easily substitute technologies of the same level.
 
-The following sub-layers compose Interface Layer:
+In the following we list the sub-layers which compose Interface Layer in
+bottom up order:
 
 \begin{itemize}
   \item \textit{Session Layer} --
@@ -24,11 +25,18 @@ The following sub-layers compose Interface Layer:
   \item \textit{Presentation Layer} --
   handles messages formats and conversions;
   \item \textit{Service Layer} --
+  It
   implements an event loop with a worker pool and different kind of queues
   for the requests (i.e. synchronous and asynchronous). It converts the
   requests into procedure calls by leveraging a skeleton object.
   Also, it offers the specular service through a stub object and a pipeline
   of handlers, necessary to build specific remote requests.
+  \item \textit{Remote Layer + Tables} --
+  it comprises stub and skeleton which respectively act as client and
+  server parts of the local application. Also, it contains the tables used
+  to dispatch the remote calls and the pending requests (i.e., synchronous
+  requests which may trigger a retransmission on timeout or a local retry on
+  failure).
 \end{itemize}
 \input{sections/solutionDesign/communication_protocols/app-bootstrap.tex}
 \input{sections/solutionDesign/communication_protocols/app-termination.tex}
