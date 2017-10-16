@@ -44,21 +44,11 @@ capable of forwarding the message to the more suitable next-hop node.
 Uber-like services are on-demand transport services offered by (1) normal
 travellers which are driving a car or (2) taxis. In both cases, a traveller
 which \textit{requests} a Uber-like service has to reach a mobile entity.
-This factor would have made our system more complex in one of two possible
-ways:
-
-\begin{enumerate}
-  \item if the Uber-like provider is specified by who is making the request,
-    then we would have to track active entities at middleware layer (at the
-    moment we don't have the need to, so we don't do it)
-  \item if the Uber-like request does not specify an intended provider, then it
-    should be propagated until it finds an available provider, if any.
-\end{enumerate}
-
-The first scenario would have led us to a more complex system of name
-resolution, whereas the latter would have caused us to add to the middleware
-interface the possibility to perform a RPC which spreads (possibly) all over
-the system until satisfied.
+This factor would have made our system more complex because the Uber-like
+request does not specify an intended provider, then it should be propagated
+until it finds an available provider, if any.
+Therefore, we would have to add to the middleware interface the possibility to
+perform a RPC which spreads (possibly) all over the system until satisfied.
 
 \subsection{Emergency services}
 Similarly to the previous point (section \ref{sec:future-uber}), we could add
