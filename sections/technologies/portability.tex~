@@ -21,6 +21,6 @@ containers:
     the developer;
   \item \textit{Production}: deploys the environment which will be used by
     the final user. Note that the final user has only to issue one command
-    which creates (if not yet created) and runs the whole system.
-    Then, the user can access its control panel through a web interface.
+    which creates (if not yet created) and runs the multi-container system.
+    Then the user can access its control panel through a web interface.
 \end{enumerate}
