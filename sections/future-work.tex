@@ -29,6 +29,16 @@ a sidewalk, a bikeway, a roadway and again a bikeway and a sidewalk.
 This hinders clearly the flexibility of our simulator, but it eased our work
 when we had to verify the correctness of the system.
 
+\subsection{Enhanced queries -- Middleware}\label{sec:future-iterative-rpc}
+The middleware layer could provide a further service that we called iterative
+queries. Instead of performing simple requests from one node (sender) to
+another (recipient), it may cause a request to spread from an originator node
+until satisfied \textit{or} after having visited all the nodes of the system.
+
+This service may result useful for certain services which aim to flood the
+system with their requests, without knowing at priori the specific
+recipient/servant for their need.
+
 \subsection{Uber-like services}\label{sec:future-uber}
 The application layer presents two types of RPC:
 
@@ -47,8 +57,8 @@ which \textit{requests} a Uber-like service has to reach a mobile entity.
 This factor would have made our system more complex because the Uber-like
 request does not specify an intended provider, then it should be propagated
 until it finds an available provider, if any.
-Therefore, we would have to add to the middleware interface the possibility to
-perform a RPC which spreads (possibly) all over the system until satisfied.
+However, for a service like this it is clear that we would need some middleware
+feature like the one described in Section \ref{sec:future-iterative-rpc}.
 
 \subsection{Emergency services}
 Similarly to the previous point (section \ref{sec:future-uber}), we could add
