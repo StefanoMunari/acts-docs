@@ -27,8 +27,8 @@ The following sub-layers compose Interface Layer:
   implements an event loop with a worker pool and different kind of queues
   for the requests (i.e. synchronous and asynchronous). It converts the
   requests into procedure calls by leveraging a skeleton object.
-  Also, it offers the specular service through a stub object and a pipeline,
-  necessary to build specific remote requests.
+  Also, it offers the specular service through a stub object and a pipeline
+  of handlers, necessary to build specific remote requests.
 \end{itemize}
 \input{sections/solutionDesign/communication_protocols/app-bootstrap.tex}
 \input{sections/solutionDesign/communication_protocols/app-termination.tex}
