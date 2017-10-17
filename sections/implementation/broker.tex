@@ -10,7 +10,8 @@ A broker is basically a pipeline through which messages are processed:
     with the middleware nodes, waiting for control messages
   \item a \texttt{Daemon} process listens the RabbitMQ shared with the
     middleware nodes, waiting for application-logic related messages
-  \item a \texttt{ContentEnricher} process % TODO
+  \item a \texttt{ContentEnricher} process elaborates middleware messages to
+    augment their semantics, by adding domain-specific meta information
   \item a \texttt{Forwarder} process puts messages on output queues of a
     RabbitMQ broker shared with the application server
 \end{itemize}
