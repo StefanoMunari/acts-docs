@@ -38,7 +38,27 @@ configuration values.
 
 \subsubsection{Interface}
 
-% TODO: Write...
+Even if we implemented several modules and REST APIs, we will focus on some
+key components of the \texttt{Interface} sub-system.
+
+We'll start by talking about \texttt{DistrictChannel}, which is an
+implementation we provided for the \texttt{Channel} behaviour. In a way which
+is very similar to what we see in Figure \ref{fig:impl-as-pubsub}, we subscribe
+user sockets to the Phoenix pub/sub system for the city simulator
+\texttt{Endpoint}.
+Each socket is always subscribed to a district, and could be additionaly
+subscribed to a traveller. Therefore:
+
+\begin{itemize}
+  \item when a user requires to join the \texttt{DistrictChannel}, it will
+    be immediately subscribed to the district she is interested in;
+  \item later on, the user may request to have updates on a specific traveller
+    by making a subscription to a specific traveller topic.
+\end{itemize}
+
+Finally, in \texttt{DistrictChannel} we filter (and eventually process)
+outgoing information by implementing specific \texttt{handle\_out} callbacks.
+Thanks to this, we are able to avoid unnecessary traffic towards the clients.
 
 \begin{figure}[H]
   \centering
@@ -46,3 +66,5 @@ configuration values.
   \caption{\texttt{DistrictChannel} pub/sub system}
   \label{fig:impl-as-pubsub}
 \end{figure}
+
+% TODO: Write more
