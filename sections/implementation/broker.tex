@@ -42,6 +42,18 @@ defined an Elixir Protocol, i.e., intereface for them but it would have been
 quite easy} which actuate the process. There is also a \texttt{VoidExtractor}
 module, which basically is a fallback case for an unidentified request.
 
+\paragraph{Communication from frontend to backend}
+Actually, our broker provides a means of communication from the frontend to
+the backend as well.
+We made this implementation choice because, even if it involves a flow of
+information which goes in the opposite direction as the aforementioned
+pipeline, we would have to instantiate another microservice to manage the
+communication from the frontend to the backend.
+Nevertheless, since at the moment the frontend contacts the backend only for
+requiring a boot, we thought it was not meaningful to have a full-blown
+microservice just for sending one control message, and we embodied
+bi-directional communication into our broker.
+
 \paragraph{Achieving transparency}
 In order to have a glimpse of the reason why we say the application is
 transparent to the middleware and viceversa, here we will make an example which
