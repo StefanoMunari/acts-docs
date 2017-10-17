@@ -1,3 +1,28 @@
 \subsection{Application Server}\label{sec:sol-des-as}
 
-% TODO: Write
+The PEAP stack structures the Phoenix application as an Umbrella application
+composed of two services: \texttt{Domain} and \texttt{Interface}.
+\texttt{Domain} is intended to collect and represent information about the
+application, and also to provide a means to access a database.
+\texttt{Interface} is accountable for managing all the networking I/O
+interactions of the whole Phoenix application, so it will receive data from the
+backend and serve it to the end users.
+
+\subsubsection{Application Server -- Domain}
+%TODO: Update if something changes
+
+The \texttt{Domain} application keeps track of per-district data.
+Clearly, it would be too expensive to store fine-grained information, so we
+decided to store basic information in each tracker, for instance the number of
+streets (\textit{static} information) and the number of travellers
+(\textit{dynamic} information).
+
+\subsubsection{Application Server -- Interface}
+In the \texttt{Interface} application we leverage the Phoenix pub/sub
+mechanism in order to deliver live information to consumers.
+Basically, we make end users register their sockets to one or more topics by
+means of a Phoenix Channel and then we deliver to them information which
+matches those topics.
+
+\texttt{Interface} also provides some REST APIs through which it is possible to
+fetch data about cities, districts, and pages.
