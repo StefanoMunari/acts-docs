@@ -43,11 +43,11 @@ key components of the \texttt{Interface} sub-system.
 
 \paragraph{PubSub}
 We'll start by talking about \texttt{DistrictChannel}, which is an
-implementation we provided for the \texttt{Channel} behaviour. In a way which
-is very similar to what we see in Figure \ref{fig:impl-as-pubsub}, we subscribe
-user sockets to the Phoenix pub/sub system for the city simulator
-\texttt{Endpoint}.
-Each socket is always subscribed to a district, and could be additionaly
+implementation we provided for the \texttt{Channel} behaviour. As we can see
+in Figure \ref{fig:impl-as-pubsub}, we subscribe \texttt{UserSocket}s to the
+Phoenix pub/sub system for the city simulator.
+Sockets reach \texttt{DistrictChannel} through an \texttt{Endpoint}.
+Each socket is always subscribed to a district, and could be additionally
 subscribed to a traveller. Therefore:
 
 \begin{itemize}
@@ -61,7 +61,22 @@ Finally, in \texttt{DistrictChannel} we filter (and eventually process)
 outgoing information by implementing specific \texttt{handle\_out} callbacks.
 Thanks to this, we are able to avoid unnecessary traffic towards the clients.
 
-\paragraph{PubSub}
+\paragraph{Input pipeline}
+Events and updates arrive at the application server starting from an
+\texttt{InputStream}. This process is a Wabbit GenStage produces which
+basically receives messages from a RabbitMQ topic exchange and forwards them
+to a \texttt{Formatter}.
+A \texttt{Formatter} is a process which just extracts basic information from
+the incoming messages and transform them in a format used by the application
+server processes.
+Then messages are piped through an \texttt{InternalDispatcher} process, which
+can eventually dispatch some information to some processes in the Application
+Server; for example, it sends updates to district trackers when a traveller
+moves from a district to another one.
+Finally, messages are broadcasted to the Interface \texttt{Endpoint} by
+providing the payload and the topic of a message.
+
+\paragraph{Output}
 
 \begin{figure}[H]
   \centering
@@ -69,5 +84,3 @@ Thanks to this, we are able to avoid unnecessary traffic towards the clients.
   \caption{Application Server architecture}
   \label{fig:impl-as-pubsub}
 \end{figure}
-
-% TODO: Write more
