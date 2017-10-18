@@ -41,6 +41,7 @@ configuration values.
 Even if we implemented several modules and REST APIs, we will focus on some
 key components of the \texttt{Interface} sub-system.
 
+\paragraph{PubSub}
 We'll start by talking about \texttt{DistrictChannel}, which is an
 implementation we provided for the \texttt{Channel} behaviour. In a way which
 is very similar to what we see in Figure \ref{fig:impl-as-pubsub}, we subscribe
@@ -60,10 +61,12 @@ Finally, in \texttt{DistrictChannel} we filter (and eventually process)
 outgoing information by implementing specific \texttt{handle\_out} callbacks.
 Thanks to this, we are able to avoid unnecessary traffic towards the clients.
 
+\paragraph{PubSub}
+
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\columnwidth]{images/implementation/as-chan-pubsub.eps}
-  \caption{\texttt{DistrictChannel} pub/sub system}
+  \includegraphics[width=1.1\columnwidth]{images/implementation/as-chan-pubsub.eps}
+  \caption{Application Server architecture}
   \label{fig:impl-as-pubsub}
 \end{figure}
 
