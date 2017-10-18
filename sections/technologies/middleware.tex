@@ -35,9 +35,8 @@ names since it was born and developed for another context, i.e., telephony.
         of an actor is able to change its state only after having finished to
         process a message.
         In other actor model implementations this is not always true: for
-        example, in Scala an actor may suffer of concurrent
-        modifications of its state \textit{even when it is processing a
-        message};
+        example, in Scala an actor \textit{may suffer of concurrent
+        modifications of its state};
   \item \textit{Lightweight processes}: every thread in the JVM is mapped
         one-to-one to an OS level thread, in BEAM the mapping is n-to-m using
         lightweight threads (not OS threads) and supporting true multi-threading
