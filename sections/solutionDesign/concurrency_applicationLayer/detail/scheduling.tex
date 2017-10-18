@@ -74,12 +74,8 @@ entity is handled:
 
 \paragraph{Callbacks}
 
-Here we will spend two words about callbacks, which are mentioned in a Q\&A
-entry of Section \ref{sec:sol-conc-problems}; we do it here because we decided
-to put them in the scheduling package, and also because they fit in after
-having explained how the scheduler works.
-
-As we can see from the code, we implemented four callbacks (i.e., two pairs).
+As we can see from the code, we implemented four callbacks (actually, two
+pairs of success/failure callbacks).
 We felt the necessity to introduce this mechanism in our system to avoid
 blocking on synchronous remote calls.
 In fact, if we chose to block on synchronous calls, there could be an item in
