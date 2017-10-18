@@ -77,6 +77,10 @@ Finally, messages are broadcasted to the Interface \texttt{Endpoint} by
 providing the payload and the topic of a message.
 
 \paragraph{Output}
+The Application Server is also able to send minimal control information (start
+messages) to the cities used for simulations. This is done via a process called
+\texttt{OutputStream}\footnote{actually, this process is replicated once for
+each city}, which dispatches this messages to the right backend node.
 
 \begin{figure}[H]
   \centering
