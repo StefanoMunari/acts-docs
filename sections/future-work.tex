@@ -252,3 +252,36 @@ a live-streamed and a pre-recorded simulation.
 Another possibility could provide enhanced capabilities to our browser
 player. For example, it could rewind the transmission of a simulation or
 fast-forward to the present moment, if it is live.
+
+\paragraph{Design}
+Even if we did not implement this feature, we wanted to design it as well.
+Providing we implemented (but not enabled for the sake of efficiency) database
+operations to store per-district messages, we should:
+
+\begin{enumerate}
+  \item Enable persistency for messages by making the AS
+    \texttt{InternalDispatcher} module store messages before they are
+    broadcasted;
+  \item Enable another topic to be registered in the current
+    \texttt{DistrictChannel}, \textit{or} set up a new Phoenix Channel from
+    scratch for on-demand transmissions;
+  \item register subscriptions for topics using a pattern like
+    \texttt{on-demand:uuid}, where \texttt{uuid} is an identifier for a
+    specific client
+  \item instantiate a supervised GenStage process for each request. We believe
+    this would scale well because Elixir processes are really lightweight.
+    However, we may decide to instantiate separate application servers for
+    on-demand transmissions in the case of very high traffic loads, or
+    replicate the current one
+  \item finally, the dedicated process should generate a stream of messages to
+    send to the \texttt{Broadcaster}
+\end{enumerate}
+
+Clearly, this procedure is about just the application server, but we would also
+have to modify the user interface.
+The user interface should be modified so that a consumer can choose to watch a
+live streaming event or an on-demand transmission by sending the right
+subscription to the application server.
+After doing this, the frontend would not require further changes, since all the
+logic used to separate live streaming from on-demand transmissions would be
+encapsulated in the application server.
