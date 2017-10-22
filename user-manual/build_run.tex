@@ -1,0 +1,14 @@
+\section{Build \& Run}
+The creation and execution of each part of the system and
+the whole system itself is divided in two steps:
+
+\begin{itemize}
+   \item build - this step is necessary to download and create all the docker
+   images and generate the configuration files both for the simulator but
+   also for docker (e.g., define in which mode you want to run the system and
+   which components you want to instantiate);
+   \item run - this step can use docker-swarm or only docker-compose depending
+   on the configuration chosen at the previous step. It deploys the system
+   as a composition of stack, each stack is a set of services and represents
+   a city of our system.
+\end{itemize}
