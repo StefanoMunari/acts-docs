@@ -9,6 +9,9 @@ the whole system itself is divided in two steps:
    which components you want to instantiate);
    \item run - this step can use docker-swarm or only docker-compose depending
    on the configuration chosen at the previous step. It deploys the system
-   as a composition of stack, each stack is a set of services and represents
-   a city of our system.
+   as a composition of stacks, each stack is a set of services and represents
+   a city. However, there is a single service for the viewer and it does not
+   depend on the number of cities.
 \end{itemize}
+
+A logical view which exemplifies the deployed system is depicted in Figure (insert figure)
