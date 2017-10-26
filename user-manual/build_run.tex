@@ -4,14 +4,20 @@ the whole system itself is divided in two steps:
 
 \begin{itemize}
    \item build - this step is necessary to download and create all the docker
-   images and generate the configuration files both for the simulator but
-   also for docker (e.g., define in which mode you want to run the system and
-   which components you want to instantiate);
+   images and generate the configuration files both for the simulator and the
+   template configurations for docker
+   (e.g., define in which mode you want to run the system and
+   which components will be instantiated). Basically, this step
+   corresponds to the installation of the product.
    \item run - this step can use docker-swarm or only docker-compose depending
-   on the configuration chosen at the previous step. It deploys the system
-   as a composition of stacks, each stack is a set of services and represents
-   a city. However, there is a single service for the viewer and it does not
-   depend on the number of cities.
+   on the configurations chosen at the previous step. If you have chosen
+   to configure the whole system then docker swarm deploys the system
+   as a composition of stacks: each stack is a set of services which represent
+   a city. However, the AMQP broker and the Viewer are wrapper in a separated
+   stack which is unique within the system (i.e., does not depend upon the
+   number of cities). Note that the size of each city and the number of deployed
+   cities affect this process. It will generally last as long as the number of
+   cities chosen will be greater.
 \end{itemize}
 
 A logical view which exemplifies the deployed system is depicted in Figure
@@ -19,7 +25,7 @@ A logical view which exemplifies the deployed system is depicted in Figure
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5,keepaspectratio]{images/user-man/app/deploy.eps}
-\caption{Example of the deployed system}
+\includegraphics[scale=0.5,keepaspectratio]{images/user-man/eps/deploy.eps}
+\caption{Example of a deployed ACTS system}
 \label{fig:deploy-sys}
 \end{figure}
