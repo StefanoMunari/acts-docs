@@ -4,7 +4,17 @@
 \newcommand{\teststaff}{\gm}
 \newcommand{\approvalstaff}{\sm}
 \newcommand{\use}{External}
+
 \input{template/layout.tex}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue}
+}
 \input{template/commands.tex}
 \begin{document}
 \input{template/titlePage.tex}
@@ -13,12 +23,10 @@
 \listoffigures
 \listoftables
 \pagebreak
-%\input{user-manual/requirements.tex}
-%\input{user-manual/build_run.tex}
-%\input{user-manual/component.tex}
-%\input{user-manual/city.tex}
-%\input{user-manual/system.tex}
-%\input{user-manual/usage.tex}
-%\input{user-manual/troubleshooting.tex}
-%\input{user-manual/faq.tex}
+\input{user-manual/requirements.tex}
+\input{user-manual/build_run.tex}
+\input{user-manual/system.tex}
+\input{user-manual/usage.tex}
+\input{user-manual/troubleshooting.tex}
+\input{user-manual/faq.tex}
 \end{document}

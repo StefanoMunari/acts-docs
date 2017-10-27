@@ -1,59 +1,9 @@
 \section{Requirements}\label{req}
 
-The following dependencies are mandatory to use this product:
+The following dependencies are mandatory to use ACTS:
 \begin{itemize}
-   \item git - version 2.13.2 or greater;
-   \item docker - version 17.06.0 or greater;
-   \item docker-compose - version 1.17.0 or greater;
+   \item \href{https://git-scm.com/}{git} - version 2.13.2 or greater;
+   \item \href{https://www.docker.com/get-docker}{docker} - version 17.06.0 or greater;
+   \item \href{https://docs.docker.com/compose/install/}{docker-compose} - version 1.17.0 or greater;
    \item chrome browser or firefox browser.
 \end{itemize}
-
-This project is heavily based on docker. Thus, the aforementioned
-set of dependencies are light compared to all the other
-technologies which compose the final product.
-
-\subsection{Create a swarm}
-After the dependencies have been successfully installed,
-we are ready to create our local swarm\footnote{Due to the limited computational
-resources, the project will be deployed on a single machine. However, this system
-is effectively more suited to be deployed on a real distributed system}.
-
-The swarm is necessary to easily deploy and manage the system which can be
-viewed as composition of different units. To create a local swarm
-type the following command:
-
-docker swarm init --advertise-addr <YOUR_LOCAL_IP_ADDRESS>
-
-Substitute <YOUR_LOCAL_IP_ADDRESS> with your local ip.
-You can see the ip assigned to your machine by the local router with:
-
-ip addr show | grep -A1 <NETWORK_INTERFACE>
-
-We assume that you are running a *NIX OS. However the system can be installed
-on any OS which fully supports the aforementioned dependencies.
-Also, note that NETWORK_INTERFACE must
-be replaced by the network interface associated with your IP (e.g., wlan0).
-
-
-After the swarm has been successfully created, we need to instantiate a local
-registry to store the project images. Do not worry if this registry figures as
-an always running container, it is the standard case for it.
-Before creating and running the registry, we have to verify that the port 5000
-on our host is not already in use by another process.
-
-You can check the port on your host with the following command:
-
-sudo netstat -tulpn | grep LISTEN | grep 5000
-
-If you do not have netstat on your system, another command is the following:
-
-sudo lsof -i -P -n | grep LISTEN | grep 5000
-
-If the result is empty (no entry returned) then the port 5000 is free.
-We can safely run our registry:
-
-docker service create --detach=false --name registry --publish 5000:5000 registry:latest
-
-If you encounter any problem during these steps, then
-consult the FAQ and troubleshooting sections to find (possibly)
-helpful information.

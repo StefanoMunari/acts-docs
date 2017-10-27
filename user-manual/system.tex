@@ -1,20 +1,83 @@
 \section{How to deploy the whole system}
+
 Before deploying the whole system, please check the Section \ref{req}.
+
+\subsection{Create a swarm}
+
+After the dependencies have been successfully installed,
+we are ready to create our local swarm\footnote{The project will be deployed
+on a single machine. However, due to intrinsic distributed nature, the system
+is more suited to be deployed on a real distributed system}.
+Docker swarm is necessary to easily deploy and manage the system which can be
+viewed as composition of different isolated components.
+\\
+To create a local swarm type the following command:
+
+\begin{lstlisting}[language=bash]
+docker swarm init --advertise-addr <YOUR_LOCAL_IP_ADDRESS>
+\end{lstlisting}
+
+Substitute the parameter between <> with your local ip.
+\\
+You can check the ip assigned to your machine by the local router with:
+
+\begin{lstlisting}[language=bash]
+ip addr show| grep -A1 <NETWORK_INTERFACE>
+\end{lstlisting}
+
+Note the parameter between <> must
+be replaced by the network interface associated with your IP (e.g., wlan0).
+
+
+
+\subsection{Create a registry}
+
+After the swarm has been successfully created, we need to instantiate a local
+registry to store the project images. Do not worry if this registry figures as
+an always running container, it is the standard case for it.
+Before creating and running the registry, we have to verify that the port 5000
+on our host is not already in use by another process.
+
+You can check the port on your host with the following command:
+
+\begin{lstlisting}[language=bash]
+sudo netstat -tulpn | grep LISTEN | grep 5000
+\end{lstlisting}
+
+If you do not have netstat on your system, another command is the following:
+
+\begin{lstlisting}[language=bash]
+sudo lsof -i -P -n | grep LISTEN | grep 5000
+\end{lstlisting}
+
+If the result is empty (no entry returned) then the port 5000 is free.
+\\
+We can create our registry:
+
+\begin{lstlisting}[language=bash]
+docker service create --detach=false --name registry --publish 5000:5000 registry:latest
+\end{lstlisting}
+
+If you encounter any problem during these steps, then
+consult the FAQ and troubleshooting sections to find (possibly)
+helpful information.
 
 \subsection{Build}
 
-To build the whole system type the following command from the root directory of the project (i.e., acts):
+To build the whole system type the following commands from the root directory of the project (i.e., acts):
 
+\begin{lstlisting}[language=bash]
 ./build.sh -s backend-mw-fe -m p
+\end{lstlisting}
 
 This instruction builds the three macro components together in production mode.
 You can view each step of the build process by following the stdout of the CLI.
 \begin{enumerate}
 \item generates the configuration files for the city (e.g., district configs, routing tables, etc.);
-\item check if the district configurations are sound. Actually \texttt{ACTS} checks if each city
-is a strong connected component to guarantee the satisfy the preconditions of the AI. Thus, each agent
+\item checks if the district configurations are sound. Actually \texttt{ACTS} checks if each city
+graph is a strong connected component to guarantee valid preconditions for the AI. Thus, each agent
 has the guarantee to find its path;
-\item build the images of the system. Note that this step requires in general some time to complete;
+\item builds the images of the system. Note that this step requires in general some time to complete;
 \item copies the necessary files in their target directories.
 \end{enumerate}
 
@@ -24,10 +87,14 @@ After the build process has successfully completed you can run the whole system.
 
 To deploy the whole system type the following command from the root directory of the project (i.e., acts):
 
+\begin{lstlisting}[language=bash]
 ./run.sh -s backend-mw-fe
+\end{lstlisting}
 
 Which deploys the whole system using docker-swarm.
 If everything went well the whole system has been successfully deployed.
 You can now access the user control panel (viewer) through the browser at the following address:
 
+\begin{lstlisting}[language=bash]
 0.0.0.0:4005
+\end{lstlisting}

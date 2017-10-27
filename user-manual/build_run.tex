@@ -1,36 +1,49 @@
 \section{Build \& Run}
-The generation and execution of each part of the system and
-the whole system itself comprised two steps:
+The installation and execution of each part of the system comprised two steps:
 
 \begin{itemize}
-   \item \texttt{build} - this step is necessary to download and create all the docker
-   images and generate the configuration files both for the simulator and the
-   template configurations for docker
-   (e.g., define in which mode you want the system to run and
-   which components need to be instantiated).
-	Basically, this step
-   corresponds to the installation of the product.
-   \item \texttt{run} - this step requires docker-swarm
-	or only docker-compose depending on the configurations chosen for the build
-	\footnote{for simplicity we provide only the complete system configuration and not the
-	only-single-component deployment. However, during the development of the project
+   \item \texttt{build} -
+   \\
+   Basically, this step corresponds to the installation of the product.
+   It is necessary to download and create all the docker
+   images. Also, it generate the configuration files both for the simulator and
+   docker. Indeed, some Dockerfiles are generated starting from a template and
+   instantiated based on the environment chosen by the user. This choice defines
+   also which components will be inserted in the image. As future work,
+   we might shift this decision at runtime and keep only a single image for each
+   environment.
+   \item \texttt{run} -
+   \\
+   this step requires docker-swarm
+	or docker-compose depending on the configurations chosen for the build
+	\footnote{We provide only the complete system configuration and not the
+	configuration of each single component.
+   However, during the development of the project,
 	the system has been used with the latter configurations.
-	It would be quite easy to provide all the possible configurations}.
-	If you have chosen to configure the whole system, then docker swarm deploys the system
-   as a composition of stacks: each stack is a set of services which represent
-   a city. However, the AMQP broker and the Viewer are wrapped in a separated
+	So, it would be straightforward to provide all the possible configurations}.
+	If you have chosen to configure the whole system, then docker swarm
+   will deploy it as a composition of stacks:
+   each stack is a set of services which represent
+   a city. Note that a service is not necessarily a container.
+   A service can represent a set of containers which are kept under the same
+   name by docker swarm.
+   Also, not all the stacks represents a city. Indeed, the AMQP broker
+   and the viewer components are wrapped in a separated
    stack which is unique within the system (i.e., does not depend upon the
-   number of cities). Note that the size of each city and the number of deployed
-   cities remarkably affect the time required to complete this process.
+   number of cities). Wrapping up, we have a stack for each city because
+   each city has a different number of districts which are mapped in different
+   services plus a single stack for the front end.
+   Note that the size of each city and the number of deployed
+   cities remarkably affect the time required to complete the run process.
 	It will generally last as long as the number of cities chosen will be greater.
 \end{itemize}
 
-A logical view which exemplifies the deployed system is depicted in Figure
-\ref{fig:deploy-sys}.
+Figure \ref{fig:deploy-sys} exemplifies the deployment of an instance of the
+system.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5,keepaspectratio]{images/user-man/eps/deploy.eps}
+\includegraphics[scale=0.3,keepaspectratio]{images/user-man/eps/deploy.eps}
 \caption{Example of a deployed ACTS system}
 \label{fig:deploy-sys}
 \end{figure}
