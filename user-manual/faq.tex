@@ -1,11 +1,23 @@
-Frequently Asked Questions
+\section{Frequently Asked Questions}
 
-- how to set up docker swarm
+\begin{itemize}
 
-- how much time does swarm takes to deploy the whole system?
+\item how to set up docker swarm?
+\\
+To set a local swam master for the simulation:
 
-it depends on the number of cities and on the size of them.
+docker swarm init --advertise-addr <YOUR_LOCAL_IP_ADDR>
+
+More information can be found in the \href{https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/}{docker swarm documentation}
+
+\item how much time does swarm takes to deploy the whole system??
+\\
+
+It depends on the number of cities and on the size of them.
 The estimated time with 2 cities, each one
-composed by 3 districts, is around 2-3 minutes. A small sized system like
-the one described is composed almost of 30 containers (it depends on the
-number or replicas defined in the configuration files).
+composed by 3 districts, is around 2-3 minutes.
+A small sized system like
+the one described is composed almost of 30 containers
+(it depends on the number or replicas declared in the configuration files).
+
+\end{itemize}
