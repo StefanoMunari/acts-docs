@@ -1,23 +1,24 @@
 \section{Build \& Run}
-The creation and execution of each part of the system and
+The generation and execution of each part of the system and
 the whole system itself comprised two steps:
 
 \begin{itemize}
    \item \texttt{build} - this step is necessary to download and create all the docker
    images and generate the configuration files both for the simulator and the
    template configurations for docker
-   (e.g., define in which mode you want to run the system and
-   which components will be instantiated). Basically, this step
+   (e.g., define in which mode you want the system to run and
+   which components need to be instantiated).
+	Basically, this step
    corresponds to the installation of the product.
-   \item \texttt{run} - this step can be performed using docker-swarm
+   \item \texttt{run} - this step requires docker-swarm
 	or only docker-compose depending on the configurations chosen for the build
 	\footnote{for simplicity we provide only the complete system configuration and not the
 	only-single-component deployment. However, during the development of the project
 	the system has been used with the latter configurations.
 	It would be quite easy to provide all the possible configurations}.
-	If you have chosen to configure the whole system then docker swarm deploys the system
+	If you have chosen to configure the whole system, then docker swarm deploys the system
    as a composition of stacks: each stack is a set of services which represent
-   a city. However, the AMQP broker and the Viewer are wrapper in a separated
+   a city. However, the AMQP broker and the Viewer are wrapped in a separated
    stack which is unique within the system (i.e., does not depend upon the
    number of cities). Note that the size of each city and the number of deployed
    cities remarkably affect the time required to complete this process.
