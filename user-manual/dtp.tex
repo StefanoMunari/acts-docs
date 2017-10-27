@@ -1,8 +1,10 @@
 
-\section{Development, Testing, Production (DTP)}
+\section{Deployment environments}
 
 \subsection{Short Story}
+
 You can choose between three deployment environments:
+
 \begin{itemize}
 \item Development - \texttt{dev} or \texttt{d};
 \item Testing - \texttt{test} or \texttt{t};
@@ -16,6 +18,8 @@ You can specify the chosen environment during the build step:
 \end{lstlisting}
 
 with the -m flag the environment is specified.
+
+
 An example (production environment):
 
 \begin{lstlisting}
@@ -29,16 +33,19 @@ on AWS to automatically build and run our unit tests. Thus, the Jenkins master n
 system components in test mode inside docker containers.
 The test environment automatically compiles the project with the tests and
 runs a specific set of tests specified manually by the developer or chosen automatically by
-the agent (e.g., the Jenkins master). Since
-we were testing the isoltated components, the configuration of this mode has been quite simple;
-basically we just needed to instantiate a temporary
+the CI server (e.g., the Jenkins master). The configuration of this mode has been quite simple
+since we were testing only isoltated components;
+we just needed to instantiate a temporary
 container to run a specific set of tests.
 
+
 Instead, for the development environment we made an unusual use of the containers. Basically, we
-used them more like a VM than a container. We started each container with a entrypoint which
+used them more like a virtual machine than a container.
+We started each container with a entrypoint which
 only purpose was to keep the container up, thus enabling the developers to log into it.
 Although a bit unorthodox, this approach has proved to be effective. Indeed, the developer
 was able to run the prototypes and the unit tests once logged in.
+
 
 Production mode represents the system configuration which will be used by the final user. Thus, it is necessary
 to test the system both automatically and manually before shifting to this deployment stage. For the sake of
