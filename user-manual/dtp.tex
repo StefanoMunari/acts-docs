@@ -1,0 +1,37 @@
+\section{Development, Testing, Production (DTP)}
+
+\subsection{Short Story}
+You can choose between three deployment environments:
+\begin{itemize}
+\item development - dev or d;
+\item Testing - test or t;
+\item Production - prod or p.
+\end{itemize}
+
+You can specify the chosen environment during the build step:
+
+./build.sh -s <services> -m <environment>
+
+with the -m flag the environment is speficied.
+
+\subsection{Long Story}
+Thanks to docker, during the project we have been able to easily define different
+deployment environments for ACTS. Indeed, from the very beginning we implemented a CI server and hosted it
+on AWS to automatically build and run our unit tests. Thus, the Jenkins master node deployed the
+system components in test mode inside docker containers.
+The test environment automatically compiles the project with the tests and
+runs a specific set of tests specified manually by the developer or chosen automatically by
+the agent (e.g., the Jenkins master). The configuration of this mode has been quite simple since
+we were testing the isoltated components; basically we just needed to instantiate a temporary
+container to run a specific set of tests.
+
+Instead, for the development environment we made an unusual use of the containers. Basically, we
+used them more like a VM than a container. We started each container with a entrypoint which
+only purpose was to keep the container up, thus enabling the developers to log into it.
+Although a bit unorthodox, this approach has proved to be effective. Indeed, the developer
+was able to run the prototypes and the unit tests once logged in.
+
+Production mode represents the system configuration which will be used by the final user. Thus, it is necessary
+to test the system both automatically and manually before shifting to this deployment stage. For the sake of
+simplicity, we did not define an Acceptance nor a Stage environment. However, we recognize that a real project should comprise these
+stages in its deployment pipeline, at least to guarantee a minimum level of product quality to the final user (i.e., minimize the probability to deliver a broken product).

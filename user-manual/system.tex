@@ -1,21 +1,33 @@
-\Section{How to deploy the whole system}
+\section{How to deploy the whole system}
 Before deploying the whole system, please check the Section \ref{req}.
 
-To build the whole system type the following command from the config/ folder:
+\subsection{Build}
+
+To build the whole system type the following command from the root directory of the project (i.e., acts):
 
 ./build.sh -s backend-mw-fe -m p
 
-Which builds the three macro components together in production mode.
-After the build process has successfully completed you can execute the run
-process.
+This instruction builds the three macro components together in production mode.
+You can view each step of the build process by following the stdout of the CLI.
+\begin{enumerate}
+\item generates the configuration files for the city (e.g., district configs, routing tables, etc.);
+\item check if the district configurations are sound. Actually \texttt{ACTS} checks if each city
+is a strong connected component to guarantee the satisfy the preconditions of the AI. Thus, each agent
+has the guarantee to find its path;
+\item build the images of the system. Note that this step requires in general some time to complete;
+\item copies the necessary files in their target directories.
+\end{enumerate}
 
-To deploy the whole system type the following command from the config/ folder:
+\subsection{Run}
+
+After the build process has successfully completed you can run the whole system.
+
+To deploy the whole system type the following command from the root directory of the project (i.e., acts):
 
 ./run.sh -s backend-mw-fe
 
 Which deploys the whole system using docker-swarm.
-If everything went well the whole system has been deployed.
-You can now access the control panel through the browser at the following
-address:
+If everything went well the whole system has been successfully deployed.
+You can now access the user control panel (viewer) through the browser at the following address:
 
-X.Y.Z:4000
+0.0.0.0:4005
