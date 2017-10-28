@@ -1,7 +1,7 @@
 
 \section{Deployment environments}
 
-\subsection{Short Story}
+\subsection{Barebone information}
 
 You can choose between three deployment environments:
 
@@ -26,29 +26,35 @@ An example (production environment):
 ./build.sh -s backend-mw-fe -m p
 \end{lstlisting}
 
-\subsection{Long Story}
-Thanks to docker, during the project we have been able to easily define different
-deployment environments for ACTS. Indeed, from the very beginning we implemented a CI server and hosted it
-on AWS to automatically build and run our unit tests. Thus, the Jenkins master node deployed the
-system components in test mode inside docker containers.
+\subsection{Detailed instructions}
+Thanks to Docker, during the project we have been able to easily define several
+deployment environments for ACTS. Indeed, from the very beginning we implemented a CI (Continuous Integration) server and hosted it
+on AWS (Amazon Web Services) to automatically build and run our unit tests.
+Thus, the Jenkins master node deployed the
+system components in test mode inside Docker containers.
 The test environment automatically compiles the project with the tests and
 runs a specific set of tests specified manually by the developer or chosen automatically by
 the CI server (e.g., the Jenkins master). The configuration of this mode has been quite simple
-since we were testing only isoltated components;
+since we were testing only isolated components;
 we just needed to instantiate a temporary
 container to run a specific set of tests.
 
 
-Instead, for the development environment we made an unusual use of the containers. Basically, we
-used them more like a virtual machine than a container.
+Instead, in the development environment we use containers in an unconventional
+way, by employing them as if they were lightweight ``virtual machines''.
 We started each container with a entrypoint which
 only purpose was to keep the container up, thus enabling the developers to log into it.
-Although a bit unorthodox, this approach has proved to be effective. Indeed, the developer
-was able to run the prototypes and the unit tests once logged in.
+Although a bit unorthodox, this approach has proved to be very effective.
+Indeed, the developer was able to run the prototypes and the unit tests once
+logged in, without requiring to install all the project dependencies on its
+own filesystem.
 
 
 Production mode represents the system configuration which will be used by the final user. Thus, it is necessary
 to test the system both automatically and manually before shifting to this deployment stage. For the sake of
-simplicity, we did not define an Acceptance nor a Stage environment. However, we recognize that a real project should comprise these
-stages in its deployment pipeline, at least to guarantee a minimum level of product quality to the final user (i.e., minimize the probability to deliver a broken product).
+simplicity, we did not define an Acceptance nor a Stage environment. However,
+we recognize that a real project should be comprehensive of these
+stages in its deployment pipeline in order to guarantee a higher level of
+product quality to the final user (i.e., minimize the probability to deliver a
+broken product).
 
