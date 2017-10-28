@@ -1,29 +1,27 @@
 \section{Build \& Run}
-The installation and execution of each part of the system comprise two steps:
+The installation and execution of each part of the system comprises two steps:
 
 \begin{itemize}
-   \item \texttt{build} -
-   \\
+   \item \texttt{build} --
    Basically, this step corresponds to the installation of the product.
    It is necessary to download and create all the docker
    images. Also, it generate the configuration files both for the simulator and
-   docker. Indeed, some Dockerfiles are generated starting from a template and
+   Docker. Indeed, some Dockerfiles are generated starting from a template and
    instantiated based on the environment chosen by the user. This choice defines
    also which components will be inserted in the image. As future work,
    we might shift this decision at runtime and keep only a single image for each
    environment.
-   \item \texttt{run} -
-   \\
-   this step requires docker-swarm
-	or docker-compose depending on the configurations chosen for the build
-	\footnote{We provide only the complete system configuration and not the
+   \item \texttt{run} --
+   this step requires Docker Swarm
+	or Docker Compose depending on the configurations chosen for the build.
+	We provide only the complete system configuration and not the
 	configuration of each single component.
    However, during the development of the project,
-	the system has been used with the latter configurations.
-	So, it would be straightforward to provide all the possible configurations}.
-	If you have chosen to configure the whole system, then docker swarm
+	the system used to be run with the latter configuration.
+	So, it would be straightforward to provide all the possible configuration.
+	If you have chosen to configure the system as a whole, then Docker Swarm
    will deploy it as a composition of stacks:
-   each stack is a set of services which represent
+   each stack is a set of services which represents
    a city. Note that a service is not necessarily a container.
    A service can represent a set of containers which are kept under the same
    name by docker swarm.
@@ -34,8 +32,8 @@ The installation and execution of each part of the system comprise two steps:
    each city has a different number of districts which are mapped in different
    services plus a single stack for the front end.
    Note that the size of each city and the number of deployed
-   cities remarkably affect the time required to complete the run process.
-	It will generally last as long as the number of cities chosen will be greater.
+   cities remarkably affect the time required to complete the run process:
+   the greater the number of cities, the longer it will take.
 \end{itemize}
 
 Figure \ref{fig:deploy-sys} exemplifies the deployment of an instance of the
