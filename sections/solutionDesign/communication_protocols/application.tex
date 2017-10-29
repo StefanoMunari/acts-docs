@@ -6,34 +6,40 @@ The Application is composed of two different sub-components (Figure
   \item \textbf{Application Logic Layer}: handles the application logic
     (slightly abusing the notation, we will often refer to it simply as
     \textit{Application Layer});
-  \item \textbf{Interface Layer}: provides the remote services to Application
-    Layer by acting as an interface towards the underlying backend layer (i.e.,
-    middleware).
+  \item \textbf{Interface Layer (IL)}: provides the remote services to Application
+    Layer by acting as an interface towards the underlying middleware layer.
 \end{itemize}
 
 Thus, the Application Layer is able to communicate with other applications
-transparently without knowing if they are local or remote. This modular
-approach has been inspired by the TCP/IP and OSI models, in which you can
-easily substitute technologies of the same level.
+transparently without knowing if they are local or remote. We leverage the data
+encapsulation by wrapping the application data in a payload field while
+different sub-layers of IL manipulate different fields of the
+message header.  This layered
+approach has been inspired by the TCP/IP and OSI models, in which the layers
+communicates in two directions: horizontally by manipulating the same parts
+of the header and vertically by passing the packet to the next layer.
+Also, IL is completely asynchronous because each of its sub-layers has its own
+thread pool which runs in a event loop consuming messages from its incoming
+queue.
 
 In the following we list the sub-layers which compose Interface Layer in
 bottom up order:
 
 \begin{itemize}
   \item \textit{Session Layer} --
-  handles remote connections by means of a TCP socket;
+  handles remote connections through TCP sockets;
   \item \textit{Presentation Layer} --
   handles messages formats and conversions;
   \item \textit{Service Layer} --
-  It
-  implements an event loop with a worker pool and different kind of queues
-  for the requests (i.e. synchronous and asynchronous). It converts the
-  requests into procedure calls by leveraging a skeleton object.
-  Also, it offers the specular service through a stub object and a pipeline
-  of handlers, necessary to build specific remote requests.
+  converts the remote requests into procedure calls
+  by leveraging a skeleton object.
+  Also, it offers the specular service through a stub object plus a pipeline
+  of handlers. For each request, the former compose a specific pipeline
+  of handlers. The handlers incrementally construct the message by adding
+  header fields, wrapping the data into a payload field and finally putting
+  the message in the first queue which goes downwards (towards the middleware).
   \item \textit{Remote Layer + Tables} --
-  it comprises stub and skeleton which respectively act as client and
-  server parts of the local application. Also, it contains the tables used
+  It contains the tables used
   to dispatch the remote calls and the pending requests (i.e., synchronous
   requests which may trigger a retransmission on timeout or a local retry on
   failure).
