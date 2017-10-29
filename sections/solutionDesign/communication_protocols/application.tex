@@ -11,15 +11,16 @@ The Application is composed of two different sub-components (Figure
 \end{itemize}
 
 Thus, the Application Layer is able to communicate with other applications
-transparently without knowing if they are local or remote. We leverage the data
-encapsulation by wrapping the application data in a payload field while
+transparently without knowing if they are local or remote. We leverage data
+encapsulation by wrapping the application data as the payload of messages while
 different sub-layers of IL manipulate different fields of the
-message header.  This layered
-approach has been inspired by the TCP/IP and OSI models, in which the layers
-communicates in two directions: horizontally by manipulating the same parts
-of the header and vertically by passing the packet to the next layer.
+message header.
+This layered approach has been inspired by the TCP/IP and ISO/OSI models, in
+which the layers communicate in two directions: horizontally by manipulating
+the same parts of the header and vertically by passing the packet to the next
+layer, which is charged with different responsibilities.
 Also, IL is completely asynchronous because each of its sub-layers has its own
-thread pool which runs in a event loop consuming messages from its incoming
+thread pool that runs in an event loop consuming messages from its own incoming
 queue.
 
 In the following we list the sub-layers which compose Interface Layer in
