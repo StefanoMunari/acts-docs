@@ -61,10 +61,12 @@ bottom up order:
   \end{itemize}
   With pending request we are not reinventing a weakened version
   of TCP retransmission timers as it might seem.
-  We have concretely faced network connection errors during the communication
+  Indeed, we have concretely faced network connection errors during
+  the communication
   with the middleware layer. This was caused by occasional failures or network
-  problems subsequently fixed by the system itself (e.g. docker swarm). However,
-  we prefer to keep these synchronous messages as responsibility of the IL
+  problems subsequently fixed by the system itself (i.e. the docker swarm node).
+  However,
+  we preferred to give the responsibility of these synchronous messages to IL
   for two reasons:
   \begin{itemize}
   	\item it is the layer which has the highest probability of not losing them.
@@ -72,8 +74,8 @@ bottom up order:
   	local procedure
   	calls. Also, the TCP communication with the middleware layer could lead to
   	lose messages;
-  	\item the data wrapped in the messages are too important for the
-  	application: a failure
+  	\item the data wrapped in the messages are important for the
+  	application which should not lost them: a failure
   	or a timeout has to trigger a reaction as soon as possible because
   	the latency introduced in this communication can lead to a significant
   	time drift for the end user (e.g., a set of travellers blocked with

@@ -2,22 +2,22 @@
 
 When describing the shutdown of the whole system, we assumed the application
 terminates gracefully.
-In this section we show the algorithm we devised to achieve this goal.
+In this section we show the algorithm we designed to achieve this goal.
 
-As we can see from figure \ref{fig:app-proc-tree}, the termination follows the
+As we can see from figure \ref{fig:termination-app}, the termination follows the
 opposite order of the bootstrap.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.4,keepaspectratio]
-    {images/solution/app_proc_tree.eps}
-  \caption{Application Process Tree}
-  \label{fig:app-proc-tree}
+    {images/solution/termination-app.eps}
+  \caption{Application Termination}
+  \label{fig:termination-app}
 \end{figure}
 
 %TODO: Review termination process
 \begin{enumerate}
-  \item The \textit{Init} task $I$ stops active entities, e.g., pedestrians;
+  \item The middleware send a \verb|shutdown| message;
   \item After stopping active entities, $I$ saves their state into a file;
   \item $I$ saves into a file the state of reactive entities.
     It is important to notice their internal state is now safely savable,
