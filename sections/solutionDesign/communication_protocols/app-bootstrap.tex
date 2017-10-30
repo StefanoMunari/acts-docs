@@ -19,7 +19,7 @@ among the entity types (which are depicted in Figure
 The overall bootstrap process, which mimics UNIX init\cite{online-tlsag},
 is divided in two ordered parts:
 \begin{enumerate}
-  \item \textit{Init} -- initialize all the sub-layers of each macro layer,
+  \item \textit{Init} -- initialize all the sublayers of each macro layer,
   following a bottom up approach (from \verb|interface_layer.session| to
   \verb|application.scheduling|).
   The initialization order is given by the fact that the upper
@@ -48,7 +48,7 @@ The execution steps of \textit{Init} are depicted in Figure
 It instantiates the resources of each layer, thus making
 Interface Layer and Application Layer transit from the \verb|inactive|
 to the \verb|ready| state.
-For example, each sub-layer of Interface Layer instantiates its own pool of
+For example, each sublayer of Interface Layer instantiates its own pool of
 LWPs\footnote{lightweight processes}.
 
 The Application Layer initialization completes in the following order:
@@ -70,44 +70,50 @@ roads), they will be instantiated along with them
 (Figure \ref{fig:sd-entity-types-deps}).
 
 When \textit{Reactive} completes its initialization, \textit{Init}
-signals the Application layer completion to each sub-layer of Interface Layer
+signals the Application layer completion to each sublayer of Interface Layer
 in the following order:
 
 \begin{enumerate}
   \item \textit{Service} - provides activators and pipelines services to
     application layer;
   \item \textit{Presentation} - provides data conversion services;
-  \item \textit{Session} - provides network connection services (e.g. senders
+  \item \textit{Session} - provides network connection services (e.g., senders
   and receivers).
 \end{enumerate}
 
-\textit{Init} triggers the transition of each IL sub-layer state from
+\textit{Init} triggers the transition of each IL sublayer state from
 \verb|ready| to \verb|active|.
-The activation order is extremely important to proactively avoid the lost of
-messages between remote nodes. Indeed, at this stage, the application layer is
+The activation order is extremely important to proactively avoid
+message losses between remote nodes.
+Indeed, at this stage, the application layer is
 not able to generate or receive messages because the start message has not
-been sent by the middleware. Obviously, the IL is a reactive component
-of the backend subystem. Thus, \verb|active| state means
-that all the workers of IL
-are listening or waiting to execute. Their execution is triggered each time a
+been sent by the middleware. Obviously, IL is a reactive component
+of the backend subystem. Thus, its \verb|active| state means
+that all the workers of IL have started their event loop.
+Their loop execution is triggered each time a
 message arrives. Indeed, the workers are blocked on unbounded synchronized
 queues which have been designed to be thread safe \cite{taft2006ada}.
+
 
 The service and the presentation layer are activated before the session layer;
 the latter exposes a remote communication channel through TCP
 sockets.
 Finally, the application is ready to communicate because both of its layers
-has been activated. Now, the Application will simply wait the \verb|start|
+has been activated.
+
+Now, the Application waits the \verb|start|
 message from the middleware.
 
+
 A crash of the \textit{Init} process, occurring before the end of the
-bootstrap, is detected by the middleware layer. It triggers the expiration
-of a timeout from the middleware side.
+bootstrap, is detected by the middleware layer. The expiration
+of a timeout triggers a retransmission from the middleware side.
 Note that this model should also work for a bootstrap which is executed
 starting
 from a valid snapshot of the system, with the only difference consisting in
-divergent values of the configuration file. Indeed, we will use a set
-of configurations, which is going to be different for each city.
+divergent values of the configuration file.
+Indeed, for each simulation we will use a set
+of configurations which is going to be different for each city.
 
 \subsubsubsection{Start}
 

@@ -11,9 +11,9 @@ the Interface Layer (IL) components.
 \end{figure}
 
 IL enables the Application Layer to communicate with other applications
-transparently without knowing if they are local or remote. We leverage data
-encapsulation by wrapping the application data as the payload of messages while
-different sub-layers of IL manipulate different fields of the
+transparently without knowing if they are local or remote. We encapsulate the
+application data as message payload while
+different sublayers of IL manipulate different fields of the
 message header.
 This layered approach has been inspired by the TCP/IP and ISO/OSI models, in
 which the layers communicate in two directions:
@@ -22,15 +22,17 @@ which the layers communicate in two directions:
 	\item vertically  - passing the packet to the next
 layer, which is charged with different responsibilities.
 \end{itemize}
-Also, IL is completely asynchronous because each of its sub-layers has its own
-thread pool that runs in an event loop consuming messages from its own incoming
+Also, IL is completely asynchronous because each of its sublayers has its own
+thread pool. Furthermore, each thread pool is controlled by a master thread which
+runs in an event loop consuming messages from its own incoming
 queue. For example, the receiver can handle potentially multiple concurrent
-requests by delegating each one of them to its worker threads. After a worker has
+requests by delegating each one of them to its worker threads.
+After a worker has
 completed the assigned task it is pushed back on the receiver's local stack,
 ready to be reused.
 
 
-In the following we list the sub-layers which compose IL in
+In the following we list the sublayers which compose IL in
 bottom up order:
 
 \begin{itemize}
@@ -64,7 +66,8 @@ bottom up order:
   Indeed, we have concretely faced network connection errors during
   the communication
   with the middleware layer. This was caused by occasional failures or network
-  problems subsequently fixed by the system itself (i.e. the docker swarm node).
+  problems subsequently fixed by the system itself
+  (i.e., the docker swarm node).
   However,
   we preferred to give the responsibility of these synchronous messages to IL
   for two reasons:
@@ -75,11 +78,12 @@ bottom up order:
   	calls. Also, the TCP communication with the middleware layer could lead to
   	lose messages;
   	\item the data wrapped in the messages are important for the
-  	application which should not lost them: a failure
+  	application which can not afford to lose them. Indeed, a lost message
+    could mean a missing pedestrian in the system. Thus, a failure
   	or a timeout has to trigger a reaction as soon as possible because
-  	the latency introduced in this communication can lead to a significant
+  	the latency introduced in the communication can lead to a significant
   	time drift for the end user (e.g., a set of travellers blocked with
-  	apparently no reasons). This could undermine the principle of viewing the
+  	apparently no reason). This could undermine the principle of viewing the
   	whole distributed system as one single unit.
   \end{itemize}
 \end{itemize}

@@ -10,6 +10,15 @@ The Application is composed of two different sub-components (Figure
     Layer by acting as an interface towards the underlying middleware layer.
 \end{itemize}
 
+In the next sections we will use the following terms to describe the state of a
+software layer or a package state:
+\begin{itemize}
+	\item \verb|inactive| - not even created;
+	\item \verb|ready| - initialized with all the needed resources. Not yet
+	allowed to execute;
+	\item \verb|active| - executing.
+\end{itemize}
+
 \input{sections/solutionDesign/architecture/application-layer.tex}
 \input{sections/solutionDesign/architecture/interface-layer.tex}
 \input{sections/solutionDesign/communication_protocols/app-bootstrap.tex}
