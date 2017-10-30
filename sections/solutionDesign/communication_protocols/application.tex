@@ -10,41 +10,8 @@ The Application is composed of two different sub-components (Figure
     Layer by acting as an interface towards the underlying middleware layer.
 \end{itemize}
 
-Thus, the Application Layer is able to communicate with other applications
-transparently without knowing if they are local or remote. We leverage data
-encapsulation by wrapping the application data as the payload of messages while
-different sub-layers of IL manipulate different fields of the
-message header.
-This layered approach has been inspired by the TCP/IP and ISO/OSI models, in
-which the layers communicate in two directions: horizontally by manipulating
-the same parts of the header and vertically by passing the packet to the next
-layer, which is charged with different responsibilities.
-Also, IL is completely asynchronous because each of its sub-layers has its own
-thread pool that runs in an event loop consuming messages from its own incoming
-queue.
-
-In the following we list the sub-layers which compose Interface Layer in
-bottom up order:
-
-\begin{itemize}
-  \item \textit{Session Layer} --
-  handles remote connections through TCP sockets;
-  \item \textit{Presentation Layer} --
-  handles messages formats and conversions;
-  \item \textit{Service Layer} --
-  converts remote requests into procedure calls
-  by leveraging a skeleton object.
-  Also, it offers the specular service through a stub object plus a pipeline
-  of handlers. For each request, the former compose a specific pipeline
-  of handlers. The handlers incrementally construct the message by adding
-  header fields, wrapping the data into a payload field and finally putting
-  the message in the first queue which goes downwards (towards the middleware).
-  \item \textit{Remote Layer + Tables} --
-  It contains the tables used
-  to dispatch the remote calls and the pending requests (i.e., synchronous
-  requests which may trigger a retransmission on timeout or a local retry on
-  failure).
-\end{itemize}
+\input{sections/solutionDesign/architecture/application-layer.tex}
+\input{sections/solutionDesign/architecture/interface-layer.tex}
 \input{sections/solutionDesign/communication_protocols/app-bootstrap.tex}
 \input{sections/solutionDesign/communication_protocols/app-termination.tex}
 \input{sections/solutionDesign/communication_protocols/app-interactions.tex}
