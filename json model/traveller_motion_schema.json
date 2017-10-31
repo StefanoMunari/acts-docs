@@ -1,6 +1,7 @@
 {
 	"travellerId": <number>, //O
 	"infrastructureId": <number>, //O
+	"speed": <number>, //O
 	"travellerType": Enum<"PEDESTRIAN"|"VEHICLE"|"BYCICLE">, //O
         "passengers": Array<number> //non presente o nullo quando "travellerType="PEDESTRIAN"" 
                             //altrimenti presente e con almeno un elemento
