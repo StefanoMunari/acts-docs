@@ -1,0 +1,40 @@
+\section{Usage}
+
+\subsection{Simulation Streaming}\label{sec:usage-stream}
+
+Once connected to \texttt{0.0.0.0:4005} (the address provided in Section
+\ref{sec:sys-run}), you will access the ACTS dashboard. In this window, you
+will find different boxes, each one reporting a name of a city.
+After clicking on one of those, it will expand in a panel which is
+comprehensive of the districts a city is split in.
+One district has several streets, road intersections and other infrastructural
+elements like buildings.
+
+If you click on a district, you will be redirected to a Web page in which
+there is an SVG canvas on which the district will be drawn.
+This canvas is resizable (use the mouse scroll), draggable (drag with your
+mouse to move the view) and also has buttons on the bottom right corner to
+zoom in (\texttt{+}), zoom out (\texttt{-}) and reset (\texttt{RESET}) the
+canvas position and zoom.
+
+When you open a district view, this will cause the browser to require the
+streaming of a simulation for the city the district belongs to: therefore, a
+user will implicitly either (1) trigger the boot of a city simulation or (2)
+connect to an on-going city simulation.
+This is completely transparent to the user, which will just be served with a
+simulation for.
+
+\subsection{Changing District}
+
+If you want to change the district you are viewing, you can do this by just
+clicking the home icon in the top left corner and repeating the steps indicated
+in Section \ref{sec:usage-stream}.
+Exiting the district view will not cause the simulation end, which is instead
+triggered by an internal time-out. Therefore, if you connect to the same
+district twice, you will re-subscribe to the same simulation you were
+previously watching.
+
+\subsection{Interactivity}
+We also have live statistics for our districts: you can find them either by
+hovering above buildings and with the \texttt{Stats} button in the bottom left
+corner.
