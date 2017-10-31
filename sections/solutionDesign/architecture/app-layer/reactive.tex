@@ -1,0 +1,54 @@
+\subsubsubsection{Reactive entities}
+This is one of the largest packages of our system.
+It contains:
+\begin{itemize}
+	\item all the reactive entities (streets, lanes, stretches, etc.);
+	\item the builders and factories of the reactive entities;
+	\item the district class, which acts as a Facade for
+the whole application (except for scheduling);
+	\item the entity registries and directories (subdivided by entity types);
+	\item some scaffolding packages like Utils.
+\end{itemize}
+
+The important interfaces of the package are \texttt{Infrastructure} and
+\texttt{Treadable}. The former represents an infrastructural object while the
+latter represents a piece of infrastructure on which an agent can travel
+(i.e. stretches and intersections).
+In our system we consider the streets and lanes just as containers
+implemented using the \textit{Composite} pattern:
+\begin{itemize}
+	\item a \texttt{Street} is a composition of \texttt{Way}s;
+	\item a \texttt{Way} is a composition of \texttt{Lane}s;
+	\item a  \texttt{Lane} is a composition of \texttt{Stretch}es.
+\end{itemize}
+
+Thus, we consider the stretch as the basic unit
+of the street where an agent can travel.
+Handling the concurrency at this level potentially enables
+an high level of  parallelism in our system.
+
+The other basic infrastructural entity on which an agent can travel is
+\texttt{Intersection}. Each \texttt{Intersection} reserves one of its
+entries for a traveler if it is a vehicle, otherwise it is just bypassed by
+pedestrians and bicycles.
+
+A \texttt{Treadable} object do not make worker threads block in its
+critical regions.
+Any time a traveler moves on them, a \texttt{Treadable} object attempt
+to make it enter. If this
+operation is successful, the traveler advances in the next piece of
+infrastructure
+and leaves the former one. Otherwise, the traveler is rescheduled
+for a time span ahead
+to retry the operation. In the latter case, the traveler does not leave
+the reactive entity where he is currently in.
+
+In this package we also implemented the decorators for stretches and lanes: they
+override basic operations by composition and enrich some of them with custom
+behavior. For example:
+
+\begin{itemize}
+  \item before entering a new lane it may be applied a given speed limit;
+  \item before treading a stretch, further checks may be required if it is a
+    part of a pedestrian/bicycle crossing.
+ \end{itemize}
