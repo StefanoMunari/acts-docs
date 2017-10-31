@@ -49,13 +49,11 @@ western road can only enter the southern street on the ``western'' side.
 \paragraph{Entering a building}
 When a moving entity is in the stretch where there is the entrance of a
 building, then it can enter the building. If the entity is a pedestrian, then
-it will enter the house. If the moving entity is a vehicle then it will
-enter the garage. The garage has a maximum capacity and only a vehicle
-which have book its parking slot can enter the garage.
-
-\paragraph{Exiting a building}
-When a moving entity is exiting a building, it has to check whether there is
-room for it to move out.
+it will just enter the house.
+Otherwise, if the moving entity is a vehicle it will
+enter the garage and then every passenger onboard will enter the house.
+The garage has a maximum capacity and only vehicles
+which have booked a parking slot in advance can enter the garage.
 
 \paragraph{Choosing to use a vehicle}
 A person $p$ who wants to leave a building $b_1$ to move to $b_2$ can decide
