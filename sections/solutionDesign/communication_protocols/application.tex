@@ -11,12 +11,13 @@ The Application is composed of two different sub-components (Figure
 \end{itemize}
 
 In the next sections we will use the following terms to describe the state of a
-software layer or a package state:
+software layer or a package:
 \begin{itemize}
 	\item \verb|inactive| - not even created;
 	\item \verb|ready| - initialized with all the needed resources. Not yet
 	allowed to execute;
-	\item \verb|active| - executing.
+	\item \verb|active| - executing;
+	\item \verb|stopped| - not executing. It is waiting to terminate.
 \end{itemize}
 
 \input{sections/solutionDesign/architecture/application-layer.tex}
@@ -24,7 +25,5 @@ software layer or a package state:
 \input{sections/solutionDesign/communication_protocols/app-bootstrap.tex}
 \input{sections/solutionDesign/communication_protocols/app-termination.tex}
 \input{sections/solutionDesign/communication_protocols/app-interactions.tex}
-% Architectural overview
-\input{sections/solutionDesign/communication_protocols/arch-overview.tex}
 % Detail design
 \input{sections/solutionDesign/communication_protocols/detail-design.tex}
