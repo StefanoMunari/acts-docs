@@ -13,7 +13,7 @@
  	and provides a global point of access to it.
   	Uses lazy initialization, hence no class instance is created 
   	or stored until one is first requested.
-    It is a singleton because only one traveller scheduler is needed.
+    It is a singleton because only one traveler scheduler is needed.
   \item \textbf{\ops}
   \begin{itemize}
     \item \texttt{StandardScheduler()} \\
@@ -24,6 +24,6 @@
     of \texttt{Scheduler}. At the first invocation, it is responsible 
     for creating the instance.
     \item[+] \texttt{notify()} \\
-	Notifies of changes all the attached Traveller objects.
+	Notifies of changes all the attached traveler objects.
   \end{itemize}
 \end{itemize}

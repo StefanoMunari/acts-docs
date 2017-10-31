@@ -1,15 +1,16 @@
 \subsubsection{Interaction between entities}
 
 The application contains several interactions among entities that have to be
-specified in order to understand well how to approach different problems.
+specified in order to clearly understand how to approach different problems.
 
-\paragraph{Entering a road} Moving entities enter a road which by accessing
-one of its lane that meets two requirements:
+\paragraph{Entering a road} Moving entities enter a road which, by accessing
+one of its lane, satisfies two requirements:
 
 \begin{itemize}
-  \item the lane has to be treadable by their specific entity type;
+  \item the specific entity type can drive or walk on the lane. For example,
+  a car can not drive on a sidewalk but only on a roadway;
   \item assuming that the moving entity wants to go in the direction $d_1$,
-    then the lane has to be treadable in the direction $d_0 \rightarrow d_1$.
+    then the lane has to be walkable in the direction $d_0 \rightarrow d_1$.
 \end{itemize}
 
 \paragraph{Entering a lane}

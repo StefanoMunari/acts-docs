@@ -89,11 +89,11 @@ We abstracted the city structure in the following way:
         adjacent lanes of the same type. A way can be a footway (i.e., a
         sidewalk), a bikeway or a roadway;
       \item A way is composed of lanes. \textbf{Lanes} are arrays of stretches
-        treadable in just \textit{one} direction. A lane can be a footway lane,
+        where an agent can walk or drive in just \textit{one} direction. A lane can be a footway lane,
         a bikeway lane or a roadway lane;
       \item A lane is made up of several stretches. A \textbf{stretch} is the
         basic structural unit of our reference city abstraction and, depending
-        on the traveller type that can move on it (besides a few exceptions
+        on the traveler type that can move on it (besides a few exceptions
         like zebra crossings), a stretch can be a footway stretch, a bikeway
         stretch or a roadway stretch.
     \end{itemize}
@@ -326,7 +326,7 @@ Even if it is an operation which might entail remote communication, the booking
 of a park spot in another building will incur into concurrency issues when it
 will be actually carried out.
 
-Indeed, consider a single garage scenario where a defined number of travellers
+Indeed, consider a single garage scenario where a defined number of travelers
 are exiting from the garage and, at the same time, multiple remote booking
 operations are delivered to the aforementioned garage. Clearly,
 it is necessary to define a protocol to regulate the described scenario.

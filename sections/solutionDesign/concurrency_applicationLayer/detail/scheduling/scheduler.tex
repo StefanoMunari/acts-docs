@@ -8,19 +8,19 @@
 \FloatBarrier
 \begin{itemize}
   \item \textbf{\descr} \\
-  An abstraction of a scheduler of travellers.
+  An abstraction of a scheduler of travelers.
   Ensures the existence of at most one instance of a concrete ``Scheduler", 
   and provides a global point of access to it.
   Uses lazy initialization, hence no class instance is created 
   or stored until one is first requested.
-  It is a singleton because only one traveller scheduler is needed.
+  It is a singleton because only one traveler scheduler is needed.
   \item \textbf{\attrs}
   \begin{itemize}
     \item \texttt{\underline{instance : Scheduler = nil}} \\
     A static attribute that contains the unique instance 
     of a concrete \texttt{Scheduler}. It is initialized to nil.
     \item \texttt{agents: Collection<Agent>} \\
-	A collection of travellers.
+	A collection of travelers.
 	\item \texttt{strategy: schedulingStrategy} \\
 	A scheduling algorithm.
   \end{itemize}

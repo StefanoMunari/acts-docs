@@ -6,25 +6,29 @@ the system), the entity registries and directories (subdivided by entity types),
 and finally some scaffolding like Utils packages.
 
 Here the most important interfaces are \texttt{Infrastructure} and
-\texttt{Treadable}, which respectively represents an infrastructural object and
-a piece of infrastructure which is treadable, that is stretches and
-intersections.
-In fact, even if streets and lanes would actually be treadable (in the ``real''
-world), in our system we will think of them just as containers which use the
+\texttt{Treadable}. The former represents an infrastructural object while the
+latter represents a piece of infrastructure on which an agent can travel
+(i.e. stretches and intersections).
+In our system we will think the streets and lanes just as containers
+which use the
 \textit{Composite} pattern: a \texttt{Street} is a composition of \texttt{Way}s,
 which in turn are composed of \texttt{Lane}s, which finally are composed of
 \texttt{Stretch}es.
-For the sake of ease, we will think of stretches as the basic treadable unit
-for streets, handling the concurrency at this tiny architectural level (thus
-enabling a high level of potential parallelism in our system).
+Thus, we consider the stretch as the basic unit
+for streets where a agent can travel.
+Handling the concurrency at this level potentially enables
+an high level of  parallelism in our system.
 
-The other treadable entity is \texttt{Intersection}: they reserve one of its
-entries for a traveller if it is a vehicle, otherwise it is just bypassed by
+The other infrastructural entity on which an agent can travel is
+\texttt{Intersection}. Each \texttt{Intersection} reserves one of its
+entries for a traveler if it is a vehicle, otherwise it is just bypassed by
 pedestrians and bicycles.
 
-Treadable objects do not make worker threads block in critical regions: each
-time a traveller moves on them, treadables attempt to make it enter. If this
-operation is successful, travellers advance in the next piece of infrastructure
+\texttt{Treadable} objects do not make worker threads block in critical regions:
+each
+time a traveler moves on them, a \texttt{Treadable} object attempt to make it
+enter. If this
+operation is successful, travelers advance in the next piece of infrastructure
 and leave the former one, otherwise they are rescheduled for a little time ahead
 to retry the operation (without leaving the reactive entity they are currently
 in).

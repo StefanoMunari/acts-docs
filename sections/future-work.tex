@@ -43,8 +43,8 @@ recipient/servant for their need.
 The application layer presents two types of RPC:
 
 \begin{enumerate}
-  \item a traveller moving from a district to an adjacent one;
-  \item a traveller booking a parking spot.
+  \item a traveler moving from a district to an adjacent one;
+  \item a traveler booking a parking spot.
 \end{enumerate}
 
 In the second case, the message is intended to be sent to a possibly
@@ -52,7 +52,7 @@ non-adjacent node. Therefore, the middleware has a system of naming and routing
 capable of forwarding the message to the more suitable next-hop node.
 
 Uber-like services are on-demand transport services offered by (1) normal
-travellers which are driving a car or (2) taxis. In both cases, a traveller
+travelers which are driving a car or (2) taxis. In both cases, a traveler
 which \textit{requests} a Uber-like service has to reach a mobile entity.
 This factor would have made our system more complex because the Uber-like
 request does not specify an intended provider, then it should be propagated
@@ -66,7 +66,7 @@ another service to our application layer, i.e., emergency services like
 ambulances.
 
 This feature would be easier than Uber-like services to implement, since for a
-traveller in a state of emergency this operation would be analogous to book a
+traveler in a state of emergency this operation would be analogous to book a
 parking spot (obviously with a different semantic after the booking operation).
 
 \subsection{Fault tolerance -- Middleware}
@@ -111,7 +111,7 @@ routing protocol (e.g., AODV).
 
 \subsection{Consistency of local snapshots}
 The consistency of application layer snapshot is not currently guaranteed,
-since they might contain duplicates or some travellers might disappear.
+since they might contain duplicates or some travelers might disappear.
 
 Clearly, a local snapshot is not a consistent checkpoint to resume the system
 in case of failures. Therefore, we could also have added the following
@@ -124,9 +124,9 @@ features:
         snapshot or simply dropping the invalid one;
   \item Snapshot Corrector: a daemon which works after a validation check for
         an application-layer snapshot fails. This component could try to fix
-        the snapshot so it becomes feasible. E.g., if no traveller disappeared
+        the snapshot so it becomes feasible. E.g., if no traveler disappeared
         and the snapshot is invalid due to duplicates, it may simply
-        arbitrarily drop some travellers from some stretches and make it valid,
+        arbitrarily drop some travelers from some stretches and make it valid,
         avoiding subsequent requests for valid snapshots;
   \item Resumption from a valid epoch: if we had the chance to guarantee a
         snapshot it's valid, we could make the system restart from a valid,
