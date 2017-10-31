@@ -25,9 +25,8 @@ time.
 \paragraph{Zebra crossings}
 Vehicles which want to enter a road stretch with painted zebra crossings have
 to wait for pedestrians or bikes to free the crossing.
-We decided to adopt a model in which unprivileged entities stop when they
-notice a privileged entity is entering or is present in the stretch it wants
-to enter.
+In our system unprivileged entities stop when a privileged entity is entering
+or is already crossing the stretch they want to enter.
 %TODO: Provide graphic example?
 
 \paragraph{Crossroads} Every road that is connected to a crossroads is marked
@@ -44,12 +43,15 @@ to another one.
 
 Pedestrians and bikes can only walk on the corner of the crossroads, thus
 passing to the adjacent piece of road.
-For example, a pedestrian that is coming from the ``southern'' side of the
+For example, a pedestrian coming from the ``southern'' side of the
 western road can only enter the southern street on the ``western'' side.
 
 \paragraph{Entering a building}
 When a moving entity is in the stretch where there is the entrance of a
-building, then it can enter the building.
+building, then it can enter the building. If the entity is a pedestrian, then
+it will enter the house. If the moving entity is a vehicle then it will
+enter the garage. The garage has a maximum capacity and only a vehicle
+which have book its parking slot can enter the garage.
 
 \paragraph{Exiting a building}
 When a moving entity is exiting a building, it has to check whether there is
@@ -57,21 +59,25 @@ room for it to move out.
 
 \paragraph{Choosing to use a vehicle}
 A person $p$ who wants to leave a building $b_1$ to move to $b_2$ can decide
-to take an available vehicle.
+to take one of the available vehicles in the garage.
 
-When $p$ requires to get out it with a vehicle, all other people in $b_1$
+When $p$ decides to get out $b_1$ with a vehicle,
+all other people in $b_1$
+can share the vehicle with $p$ if the logical disjunction
+of the following conditions is satisfied:
 \begin{itemize}
-\item sharing the same path; or
-\item having a destination $c$ contained into $p$'s path; or
-\item having a path containing $b_2$
+\item they share the same path;
+\item they have a destination $c$ contained into $p$'s path;
+\item they have a path containing $b_2$
 \end{itemize}
-can decide to leave $b_1$ with $p$ sharing a vehicle
-until the most capacious vehicle, among the available, ones become full.
+They will leave $b_1$ with $p$ sharing a vehicle
+until the most capacious vehicle, among the available ones, become full.
 
-Nevertheless $p$ can leave $b_1$ with a vehicle only if:
+Nevertheless $p$ can leave $b_1$ with a vehicle only if logical disjunction
+of the following conditions holds:
 \begin{itemize}
 \item the capacity of $b_2$'s car park is greater than the sum of all
-vehicles being already there and the ones which are coming there; or
+vehicles being already there and the ones which are coming there;
 \item there is at least another person in $b_1$
   \begin{itemize}
   \item having a path containing $b_2$; and
@@ -95,13 +101,9 @@ a parking lot for the vehicle.
 Whenever a pedestrian is on a bus stop stretch, it can decide to wait for a
 bus.
 
-Firstly, the pedestrian checks whether its path is (even partially) matched by
-the bus's one.
-If at least one of them does, then it waits for a limited amount of time for a
-bus to arrive.
-
-If this timeout expires, then it continues travelling by foot to the next
-stretch.
+Firstly, the pedestrian checks whether his path is contained in the bus path.
+If so, then it waits for the bus. In this case the pedestrian assumes that
+the bus sooner or later will arrive.
 
 \begin{figure}[H]
   \centering
@@ -113,7 +115,7 @@ stretch.
 
 \paragraph{Boarding a bus}
 When a bus arrives at a bus stop, then a waiting pedestrian will board it only
-if there is enough room for it.
+if there is enough room for it on the vehicle.
 
 \begin{figure}[H]
   \centering
@@ -126,13 +128,14 @@ if there is enough room for it.
 \paragraph{Getting off a bus} A person $p$ will get off a bus when it reaches
 the last stop $s$ belonging to the route of $p$.
 
-\paragraph{Respecting street code} Roads and crossroads have to contain
-all the logic which is needed to make moving entities follow the street rules.
+\paragraph{Respecting the road code} The roads and the crossroads contain
+all the necessary logic to make moving entities respect the road rules.
 
 \paragraph{Performing an overtaking} This action is possible only when a
-vehicle is able to change lane. It might be triggered by a timeout which
-expires when it is waiting too much for entering the next straightaway stretch.
-
+vehicle is able to change lane. The vehicle performs an overtaking
+only if the next stretch in its path is already taken by another moving entity.
 When a vehicle tries to overtake another one, it will always try to return to
-the lane where it started the operation before entering the last stretch.
+the lane where it started the operation before entering the last stretch. This
+is achieved by booking the landing stretch before performing the
+overtaking.
 
