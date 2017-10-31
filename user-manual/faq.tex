@@ -90,4 +90,32 @@ If you are not, then the server which provides you the Web pages may not be
 ready: in that case, you can refresh the page from time to time until the
 dashboard appears.
 
+\item \textbf{How can I clean my machine after running ACTS?}
+
+First of all, you need to remove all the deployed services.
+To do so, retrieve the list of Docker Swarm stacks currently up:
+
+\begin{lstlisting}[language=bash]
+docker stack ls
+\end{lstlisting}
+
+and then remove each one of them with:
+
+\begin{lstlisting}[language=bash]
+docker stack rm <STACK_NAME>
+\end{lstlisting}
+
+where \texttt{<STACK\_NAME>} is the name of each one of the stacks returned by
+the first command.
+Clearly, you may have something else running on your machine: in that case, be
+careful to remove just the ACTS stacks, which are identified by numbers $0$,
+$1$, ... and the string \texttt{view}.
+
+After removing the stacks, issue from the root of the ACTS repository the
+following command:
+
+\begin{lstlisting}[language=bash]
+bash clean.sh -l 3
+\end{lstlisting}
+
 \end{itemize}
