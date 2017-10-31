@@ -3,7 +3,6 @@
 \begin{itemize}
 
 \item How can I use ACTS?
-\\
 
 ACTS provides three basic commands:
 \begin{itemize}
@@ -18,29 +17,32 @@ by typing:
 \end{lstlisting}
 Each one will print to stdout an explanation of its usage.
 
-\item How to set up a docker swarm?
-\\
+More detailed instructions are provided in Section \ref{sec:sys}.
+
+\item How to set up a Docker Swarm?
 
 To set a local swam master for the simulation:
 
 docker swarm init --advertise-addr <YOUR\_LOCAL\_IP\_ADDR>
 
 More information can be found in the \href{https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/}{docker swarm documentation}.
+Also, you can check if the Docker Swarm started by following the instructions
+of Section \ref{sec:sys-swarm}.
 
-\item How much time does swarm takes to deploy the whole system?
-\\
+\item How much time does Swarm takes to deploy the whole system?
 
-It depends on the number of cities and on the size of them\footnote{Obviously,
-it depends also on the computational resources of your machine}.
+It depends on the number of cities and on the size of them\footnote{Clearly,
+it is heavily affected by the computational resources of your machine}.
 The estimated time with 2 cities, each one
-composed by 3 districts, is around 2-3 minutes.
+composed by 3 districts, is around 5 minutes.
 A small sized system, like
 the one described, is composed by almost 30 containers.
-However, it depends on the number or replicas declared in the configuration files.
-A replica is a duplicated container used by docker swarm to guarantee some
-degree of availability of the service. This enable to alleviate the single
-point of failure problem at runtime. Indeed, if a container crashes, a copy
-is ready to immediately replace it while docker swarm is restarting the crashed
-one.
+However, it depends on the number or replicas declared in the configuration
+files.
+A replica is a duplicated container used by Docker Swarm to guarantee some
+degree of availability of the service. This enables us to alleviate the single
+point of failure problem at runtime. Indeed, if a container crashes, another
+worker is ready to immediately replace it while Docker Swarm managers restart
+the failing container.
 
 \end{itemize}
