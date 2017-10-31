@@ -23,7 +23,9 @@ More detailed instructions are provided in Section \ref{sec:sys}.
 
 To set a local swam master for the simulation:
 
-docker swarm init --advertise-addr <YOUR\_LOCAL\_IP\_ADDR>
+\begin{lstlisting}[language=bash]
+docker swarm init --advertise-addr <YOUR_LOCAL_IP_ADDRESS>
+\end{lstlisting}
 
 More information can be found in the \href{https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/}{docker swarm documentation}.
 Also, you can check if the Docker Swarm started by following the instructions
@@ -44,5 +46,48 @@ degree of availability of the service. This enables us to alleviate the single
 point of failure problem at runtime. Indeed, if a container crashes, another
 worker is ready to immediately replace it while Docker Swarm managers restart
 the failing container.
+
+\item \textbf{How can I know the system is up and running?}
+
+Docker comes with a set of tools which allows to inspect the state of a swarm.
+With the following command, you can find out which cities are currently being
+deployed:
+
+\begin{lstlisting}[language=bash]
+docker stack ls
+\end{lstlisting}
+
+Each city has a numerical identifier, starting from $0$: therefore, if you are
+deploying two cities, you should see cities $0$ and $1$ after running the
+command here above.
+
+In order to know the status of a city, you have to issue the command (in which,
+for example \texttt{<CITY\_ID>} is $0$):
+
+\begin{lstlisting}[language=bash]
+docker stack services <CITY_ID>
+\end{lstlisting}
+
+This command will cause Docker to output the list of services of a city: if
+some of the services \emph{without} the \texttt{\_data} suffix does not have
+any replica available for it, then you have to wait for it to be deployed.
+
+Even if a service is started, it may not be ready: if you want to have more
+information about it, you can inspect the logs of a single container with the
+following command\footnote{where \texttt{<CONTAINER\_ID>} is the id of a Docker
+container; you can find Docker container ids using tab completion in a shell}:
+
+\begin{lstlisting}[language=bash]
+docker logs -f <CONTAINER_ID>
+\end{lstlisting}
+
+As a rule of thumb, if no more logs are produced (when no simulation is
+running), a container is ready; also, some of the services explicitly print
+they are ready to run.
+Then, you should be able to connect by means of a browser to the address given
+in Section \ref{sec:sys-run}.
+If you are not, then the server which provides you the Web pages may not be
+ready: in that case, you can refresh the page from time to time until the
+dashboard appears.
 
 \end{itemize}
