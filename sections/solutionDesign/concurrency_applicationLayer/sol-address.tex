@@ -77,9 +77,9 @@ execution from the last valid snapshot.
 The application will be designed to overcome starvation or deadlock scenarios.
 
 In fact, active entities do not hold locks on protected objects and do not
-block on RPCs: while the first condition is quite easy to achieve (the
-compiler came in to give us a hand), the latter has been not straightforward
-to implement.
+block on Remote Procedure Calls (or \textit{RPC}s): while the first condition
+is quite easy to achieve (the compiler came in to give us a hand), the latter
+has been not straightforward to implement.
 
 We designed an event loop which resembles the one present in NodeJS: when
 performing an RPC, a worker thread will provide a couple of callbacks (one for
