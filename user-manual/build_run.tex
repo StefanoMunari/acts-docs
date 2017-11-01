@@ -14,7 +14,7 @@ The installation and execution of each part of the system comprises two steps:
    \item \texttt{run} --
    this step requires Docker Swarm
 	or Docker Compose depending on the configurations chosen for the build.
-	We provide only the complete system configuration and not the
+	We provide only the complete system configurations and not the
 	configuration of each single component.
    However, during the development of the project,
 	the system used to be run with the latter configuration.
@@ -24,7 +24,7 @@ The installation and execution of each part of the system comprises two steps:
    each stack is a set of services which represents
    a city. Note that a service is not necessarily a container.
    A service can represent a set of containers which are kept under the same
-   name by docker swarm.
+   name by Docker Swarm.
    Also, not all the stacks represents a city. Indeed, the AMQP broker
    and the viewer components are wrapped in a separated
    stack which is unique within the system (i.e., does not depend upon the
