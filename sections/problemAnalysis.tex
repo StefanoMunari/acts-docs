@@ -1,12 +1,12 @@
 \section{Problem Analysis}
 
-This section will expose several problems we took in account during the
+This section will expose several problems we took into account during the
 initial phase of the project:
 
 \begin{itemize}
 \item \textbf{Domain Analysis}: description of the applicative context we
   considered to model;
-\item \textbf{Distribution}: since a need to distribute the system arises from
+\item \textbf{Distribution}: since the need to distribute the system arises from
   the domain analysis, in this section we will discuss issues we encountered
   while designing the distribution of the city traffic simulator;
 \item \textbf{Concurrency}: it is reasonable to believe that some entities
@@ -24,7 +24,7 @@ about the time flow during simulations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Domain Analysis}\label{sec:pa-domain}
-The goal of this project is to represent the traffic of a city. Among all the
+The main goal of this project is to represent the traffic of a city. Among all the
 different options we could choose, we decided to simulate some lively cities of
 the United States of America (e.g., San Francisco).
 
@@ -110,7 +110,7 @@ For scalability reasons, we would like to distribute our system across several
 computing nodes to attenuate the burden of running each simulation on single
 nodes. We can do this by leveraging the knowledge we have at configuration time
 about the geographical disposition of the structural macro-units of a city,
-that is, street and intersections. In fact, we expect high interaction between
+that is, streets and intersections. In fact, we expect high interaction between
 \textit{adjacent} structural macro-units.
 More precisely, we will call \textbf{district} a set of streets and
 intersections. Therefore, we will divide a city in districts and then we will
