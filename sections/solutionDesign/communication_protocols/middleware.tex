@@ -135,7 +135,7 @@ between parties.
 %   \label{fig:election-protocol-ex}
 % \end{figure}
 
-\subsubsection{System Boostrap}
+\subsubsection{System Boostrap}\label{sec:sys-boot-mw}
 As pointed out in Problem Analysis (Section \ref{sec:pa-distribution}),
 the system has
 to start neatly. Hence, we need to design a protocol in order to accomplish
@@ -186,10 +186,11 @@ As it can be seen in the figure, this behaviour is replicated recursively
 by all nodes of the system. If a node has already received a boot request,
 then it only sends \texttt{Ack\_mw} back.
 
+
 \subsubsection{System Termination}
-Also, the system has to shutdown neatly. Therefore we designed a protocol to
-stop the entire system; please notice that this one could be seen as a
-symmetric version of the System Bootstrap protocol.
+The system has to shutdown neatly. Therefore we designed a protocol to
+stop the entire system. This one can be seen as a
+symmetric version of the System Bootstrap (\ref{sec:sys-boot-mw}).
 % TODO: please check the sentence here above
 
 The protocol is represented in figure \ref{fig:sys-termination-protocol}, where
@@ -204,7 +205,7 @@ the conventions are the same as the ones used in figure
   \label{fig:sys-termination-protocol}
 \end{figure}
 
-Assuming that a \texttt{Shutdown\_mw} message arrives to a non-terminated node
+Assuming that a \texttt{Shutdown\_mw} message arrives to a running node
 $l$ (let it be the leftmost one in the picture) at time instant $0$, the
 protocol is defined as follows:
 
