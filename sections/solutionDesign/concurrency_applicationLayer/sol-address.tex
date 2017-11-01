@@ -135,7 +135,6 @@ One road stretch (e.g., a sidewalk stetch) may contain more than one entity of
 the same type (e.g., pedestrians) at a time.
 Parallelism is achieved by using a system of worker threads thanks to which
 more than one active entity can potentially act in parallel in a district.
-
 Other than this, there is potential parallelism since locks are not held on the
 whole street (/way/lane), but only on the stretch a traveler is willing to
 tread (and for a very short time).
@@ -232,7 +231,6 @@ parameter.
   decide how much time do they have to wait for?}
 Semaphores will be active entities, and therefore their actions will be
 periodically scheduled.
-
 The period of a semaphore will be a configuration parameter.
 
 \paragraph{When is it suitable to use logical clocks instead of local system
