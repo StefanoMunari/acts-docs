@@ -9,7 +9,7 @@ report: report.tex
 	pdflatex report.tex
 	pdflatex report.tex
 
-user-manual: user-manual.tex
+user-manual.pdf: user-manual.tex
 	pdflatex user-manual.tex
 	pdflatex user-manual.tex
 	pdflatex user-manual.tex
