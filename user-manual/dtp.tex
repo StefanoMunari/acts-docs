@@ -8,7 +8,7 @@ You can choose between three deployment environments:
 \begin{itemize}
 \item Development - \texttt{dev} or \texttt{d};
 \item Testing - \texttt{test} or \texttt{t};
-\item Production - \texttt{prod} or \texttt{p}.
+\item Production - \texttt{production} or \texttt{p}.
 \end{itemize}
 
 You can specify the chosen environment during the build step:
@@ -26,6 +26,9 @@ An example (production environment):
 ./build.sh -s backend-mw-fe -m p
 \end{lstlisting}
 
+\texttt{backend-mw-fe} represents the whole system (the three macro-components).
+
+
 \subsection{Detailed instructions}
 Thanks to Docker, during the project we have been able to easily define several
 deployment environments for ACTS. Indeed, from the very beginning we implemented a CI (Continuous Integration) server and hosted it
@@ -41,13 +44,12 @@ container to run a specific set of tests.
 
 
 Instead, in the development environment we use containers in an unconventional
-way, by employing them as if they were lightweight ``virtual machines''.
-We started each container with a entrypoint which
+way. We started each container with a entrypoint which
 only purpose was to keep the container up, thus enabling the developers to log into it.
 Although a bit unorthodox, this approach has proved to be very effective.
 Indeed, the developer was able to run the prototypes and the unit tests once
 logged in, without requiring to install all the project dependencies on its
-own filesystem.
+own system.
 
 
 Production mode represents the system configuration which will be used by the final user. Thus, it is necessary
