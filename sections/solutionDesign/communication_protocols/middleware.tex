@@ -1,6 +1,7 @@
 \subsection{Middleware}
 \subsubsection{Application - Middleware}
-The communication protocol between application layer and middleware layer
+This subsection describes the communication protocol between
+the application (i.e., IL) and the middleware layer
 \paragraph{Fire and forget}
 It is a one-way message pattern (the service sends a message without expecting
 a response). Since the application and the middleware will reside on the same
@@ -8,13 +9,13 @@ physical node, we can assume that the communication is reliable: once a message
 is sent from the application layer it arrives to the middleware layer and
 viceversa. The asynchronous communication decouples (when possible)
 the computation of the application from the computation of the middleware
-and viceversa. The standard interfaces for communication
-implemented by application layer and middleware layer enables the use of
-heterogeneous technologies for each one. Defining a standard interface
-is fundamental to abstract from the underlying technologies.
+and viceversa. We use this pattern only for messages which will be
+translated by the broker into events for the application server
+(e.g., traffic lights and tread
+notifications).
 
 \paragraph{Communication model}
-Even if it is not much elegant, we decided to use raw sockets to exchange
+Even if it is not elegant, we decided to use raw sockets to exchange
 information between the application and the middleware.
 We chose to do so because the technologies we used for the two layers are very
 different, and therefore we did not find any technology which allowed us to
@@ -43,108 +44,104 @@ These headers are comprehensive of, but not limited to:
 The communication between middlewares implies the design of different
 services. Taking into account the distributed nature of the system we have
 studied specific solutions for each service, the ideas applied come from
-well known patterns used in distributed systems:
+well known patterns used in distributed systems.
+For example, we use the Lamport timestamps algorithm \cite{Lamport:1978:TCO:359545.359563},
+which is the keystone
+of each distributed service which implies a form of synchronization
+between parties.
 
-\begin{itemize}
-\item Lamport logical clocks: in a distributed system we are interested
-  in the logical sequence of the events and not the wall clock time which is
-  impossible to know perfectly and could lead to synchronization errors;
-\item Lamport timestamps algorithm\footnote{Leslie Lamport \textit{Time,
-  clocks, and the ordering of events in a distributed system}, ACM 21,
-  pp. 558-565, July 1978}: this algorithm contains the keystone
-  of each distributed service which implies a form of synchronization
-  between parties;
-\item Bully algorithm: this algorithm is used in the first part of the
-  shutdown process. It works dynamically and implies the election of a master
-  node.
-\end{itemize}
+% \item Bully algorithm: this algorithm is used in the first part of the
+%   shutdown process. It works dynamically and implies the election of a master
+%   node.
+% \end{itemize}
 
-\subsubsection{Election Protocol}\label{sec:election}
-This protocol tries to resolve the problem of the global consensus in a
-distributed system through the election of a coordinator node. This version
-tries to improve the efficiency of the bully algorithm through the
-notification in case of a crash detection. The protocol assumption are as
-follows:
+% \subsubsection{Election Protocol}\label{sec:election}
+% This protocol tries to resolve the problem of the global consensus in a
+% distributed system through the election of a coordinator node. This version
+% tries to improve the efficiency of the bully algorithm through the
+% notification in case of a crash detection. The protocol assumption are as
+% follows:
 
-\begin{itemize}
-\item Each node knows the total number of nodes in the system (this
-  information is gained during the census process);
-\item Each node has a different priority/ID;
-\item There is no natural time bound for this process to complete. A
-  user-defined bound could be set as a system parameter before starting the
-  process.
-\end{itemize}
+% \begin{itemize}
+% \item Each node knows the total number of nodes in the system (this
+%   information is gained during the census process);
+% \item Each node has a different priority/ID;
+% \item There is no natural time bound for this process to complete. A
+%   user-defined bound could be set as a system parameter before starting the
+%   process.
+% \end{itemize}
 
-The protocol works as follows:
+% The protocol works as follows:
 
-\begin{enumerate}
-\item A node N sends an \texttt{election} message to each node M with
-  \textit{higher} priority/ID than itself;
-\item N sets a timeout for each node M. If the timeout elapses, then the
-  receiver D is considered dead; %TODO: Unreachable?
-\item M\footnote{M is any node with higher priority/ID than N} replies with an
-  \texttt{ok} message, which means M is ready to continue the election process;
-\item M repeats the points 1. and 2. until the highest priority/ID node H is
-  reached;
-\item If N has detected at least one dead node then N sends a \texttt{crash}
-  message \textit{with dead node IDs} to M;
-\item M stops waiting for the nodes reported in the \texttt{crash} message;
-\item When H is reached there isn't any other active node with higher
-  priority/ID than it;
-\item H sends a \texttt{coordinator} message to each active node K;
-\item Each node K replies with an \texttt{ack} message to H;
-\item When the last node K has replied, H has received all \texttt{ack}
-  messages thus completing the election process.
-\end{enumerate}
+% \begin{enumerate}
+% \item A node N sends an \texttt{election} message to each node M with
+%   \textit{higher} priority/ID than itself;
+% \item N sets a timeout for each node M. If the timeout elapses, then the
+%   receiver D is considered dead; %TODO: Unreachable?
+% \item M\footnote{M is any node with higher priority/ID than N} replies with an
+%   \texttt{ok} message, which means M is ready to continue the election process;
+% \item M repeats the points 1. and 2. until the highest priority/ID node H is
+%   reached;
+% \item If N has detected at least one dead node then N sends a \texttt{crash}
+%   message \textit{with dead node IDs} to M;
+% \item M stops waiting for the nodes reported in the \texttt{crash} message;
+% \item When H is reached there isn't any other active node with higher
+%   priority/ID than it;
+% \item H sends a \texttt{coordinator} message to each active node K;
+% \item Each node K replies with an \texttt{ack} message to H;
+% \item When the last node K has replied, H has received all \texttt{ack}
+%   messages thus completing the election process.
+% \end{enumerate}
 
-Notes and side cases:
+% Notes and side cases:
 
-\begin{itemize}
-\item If none of the M nodes reply then N elects itself as the coordinator
-  sending a \texttt{coordinator} message to each node L which has lower
-  priority/ID than N;
-\item If the dead node is the highest priority/ID node H and it restarts
-  during the election process then it sends a \texttt{coordinator} message to
-  each active node L in the system. Each node L possibly updates its
-  coordinator status if the coordinator election isn't finished yet;
-\item If a possible coordinator node crashes during the election, the process
-  restarts from another active node;
-\item At the completion of the protocol the highest priority/ID (active) node
-  is elected as coordinator.
-\item This solution tries to reduce the timeout costs notifying higher
-  priority/ID nodes when a dead node is detected;
-% TODO: Should we change the beginning of the next sentence?
-%\item The communication is always between a node and a set of higher priority nodes.
-\item The communication is always between a lower priority node and a set of
-  higher priority nodes. Only during the \texttt{coordinator} phase messages
-  are broadcasted to all lower priority/ID nodes;
-\item The system has to freeze its state before starting the termination
-  process. In this case all user inputs are ignored during the census and
-  election processes.
-\end{itemize}
+% \begin{itemize}
+% \item If none of the M nodes reply then N elects itself as the coordinator
+%   sending a \texttt{coordinator} message to each node L which has lower
+%   priority/ID than N;
+% \item If the dead node is the highest priority/ID node H and it restarts
+%   during the election process then it sends a \texttt{coordinator} message to
+%   each active node L in the system. Each node L possibly updates its
+%   coordinator status if the coordinator election isn't finished yet;
+% \item If a possible coordinator node crashes during the election, the process
+%   restarts from another active node;
+% \item At the completion of the protocol the highest priority/ID (active) node
+%   is elected as coordinator.
+% \item This solution tries to reduce the timeout costs notifying higher
+%   priority/ID nodes when a dead node is detected;
+% % TODO: Should we change the beginning of the next sentence?
+% %\item The communication is always between a node and a set of higher priority nodes.
+% \item The communication is always between a lower priority node and a set of
+%   higher priority nodes. Only during the \texttt{coordinator} phase messages
+%   are broadcasted to all lower priority/ID nodes;
+% \item The system has to freeze its state before starting the termination
+%   process. In this case all user inputs are ignored during the census and
+%   election processes.
+% \end{itemize}
 
-\subsubsubsection{Example}
+% \subsubsubsection{Example}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.6\columnwidth]{images/solution/election_legend.eps}
-  \caption{Legend of \nameref{fig:election-protocol-ex}}
-  \label{fig:election-protocol-legend}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=.6\columnwidth]{images/solution/election_legend.eps}
+%   \caption{Legend of \nameref{fig:election-protocol-ex}}
+%   \label{fig:election-protocol-legend}
+% \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\columnwidth]{images/solution/election.eps}
-  \caption{Election protocol - Example}
-  \label{fig:election-protocol-ex}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=\columnwidth]{images/solution/election.eps}
+%   \caption{Election protocol - Example}
+%   \label{fig:election-protocol-ex}
+% \end{figure}
 
-\subsubsection{System Boostrap}
-As pointed out in Problem Analysis (\ref{sec:pa-distribution}), the system has
+\subsubsection{System Boostrap}\label{sec:sys-boot-mw}
+As pointed out in Problem Analysis (Section \ref{sec:pa-distribution}),
+the system has
 to start neatly. Hence, we need to design a protocol in order to accomplish
 this goal.
 
-The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
+The protocol is represented in Figure \ref{fig:sys-bootstrap-protocol}, where:
 
 \begin{itemize}
   \item A circle is a logical node which is composed of two layers:
@@ -152,9 +149,6 @@ The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
       \item \textbf{MW}:  middleware layer
       \item \textbf{APP}: application layer
   \end{itemize}
-    Since the middleware has to be application-independent, it only assumes
-    that the application layer exposes an interface through which it is
-    possible to start the application neatly;
   \item \textbf{Named arrow}: it represents a message that is sent from a
 logical node through another one with the name as its payload;
   \item \textbf{Number}: it represents the progress of the logical system clock
@@ -174,27 +168,29 @@ $l$) at time 0, the protocol is defined as follows:
 
 \begin{enumerate}
 \item The leftmost node $l$ in figure \ref{fig:sys-bootstrap-protocol}
-  starts its own middleware services.
+  starts its own middleware services;
 \item $l$ sends a \texttt{Start\_mw} message to the set $S$ of all its
   %TODO:         Is it really clear?
   %             /
   neighbors. Clearly, if it was the first node in the system to receive
   \texttt{Start\_mw}, then it will be also the last node to complete the
-  boot process.
+  boot process;
+  % REPLY: Yes, it is clear (Stefano)
 \item $l$ waits for each node in $S$ to complete the boot. $l$ waits for all
-  nodes in $S$ to send an \texttt{Ack\_mw} message back;
+  nodes in $S$ to send an \texttt{Ack\_mw} message as a reply;
 \item The middleware MW of $l$ grants the application APP to start;
-\item $l$ then sends an \texttt{Ack\_mw} message back.
+\item $l$ then replies with an \texttt{Ack\_mw} message.
 \end{enumerate}
 
 As it can be seen in the figure, this behaviour is replicated recursively
 by all nodes of the system. If a node has already received a boot request,
 then it only sends \texttt{Ack\_mw} back.
 
+
 \subsubsection{System Termination}
-Also, the system has to shutdown neatly. Therefore we designed a protocol to
-stop the entire system; please notice that this one could be seen as a
-symmetric version of the System Bootstrap protocol.
+The system has to shutdown neatly. Therefore we designed a protocol to
+stop the entire system. This one can be seen as a
+symmetric version of the System Bootstrap (\ref{sec:sys-boot-mw}).
 % TODO: please check the sentence here above
 
 The protocol is represented in figure \ref{fig:sys-termination-protocol}, where
@@ -209,7 +205,7 @@ the conventions are the same as the ones used in figure
   \label{fig:sys-termination-protocol}
 \end{figure}
 
-Assuming that a \texttt{Shutdown\_mw} message arrives to a non-terminated node
+Assuming that a \texttt{Shutdown\_mw} message arrives to a running node
 $l$ (let it be the leftmost one in the picture) at time instant $0$, the
 protocol is defined as follows:
 
