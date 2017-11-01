@@ -136,11 +136,12 @@ between parties.
 % \end{figure}
 
 \subsubsection{System Boostrap}
-As pointed out in Problem Analysis (\ref{sec:pa-distribution}), the system has
+As pointed out in Problem Analysis (Section \ref{sec:pa-distribution}),
+the system has
 to start neatly. Hence, we need to design a protocol in order to accomplish
 this goal.
 
-The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
+The protocol is represented in Figure \ref{fig:sys-bootstrap-protocol}, where:
 
 \begin{itemize}
   \item A circle is a logical node which is composed of two layers:
@@ -148,9 +149,6 @@ The protocol is represented in figure \ref{fig:sys-bootstrap-protocol}, where:
       \item \textbf{MW}:  middleware layer
       \item \textbf{APP}: application layer
   \end{itemize}
-    Since the middleware has to be application-independent, it only assumes
-    that the application layer exposes an interface through which it is
-    possible to start the application neatly;
   \item \textbf{Named arrow}: it represents a message that is sent from a
 logical node through another one with the name as its payload;
   \item \textbf{Number}: it represents the progress of the logical system clock
@@ -170,17 +168,18 @@ $l$) at time 0, the protocol is defined as follows:
 
 \begin{enumerate}
 \item The leftmost node $l$ in figure \ref{fig:sys-bootstrap-protocol}
-  starts its own middleware services.
+  starts its own middleware services;
 \item $l$ sends a \texttt{Start\_mw} message to the set $S$ of all its
   %TODO:         Is it really clear?
   %             /
   neighbors. Clearly, if it was the first node in the system to receive
   \texttt{Start\_mw}, then it will be also the last node to complete the
-  boot process.
+  boot process;
+  % REPLY: Yes, it is clear (Stefano)
 \item $l$ waits for each node in $S$ to complete the boot. $l$ waits for all
-  nodes in $S$ to send an \texttt{Ack\_mw} message back;
+  nodes in $S$ to send an \texttt{Ack\_mw} message as a reply;
 \item The middleware MW of $l$ grants the application APP to start;
-\item $l$ then sends an \texttt{Ack\_mw} message back.
+\item $l$ then replies with an \texttt{Ack\_mw} message.
 \end{enumerate}
 
 As it can be seen in the figure, this behaviour is replicated recursively
