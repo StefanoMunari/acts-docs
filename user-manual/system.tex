@@ -6,11 +6,12 @@ Before deploying the whole system, please make sure your machine meets the
 requirements listed in Section \ref{req}.
 After that, you will be ready to create your first local swarm.
 
-The project will be deployed on a single machine. However, due to its intrinsic
-distributed nature, the system is more suited to be deployed on more hosts in
-a real use case.
 
-We'll use Docker Swarm to easily deploy and manage the system, which can be
+The project will be deployed on a single machine. However, due to its intrinsic
+distributed nature, the system is more suited to be deployed over several hosts.
+\\
+
+We'll use Docker Swarm to deploy and manage the system, which can be
 viewed as composition of different isolated components.
 To create a local swarm, type the following command:
 
@@ -47,7 +48,7 @@ You can check the port status on your host with the following command:
 sudo netstat -tulpn | grep LISTEN | grep 5000
 \end{lstlisting}
 
-If you do not have netstat on your system, another feasible command is the
+If you do not have netstat on your system, another UNIX command is the
 following:
 
 \begin{lstlisting}[language=bash]
@@ -63,31 +64,59 @@ docker service create --detach=false --name registry --publish 5000:5000 registr
 \end{lstlisting}
 
 If you encounter any problem during these steps, then
-consult the FAQ and troubleshooting sections, where you will find (hopefully)
+consult the FAQ (Section \ref{sec:faq}) and
+Troubleshooting (Section \ref{sec:trouble})
+sections, where you will hopefully find
 helpful information.
+
+
+\subsection{Download ACTS}
+
+Download the project hosted on github:
+
+\begin{lstlisting}[language=bash]
+git clone https://github.com/StefanoMunari/acts
+\end{lstlisting}
+
+\paragraph{Important}
+Before proceeding, set the value
+of the CITY\_ROOT environment variable to the path of the ACTS project
+directory (the downloaded project).
+For example, if you placed the repository at the path
+/home/goofy/acts, set the CITY\_ROOT environment variable to
+/home/goofy/acts. Note the path without the last slash (/)
+character.
+
+To set the environment variable \textbf{in you local shell session}:
+\begin{lstlisting}[language=bash]
+export CITY_ROOT=<PATH_TO_THE_PROJECT_ROOT>
+\end{lstlisting}
+
+example with root path /home/goofy/acts:
+\begin{lstlisting}[language=bash]
+export CITY_ROOT="/home/goofy/acts"
+\end{lstlisting}
+
+If you want to set it permanently for the next shell sessions,
+then append the mentioned command
+to your .bashrc or .profile scripts under your
+\texttt{\$HOME} directory.
 
 \subsection{Build}\label{sec:sys-build}
 
 To build the system as a whole type the following commands from the root
-directory of the project (i.e., acts):
+directory of the ACTS project:
 
 \begin{lstlisting}[language=bash]
 ./build.sh -s backend-mw-fe -m p
 \end{lstlisting}
 
-\noindent\textbf{IMPORTANT} \textit{Before starting your system, set the value
-of the \texttt{CITY\_ROOT} environment variable to the path of the ACTS project
-directory. For example, if you placed the repository in the folder
-\texttt{home/goofy/acts}, set the \texttt{CITY\_ROOT} environment variable to
-\texttt{home/goofy/acts}, without appending the last slash (\texttt{/})
-character}.
-
 This instruction builds the three macro components together in production mode.
-You can view each step of the build process by looking at the stdout of the CLI
-(that is, the command line interface):
+You can view each step of the build process by looking at the stdout of the
+command line interface:
 
 \begin{enumerate}
-\item Generation for the configuration files for the city (e.g., district
+\item Generation of the configuration files for the city (e.g., district
   configs, routing tables, etc.);
 \item Check for district configurations soundness. Actually \texttt{ACTS}
   checks if each city graph is a strongly connected component to guarantee
@@ -100,11 +129,11 @@ You can view each step of the build process by looking at the stdout of the CLI
 
 \subsection{Run}\label{sec:sys-run}
 
-After the build process has successfully completed, you are finally able to
+After the build process has successfully completed, you are able to
 run the whole system.
 
 To deploy the whole system type the following command from the root directory
-of the project (i.e., acts):
+of the ACTS project:
 
 \begin{lstlisting}[language=bash]
 ./run.sh -s backend-mw-fe
