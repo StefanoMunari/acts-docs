@@ -4,11 +4,11 @@ To solve the path
 problem outlined in Section \ref{sec:pa-distribution}
 we have implemented a path-finder for the agents of our system.
 Our AI is written in C++ but we have written the Ada bindings for it.
-Thus, being able to statically link the AI to our project.
+Hence, we are able to statically link the AI to our project.
 
 The path-finder is executed by the ACTS scheduler. In particular, a
-worker runs the \verb|agent.act| procedure which contains invocations
-to AI.
+worker runs the \verb|Agent.Act| procedure which can contain invocations
+to the AI.
 
 % The AI needs to know on which graph/infrastructure the agent
 % is traveling on. Indeed, different travelers moves on different
@@ -27,40 +27,40 @@ to clearly understand the problem:
 
 \begin{itemize}
 
-\item{deterministic} -
+\item{deterministic} --
 the next state is completely defined by the previous state plus the move
 performed by the agent;
 
-\item{discrete} -
-there are many state of the system, but their number is finite.
+\item{discrete} --
+there are many states of the system, but their number is finite.
 The agent acts in a discrete space and the information which he manipulates
 are also discrete (e.g., costs of moves);
 
-\item{sequential} -
+\item{sequential} --
 the choice of the next move depends on the previous one. The agent creates
 a totally ordered sequence of moves;
 
-\item{dynamic} -
-the environment change around the agent while he is computing its moves;
+\item{dynamic} --
+the environment change around the agent while it is computing its moves;
 
-\item{multi-agent} -
+\item{multi-agent} --
 there are several agent who act concurrently in the same virtual
 environment;
 
-\item{partially observable} -
+\item{partially observable} --
 since the system is distributed, the agent does not have access to the complete
 information about the whole environment. At any time, an agent is
 traveling on a
 specific district which has only updated information on its state and does not
 know the costs of the other districts. Also, an agent eventually needs to
-compute a path which comprise several districts.
+compute a path which comprises several districts.
 \end{itemize}
 
 \subsubsubsection{Search algorithms}
 
 Due to time constraints related to the path computation, we preferred to
 choose a not-real-time solution. However, we recognize that a real-time solution
-helped by a traffic forecast model would be more precise and interesting.
+helped by a traffic forecast model would be more precise and intriguing.
 Our solution uses classical path-finding algorithms. These algorithms
 belong to uninformed and informed search classes.
 
@@ -83,21 +83,18 @@ the minimum number of visited nodes in the search graph.
 To guarantee completeness we need to assume that each graph is a strongly
 connected component. Basically, it means that there are no isolated
 components. Thus, the agent knows there will always be at least a path between
-the source and the destination of its plan. % its or her
-\\
+the source and the destination of its plan. % OK its, usiamo sempre neutrum per agent
 
-Furthermore, our AI considers not grid based maps: which means some common
+Furthermore, our AI considers non-grid based maps: which means some common
 heuristics are not applicable a priori (e.g. Manhattan distance, euclidean
 distance). Also, since grid-based maps are a subset of all possible maps, we
 can say that our AI is independent on the map topology.
-\\
 
 To solve the path finding problem we reason about the specific domain and its
 abstractions in terms of infrastructure building blocks and travelers. We
 found an admissible and consistent heuristic for A* and, more in general, other
 informed algorithms. To concretely guarantee the assumptions hold for all the
 graph configurations we apply the Tarjan algorithm to each of them.
-\\
 
 Tarjan automatically validates our graphs at build time by ensuring that there
 is only one strong connected component for each graph. Otherwise, it reports
@@ -111,7 +108,7 @@ which represent the traffic costs of a specific district.
 
 \subsubsubsection{Heuristic}
 
-We have approximate the dynamic component of the environment by considering
+We have approximated the dynamic component of the environment by considering
 the state of the system during the simulation as a sequence of snapshots.
 Thus, each snapshot can give to the path-finder the information it needs
 about the city traffic.
@@ -119,12 +116,10 @@ This information is detected by a daemon process which belongs to the AI.
 It uploads new generated graphs of the dynamic costs (the costs of the traffic)
 in the AI graph registry. The daemon action is triggered each time a new
 snapshot is generated.
-\\
 
 The traffic costs are computed as the number of agents which are on a specific
 stretch when the snapshot is performed. Also, the intersections have an additional
 cost given by the traffic lights which can slow down the travel of the agent.
-\\
 
 Unfortunately, the system
 snapshots were not provided as planned at the beginning of the project, so
