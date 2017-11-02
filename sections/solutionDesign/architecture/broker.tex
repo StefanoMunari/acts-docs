@@ -48,10 +48,11 @@ choosing some thresholds and spawning other supervised workers on demand.
 Each \textit{ContentEnricher} is able to transform the  messages thanks to a
 \textit{DeepInspection} module. Indeed, the latter inspects the message
 to extract specific information.
-It does so with the help of a series of Extractors modules\footnote{we did not
-defined an Elixir Protocol, i.e., interface for them but it would have been
-quite easy} which actuate the process. There is also a \textit{VoidExtractor}
-module, which basically is a fallback case for an unidentified request.
+It does so with the help of a series of Extractors modules which actuate the
+process. There is also a \textit{VoidExtractor} module, which basically is a
+fallback case for an unidentified request.
+We did not defined an Elixir Protocol, (i.e., an interface) for them though it
+would have been straightforward to do it to have more compile-time warranties.
 
 \paragraph{Communication from frontend to backend}
 Actually, our broker provides a means of communication from the frontend to
