@@ -1,7 +1,8 @@
 \subsubsubsection{Boot}\label{sec:mw-boot-descr}
 
-The Boot application is responsible of starting the distributed
-system in a graceful fashion.
+The Boot application is responsible
+of gracefully starting the distributed
+system.
 It does so by dividing the start process in two steps, namely the
 \textbf{marker diffusion} and its \textbf{(own) boot}. The procedure is
 the same shown in Figure \ref{fig:sys-bootstrap-protocol}: the first step
@@ -10,16 +11,28 @@ while the second one can be seen reading the same figure
 in the opposite direction.
 \\
 
-In this context, by \textit{marker} we will mean \textit{boot marker}.
-\\
+There are two possible logical markers which have different semantics:
+\begin{itemize}
+	\item \textit{boot marker} : represents a boot request. The node which send
+	a boot marker has previously received a boot marker or
+	is the master node of the system which is starting the boot process.
+	\item \textit{end marker} : represents a reply to a boot marker. A node
+	can reply with an end marker only if all the boot markers of the node have
+	been satisfied with an end marker plus the node itself has started its
+	application layer successfully. Basically an end marker reply
+	means that the (sender) node
+	has complete the boot of its subtree of nodes.
+\end{itemize}
 
 When receiving a marker, the Boot application forwards the marker to all
-of its adjacent middleware nodes.
-Then, when receiving further markers, this application will just reply
-immediately with an end marker.
+of its adjacent middleware nodes which have not yet sent a boot request to it.
+
+If the node receive further boot markers after the first one, then it simply
+ignores them because it is already proceeding with the boot.
 
 After having received all the end marker replies,
 the Boot application will start the application layer
 by sending a boot request to it.
 When the application layer replies with an ack, the node has complete its boot
-and it replies with an end marker to all of its adjacent middleware nodes.
+and it replies with an end marker to all the middleware nodes which have
+previously sent a boot marker.
