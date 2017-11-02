@@ -44,7 +44,7 @@ a totally ordered sequence of moves;
 the environment change around the agent while it is computing its moves;
 
 \item{multi-agent} --
-there are several agent who act concurrently in the same virtual
+there are several agents who act concurrently in the same virtual
 environment;
 
 \item{partially observable} --
@@ -94,7 +94,7 @@ To solve the path finding problem we reason about the specific domain and its
 abstractions in terms of infrastructure building blocks and travelers. We
 found an admissible and consistent heuristic for A* and, more in general, other
 informed algorithms. To concretely guarantee the assumptions hold for all the
-graph configurations we apply the Tarjan algorithm to each of them.
+graph configurations, we apply the Tarjan algorithm to each of them.
 
 Tarjan automatically validates our graphs at build time by ensuring that there
 is only one strong connected component for each graph. Otherwise, it reports
