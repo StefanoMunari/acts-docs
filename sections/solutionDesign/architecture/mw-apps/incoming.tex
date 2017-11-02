@@ -1,33 +1,40 @@
 \subsubsubsection{Incoming}
-The Incoming application is responsible of receiving messages from other
-middleware nodes and to dispatch these messages to the appropriate middleware
-application.
-However, before dispatching this component process the message by applying some
-checks: in fact, a message may be directed to another node or it might have to
-be withheld if a snapshot is occurring.
+The Incoming application is a listener of several RabbitMQ queues
+responsible of dispatching the messages received
+from middleware \textit{nodes} to appropriate middleware \textit{application}.
+However, this component process the message by applying some
+filters before dispatching it.
+Indeed, a message may be directed to another node or it might have to
+be withheld, if a snapshot is occurring.
 
 Therefore, we decided to take advantage of Elixir's
-\href{https://hexdocs.pm/gen_stage/GenStage.html}{GenStage} behaviour and
-structure the modules of this component as a pipeline through which the
+\href{https://hexdocs.pm/gen_stage/GenStage.html}{GenStage} behavior.
+We structured the modules of this component as a pipeline through which the
 message is processed:
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\columnwidth]{images/solution/mw/inc/architect.eps}
-  \caption{Incoming pipeline}
-  \label{fig:mw-incoming}
-\end{figure}
+\begin{center}
+$ RabbitReceiver \longrightarrow Router \longrightarrow
+MessageHolder \longrightarrow Dispatcher $
+\end{center}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=\columnwidth]{images/solution/mw/inc/architect.eps}
+%   \caption{Incoming pipeline}
+%   \label{fig:mw-incoming}
+% \end{figure}
 
 \begin{itemize}
-  \item A RabbitReceiver is a process which receives messages from a single
-    adjacent middleware node (or ``neighbor'') using RabbitMQ
-  \item A Router compares the recipient field of the message with the
+  \item \textit{RabbitReceiver} : a process which receives messages from a single
+    adjacent middleware node (neighbor) using RabbitMQ;
+  \item \textit{Router} : compares the recipient field of the message with the
     identifier of the current node. If it is different, then it forwards the
-    message to the next node along the path to the recipient
-  \item A MessageHolder prevents messages to reach the dispatching point if a
-    snapshot is happening. Then, when the snapshot ends, the messages will be
-    forwarded again towards the Dispatcher
-  \item A Dispatcher dispatches messages to a given application of the middleware
+    message to the next node along the path to the recipient;
+  \item \textit{MessageHolder} : prevents messages to reach the dispatching
+    point if a
+    snapshot is in progress. When the snapshot completes,
+    the messages is
+    forwarded again towards the Dispatcher.
+  \item \textit{Dispatcher} : dispatches messages to a
+  given middleware application.
 \end{itemize}
 
 \begin{figure}[H]
