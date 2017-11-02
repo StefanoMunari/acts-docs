@@ -1,29 +1,29 @@
-\subsubsubsection{Interlayer service}
+\subsubsubsection{Interlayer}
 
 This component is responsible of the communication that is performed between
 different layers, namely the one which it belongs (the \textbf{middleware}) and
 another one who uses the middleware layer, that is the \textbf{application}
 layer.
 
-We show in Figure \ref{fig:mw-interlayer} the architecture of this service and
+We show in Figure \ref{fig:mw-interlayer} the architecture of this application and
 then we will show in detail each module that composes this component.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.8\columnwidth]{images/solution/mw/int/architect.eps}
-  \caption{Middleware's Interlayer service}
+  \caption{Middleware's Interlayer application}
   \label{fig:mw-interlayer}
 \end{figure}
 
-We can see that the Interlayer service embodies two flows of information, each
+We can see that the Interlayer application embodies two flows of information, each
 one directed in the opposite direction as the other (the orange band represents
 the middleware).
 
 The \texttt{AppMwInterface} module just listens on a port waiting for messages
-from the application layer and passes them to other services in the middleware.
+from the application layer and passes them to other applications in the middleware.
 It is capable of receiving different messages in parallel.
 
-\texttt{MwAppInterface} receives requests by other middleware services to send
+\texttt{MwAppInterface} receives requests by other middleware applications to send
 messages to the application layer. Instead of blocking the requesting process
 on the delivery of the message, the latter gets stored in a Redis queue and
 asynchronously handed over to the \texttt{Consumer} module by means of the

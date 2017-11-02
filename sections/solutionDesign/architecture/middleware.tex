@@ -1,11 +1,11 @@
-This section presents the middleware services.
+This section presents the middleware components.
 
 An overview to the organization of the middleware components is given in Figure
 \ref{fig:mw-arch-over}. The picture is both a dependency and an information flow
 graph: if a service $A$ is above another one and has a downward connection
 which touches service $B$, then $A$ both depends and sends messages to $B$.
 We designed this structure in order to avoid circular dependencies among
-services and to be able to reason clearly about an actor-model based system.
+apps and to be able to reason clearly about an actor-model based system.
 \\
 
 Also, it is possible to send a message to a module which may seem
@@ -20,7 +20,6 @@ we restrict its usage to specific situations.
   \caption{Middleware architecture overview}
   \label{fig:mw-arch-over}
 \end{figure}
-
 % \begin{itemize}
 %   \item \texttt{naming}: service that provides a correspondence between logic
 %     names and their actual location;
@@ -41,12 +40,12 @@ we restrict its usage to specific situations.
 %     store data in a persistent way.
 % \end{itemize}
 
-\input{sections/solutionDesign/architecture/mw-services/naming.tex}
-\input{sections/solutionDesign/architecture/mw-services/forwarding.tex}
-\input{sections/solutionDesign/architecture/mw-services/incoming.tex}
-\input{sections/solutionDesign/architecture/mw-services/interlayer.tex}
-\input{sections/solutionDesign/architecture/mw-services/boot.tex}
-\input{sections/solutionDesign/architecture/mw-services/termination.tex}
-\input{sections/solutionDesign/architecture/mw-services/snapshot.tex}
-\input{sections/solutionDesign/architecture/mw-services/coordination.tex}
-\input{sections/solutionDesign/architecture/mw-services/persistence.tex}
+\input{sections/solutionDesign/architecture/mw-apps/naming.tex}
+\input{sections/solutionDesign/architecture/mw-apps/forwarding.tex}
+\input{sections/solutionDesign/architecture/mw-apps/incoming.tex}
+\input{sections/solutionDesign/architecture/mw-apps/interlayer.tex}
+\input{sections/solutionDesign/architecture/mw-apps/boot.tex}
+\input{sections/solutionDesign/architecture/mw-apps/termination.tex}
+\input{sections/solutionDesign/architecture/mw-apps/snapshot.tex}
+\input{sections/solutionDesign/architecture/mw-apps/coordination.tex}
+\input{sections/solutionDesign/architecture/mw-apps/persistence.tex}

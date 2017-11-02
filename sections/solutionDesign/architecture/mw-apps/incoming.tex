@@ -1,7 +1,7 @@
-\subsubsubsection{Incoming service}
-The Incoming service is responsible of receiving messages from other
+\subsubsubsection{Incoming}
+The Incoming application is responsible of receiving messages from other
 middleware nodes and to dispatch these messages to the appropriate middleware
-service.
+application.
 However, before dispatching this component process the message by applying some
 checks: in fact, a message may be directed to another node or it might have to
 be withheld if a snapshot is occurring.
@@ -27,7 +27,7 @@ message is processed:
   \item A MessageHolder prevents messages to reach the dispatching point if a
     snapshot is happening. Then, when the snapshot ends, the messages will be
     forwarded again towards the Dispatcher
-  \item A Dispatcher dispatches messages to a given service of the middleware
+  \item A Dispatcher dispatches messages to a given application of the middleware
 \end{itemize}
 
 \begin{figure}[H]
