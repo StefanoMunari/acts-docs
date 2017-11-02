@@ -1,7 +1,7 @@
 \subsection{Portability}
 We have built a heterogeneous system
 (Elixir, Ada, C++, Python, Redis, Postgres, RabbitMQ)
-and made it completely portable by packaging each service in a Docker
+and made it partially portable by packaging each service in a Docker
 container.
 Also, using docker-compose we composed and linked the services together while with docker-swarm
 we orchestrated the entire system. By using docker-swarm in conjunction with docker-compose we
@@ -16,7 +16,8 @@ containers:
 \begin{enumerate}
   \item \textit{Development}: allows the developer to
     log into the specific service as it were its local environment
-    with all the dependency installed and the multi-container configured;
+    with all the dependency installed and the multi-container system
+    configured;
   \item \textit{Test}: automatically runs all the tests specified by
     the developer;
   \item \textit{Production}: deploys the environment which will be used by

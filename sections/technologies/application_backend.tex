@@ -1,28 +1,28 @@
 \subsection{Backend::Application}
-We chose the Ada 2012 language to implement the application layer of the
-backend.
+We chose the Ada 2012 language \cite{taft2012ada}
+to implement the application layer of the backend.
 
 The Ada language standard was originally designed in the early 1980s to promote
-sound software engineering. With the advent of Ada 2005, new features
-sensitevely improve the support for high-integrity systems in three major
+sound software engineering. With the advent of Ada 2005 \cite{taft2006ada},
+new features
+remarkably improve the support for high-integrity systems in three major
 areas: object-oriented programming, tasking, and real-time features.
 
 The latest version (Ada 2012) brings further improvements, among which for-each
-loops (\texttt{for .. of}) which enhances both the code readability and the
+loops (\texttt{for .. of}) which enhances both code readability and
 productivity.
 
-We have reason to believe that the properties of the application layer
+We believe that the properties of the application layer
 that we are looking for, especially for concurrency, could be supported by the
-following features Ada comes with:
+following features provided by Ada:
 \begin{itemize}
   \item Protected Object (PO): a structured mechanism to handle
         mutual exclusive access to shared resources.
         It distinguishes functions (read-only
-        operations) from procedures (read-and-write operations). I also
+        operations) from procedures (read-and-write operations). It also
         implements the eggshell model, which allows to avoid race condition and
         polling in a concurrent environment by providing two level of access
         to its state;
-  \item Avoidance of race conditions during system initialization
   \item Avoidance of silent task termination;
   \item Possibility to define language profiles (using pragma restrictions);
   \item Timing events: to define async/time-based events with associated
@@ -31,7 +31,7 @@ following features Ada comes with:
   the standard types to check the range of values at static time;
   \item Buffer overflow and dangling reference prevention;
   \item Object orientation, packages and child units to organize code in a
-  structured way.
+  structured (hierarchical) way.
 \end{itemize}
 
 Other important properties of the language that will help us to avoid
@@ -58,10 +58,12 @@ be able to mock dependencies when testing packages. Therefore, there will be
 some constructors or factory methods with a long list of parameters, most of the
 which can be classified as dependency injections.
 
-We don't think this practice degraded too much our code quality (since we knew
-the reason behind these injected parameters), but we acknowledge we may could
-have decided to follow another (and probably cleaner) path, by setting these
-injections directly inside the tests since they are child packages.
+Since we know
+the reason behind these injected parameter,
+we don't think this practice degraded too much our code quality.
+However, we recognize that setting these
+injections directly inside the tests (since they are child packages)
+probably could lead to a more cleaner implementation.
 
 
 The testing process has been completely automate through makefile, python and
@@ -69,11 +71,13 @@ GNAT Project Manager (GPR): a developer can specify a set of test which he wants
 to run, the system takes cares of compiling and running the specified subset of
 tests (e.g. a set of test suites).
 
-During the development of the project we used a AWS EC2 instance
-equipped with Jenkins and Docker to have automated and continuous testing with
-reports provided to the developers via email. The developers were notified
+During the development of the project we used an AWS EC2 instance
+equipped with Jenkins and Docker to automate the testing process with
+reports provided to the developers through email. The developers were notified
 only in case of broken builds or failed tests.
 
-Also, the build of this document has been automated. This time using DockerHub.
+Also, the build of this document has been automated by leveraging the
+\href{https://hub.docker.com/}{DockerHub},
+a cloud based registry which provides free automated builds.
 It notifies a server after each build, the server formats the received message
 and then sends it to a specific channel of the team on slack (our team chat).

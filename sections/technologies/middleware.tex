@@ -1,6 +1,6 @@
 \subsection{Backend::Middleware}
-We chose Elixir 1.5 (an Erlang\footnote{Erlang is a general-purpose,
-concurrent, garbage-collected programming language} dialect) to implement
+% \footnote{Erlang is a general-purpose, concurrent, garbage-collected programming language}
+We chose Elixir 1.5 (an Erlang\footnote{Erlang is a general-purpose, concurrent, garbage-collected programming language} dialect) to implement
 our middleware. Elixir comes with a series of features like metaprogramming,
 advanced build tools and Erlang compatibility which allow Elixir to make the
 Erlang ecosystem more accessible for newcomers.
@@ -11,14 +11,13 @@ enviroment to build portable, distributed, fault-tolerant and soft real-time
 applications.
 Since Erlang does not have a formal specification for its runtime we will
 base our motivations on a comparison between BEAM and the JVM Hotspot
-implementation)\footnote{T. Pool \textit{Comparison of Erlang Runtime System
-and Java Virtual Machine}, University of Tartu, Estonia, May 2015}.
+implementation\cite{poolcomparison}.
 
 \paragraph{Notation}
 When talking about middleware and Elixir, we will often use the term
 \textbf{process} instead of lightweight thread, as well as \textbf{application}
 in place of ``architectural macro-component''.
-This is because we will strive to adhere
+We will strive to adhere
 to the Erlang/Elixir notation, which has these old fashioned/slightly inaccurate
 names since it was born and developed for another context, i.e., telephony.
 
@@ -76,10 +75,10 @@ names since it was born and developed for another context, i.e., telephony.
         macros which are unfolded at compile time, thus guaranteeing no loss of
         performance and smooth compatibility w.r.t. Erlang , as well as a way
         to easily define DSLs;
-  \item \textit{GenStage}: from Elixir 1.4, Flow and the GenStage behaviour
-        (a behaviour the equivalent of an abstract class in OOP) has been
+  \item \textit{GenStage}: from Elixir 1.4, Flow and the GenStage behavior
+        (a behavior the equivalent of an abstract class in OOP) has been
         implemented.
-        The GenStage behaviour is built on top GenServer (Generic
+        The GenStage behavior is built on top of GenServer (Generic
         Server, the basic OTP actor) and provides handy producer-consumer
         features.
 \end{itemize}

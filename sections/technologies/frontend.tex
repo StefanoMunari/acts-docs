@@ -1,8 +1,9 @@
 \subsection{PEAP}
-Regarding the application server and the frontend, we used a stack of
-technologies we found online called PEAP. The acronym stands for
+We used the PEAP stack to implement application server and the frontend.
+The acronym stands for
 \textit{Phoenix-Elixir-Angular-Postgres} which are respectively the
-server-side web framework, its language, the client-side web framework and the
+server-side web framework, the server side language,
+the client-side web framework and the
 database technology.
 
 In this section we will quickly give overview on Phoenix and Angular, without
@@ -14,26 +15,26 @@ database DSL) abstractions.
 
 \subsubsection{Phoenix}
 
-Phoenix is a web framework which focuses its efforts on being productive,
+Phoenix is a web framework which focuses on being productive,
 reliable and fast:
 
 \begin{itemize}
-  \item \textit{Productive}: Phoenix is quite simple to use once one gets the
-    hang of it. Web requests are piped along different functions which
+  \item \textit{Productive}: Phoenix is quite simple to use.
+    Web requests are piped along different functions which
     transform the initial request in a response which will be returned back to
-    the users browser. Real-time features like Channels are easy to use and to
+    the users browser. Real-time features like channels are easy to use and to
     integrate with other technologies;
   \item \textit{Reliable}: Phoenix runs on the BEAM VM and therefore can easily
-    scale even whne high loaded;
-  \item \textit{Fast}: Numerous benchmarks showed how Phoenix outperforms other
+    scale even when high loaded;
+  \item \textit{Fast}: numerous benchmarks showed how Phoenix outperforms other
     web frameworks (and our experience in this project later confirmed this
     claim).
 \end{itemize}
 
-Even if we used several features of Phoenix, we will focus on describing one:
-Channels. As said before, Channels are (soft) real-time Elixir processes which
+Even if we used several features of Phoenix, we will focus on describing only
+channels. channels are (soft) real-time Elixir processes which
 implement a publish-subscribe mechanism.
-Anything could be able to connect to a Channel by subscribing a Socket to one
+Anything could be able to connect to a channel by subscribing a socket to one
 or more topics; in our case, we connected the user's client to the application
 server by means of the phoenix.js library and then making our clients subscribe
 to different topics according to what they were interested in.
@@ -47,9 +48,8 @@ now; actually, we started with 2.0, but then we later decided to switch to
 4.0.
 
 Angular 4.0, like the 2.0 version, employs Typescript as its programming
-language. This feature was convenient for us, since it helped to harness the
-notorious Javascript unsafety.
-We also used a series of other Javascript libraries to render the view and
-develop the user client, with svg.js among these: in fact, we draw our cities
+language. This feature helped us to avoid common Javascript errors.
+Also, we used a series of other Javascript libraries to render the view and
+develop the user client, with svg.js among these. Thus, we draw our cities
 with SVG components, making it scale well and providing nice features like
 zoom.
