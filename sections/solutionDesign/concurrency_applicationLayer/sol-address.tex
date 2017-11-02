@@ -27,36 +27,12 @@ Concurrent accesses will be managed by means of \textit{Protected Objects},
 i.e., resources that can be accessed in concurrent read \textbf{or} mutual
 exclusive write mode.
 
-It indeed makes sense to have the mentioned separation.
+Indeed, it is reasonable to have the mentioned separation.
 It may be useful to modify roads' status when vehicles travel over them.
 On the other hand, it might be useful to get information from them when
-someone asks for it without causing side-effects, and this should be doable in
+someone asks for it without causing side-effects, and this should be
+doable in
 parallel.
-
-\paragraph{Which entities have to be active?}
-In light of the fact that active entities undertake spontaneous actions, in
-our context they are:
-\begin{itemize}
-  \item Moving entities, which move around the city according to their own
-    will;
-  \item Semaphores, which autonomously change their color by the time elapses.
-\end{itemize}
-
-\paragraph{Which entities have to be reactive?}
-Streets (and all their parts) and crossroads should be reactive entities:
-\begin{itemize}
-  \item A street is used to travel towards a destination and it is used only
-    when it is trod.
-    However, the state of a road is composed of the states of the reactive
-    sub-entities it comprises, e.g., stretches and houses;
-  \item A crossroads coordinates the traffic at street intersections
-    exclusively whenever a moving entity requires to cross it.
-\end{itemize}
-
-\paragraph{Which entities have to be passive?}
-Passive entities are stateless. Therefore, road signs fit perfectly in this
-definition, since they represent immutable information that is read by road
-users.
 
 \paragraph{Should we use any formal technique to proof the correctness
 of the system properties relating to concurrence?}
@@ -78,24 +54,8 @@ The application will be designed to overcome starvation or deadlock scenarios.
 
 In fact, active entities do not hold locks on protected objects and do not
 block on Remote Procedure Calls (or \textit{RPC}s): while the first condition
-is quite easy to achieve (the compiler came in to give us a hand), the latter
+is quite easy to achieve (the Ada runtime helps), the latter
 has been not straightforward to implement.
-
-We designed an event loop which resembles the one present in NodeJS: when
-performing an RPC, a worker thread will provide a couple of callbacks (one for
-the success case and the other for the failure case): after having instantiated
-these callbacks, the thread will be free to execute other active entities,
-without awaiting the response.
-Clearly, since Ada does not provide enhanced support for closures, we had to
-find a way to obtain the same semantics. We did so by defining an interface
-\texttt{Callback}, which exposes a single operation, \texttt{Execute} (which
-in turn takes no parameters). At this point we just have to concretize
-\texttt{Callback} with an appropriate behaviour (e.g., an example of this can
-be found in \texttt{Scheduling.Remote.Callback.Success.Tread}).
-Actually, the hierarchy we set up is a bit different, since we also added two
-intermediate interfaces \texttt{Callback.Success} and
-\texttt{Callback.Failure}, in order to use strong typing for pairs of
-callbacks.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% APPLICATION
@@ -103,21 +63,18 @@ callbacks.
 
 \subsubsection{Application Logic Problems}
 
-In Section \ref{sec:pa-app-problems} some problems inherently related to the
-application domain are explained, and here we show how we implemented a
-solution for them.
-
 \paragraph{Pedestrian Deadlock}
-This problem will be avoided ``by design'' by organizing sidewalks in
+Actually, our system does not have this problem. We organize sidewalks in
 \textit{lanes}. Though sidewalks in real world usually do not have lanes (apart
 from seldom exceptions), we employ the concept of a \textit{logic} lane, i.e.
-an abstraction that allows us to coordinate opposite flows of pedestrians in an
-agile way.
+an abstraction that allows us to easily
+coordinate opposite flows of pedestrians.
 
 Since pedestrians proceeding in opposite directions will not compete to enter
 the same sidewalk stretch, there can not be any pedestrian deadlock.
 
-We re-applied the same trick to crossings (both for pedestrians and bikes): we
+We re-applied the same mechanism to crossings
+(both for pedestrians and bikes): we
 assign an arbitrary direction at initialization time, but we do it
 \textit{only for the topology file we feed the AI with}: the backend is
 completely unaware of the fact a crossing may have a direction.
@@ -137,7 +94,7 @@ Parallelism is achieved by using a system of worker threads thanks to which
 more than one active entity can potentially act in parallel in a district.
 Other than this, there is potential parallelism since locks are not held on the
 whole street (/way/lane), but only on the stretch a traveler is willing to
-tread (and for a very short time).
+tread.
 
 \paragraph{Yield rules}
 The logic to manage yield rules will be encapsulated in crossroads, which has
@@ -172,7 +129,7 @@ object and access its state concurrently without blocking inside the critical
 regions.
 
 \paragraph{Zebra Crossings} \mbox{} \\
-Zebra crossings grants the right of being trod with a higher priority by
+Zebra crossings grants the right of being crossed with a higher priority by
 \textit{privileged} entities: in the case of pedestrian crossings, these
 entities are (obviously) pedestrians, meanwhile bikes are the privileged
 entities in the case of bike crossings.
@@ -193,8 +150,8 @@ request.
 
 \subsubsection{Time Problems}
 
-In Section \ref{sec:pa-time-problems} we point out some questions we made
-ourselves about time management in our simulations; hereafter we provide
+In Section \ref{sec:pa-time-problems} we point out some questions
+about time management in our simulations; hereafter we provide
 details on how we implemented the time management in our system.
 
 \paragraph{How can we simulate road users proceeding (regarding to travelling
@@ -222,20 +179,23 @@ Other than this, each crossroad is regulated by a set of traffic lights. They
 change color as the time flows, and this causes the intersection to activate
 only some of the exits from time to time.
 
+
+\paragraph{How are semaphores going to be able to synchronize? Which of them
+  decide how much time do they have to wait for?}
+Semaphores are active entities, and therefore their actions will be
+periodically scheduled.
+The period of a semaphore is a configuration parameter.
+
 \paragraph{How long do people stay in facilities for? How much precise do these
   intervals have to be?}
 Time spent in facilities is decided arbitrarily as a fixed configuration
 parameter.
 
-\paragraph{How are semaphores going to be able to synchronize? Which of them
-  decide how much time do they have to wait for?}
-Semaphores will be active entities, and therefore their actions will be
-periodically scheduled.
-The period of a semaphore will be a configuration parameter.
 
 \paragraph{When is it suitable to use logical clocks instead of local system
   clock?}
-We will use the local system clock of the nodes so that we will be able to
-have real concurrency between nodes (if an entity is scheduled for a given
-time moment, it should not block waiting to be synchronized in order to be
-executed), enabling better scalability for the whole system.
+We use the system clock of the operating system to
+have real concurrency between nodes. Indeed, if an entity is scheduled for a
+given time, it should not block waiting to be synchronized
+in order to be executed. This approach helps the whole system to scale better
+locally.
