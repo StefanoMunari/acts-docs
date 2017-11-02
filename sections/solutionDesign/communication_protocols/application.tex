@@ -3,21 +3,21 @@ The Application is composed of two different sub-components (Figure
 \ref{fig:sd-app-init}):
 
 \begin{itemize}
-  \item \textbf{Application Logic Layer}: handles the application logic
+  \item \textbf{Application Logic Layer:} handles the application logic
     (slightly abusing the notation, we will often refer to it simply as
     \textit{Application Layer});
-  \item \textbf{Interface Layer (IL)}: provides the remote services to Application
+  \item \textbf{Interface Layer (IL):} provides the remote services to Application
     Layer by acting as an interface towards the underlying middleware layer.
 \end{itemize}
 
 In the next sections we will use the following terms to describe the state of a
 software layer or a package:
 \begin{itemize}
-	\item \verb|inactive| - not even created;
-	\item \verb|ready| - initialized with all the needed resources. Not yet
+	\item \verb|inactive|: not even created;
+	\item \verb|ready|: initialized with all the needed resources. Not yet
 	allowed to execute;
-	\item \verb|active| - executing;
-	\item \verb|stopped| - not executing. It is waiting to terminate.
+	\item \verb|active|: executing;
+	\item \verb|stopped|: not executing. It is waiting to terminate.
 \end{itemize}
 
 \input{sections/solutionDesign/architecture/application-layer.tex}

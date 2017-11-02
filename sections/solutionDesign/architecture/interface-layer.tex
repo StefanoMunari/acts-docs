@@ -18,8 +18,8 @@ message header.
 This layered approach has been inspired by the TCP/IP and ISO/OSI models, in
 which the layers communicate in two directions:
 \begin{itemize}
-	\item horizontally - manipulating the same fields of the header;
-	\item vertically  - passing the packet to the next
+	\item \textbf{horizontally:} manipulating the same fields of the header;
+	\item \textbf{vertically:}  - passing the packet to the next
 layer, which is charged with different responsibilities.
 \end{itemize}
 Also, IL is completely asynchronous because each of its sublayers has its own
@@ -36,11 +36,11 @@ In the following we list the sublayers which compose IL in
 bottom up order:
 
 \begin{itemize}
-  \item \textit{Session Layer} --
+  \item \textbf{Session Layer:}
   handles remote connections through TCP sockets;
-  \item \textit{Presentation Layer} --
+  \item \textbf{Presentation Layer:}
   handles messages formatting and conversions;
-  \item \textit{Service Layer} --
+  \item \textbf{Service Layer:}
   converts remote requests into procedure calls
   by leveraging a skeleton object.
   Also, it offers the specular service through a stub object plus a pipeline
@@ -49,7 +49,7 @@ bottom up order:
   The handlers are used to incrementally construct the message by adding
   header fields, wrapping the data into a payload field and finally putting
   the message in the first queue which goes downwards (towards the middleware).
-  \item \textit{Remote Layer + Tables} --
+  \item \textbf{Remote Layer + Tables:}
   It contains the tables used
   to dispatch the remote calls and the callback map of pending requests.
   A pending request is a synchronous requests which may trigger one of

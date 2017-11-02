@@ -15,20 +15,20 @@ implementation \cite{poolcomparison}.
 
 \paragraph{BEAM and OTP}
 \begin{itemize}
-  \item \textit{Concurrency model}: the Elixir concurrency model relies on
+  \item \textbf{Concurrency model:} the Elixir concurrency model relies on
         asynchronous message passing instead of sharing the state between
         threads like Java does, so that the runtime itself handles concurrency;
-  \item \textit{Functional}: Elixir is a pure functional language so each
+  \item \textbf{Functional:} Elixir is a pure functional language so each
         message is passed by copy, thus makes the testing easier and the
         semantics of local and remote failures the same;
-  \item \textit{Actor model}: OTP fits perfectly in the actor model, since the
+  \item \textbf{Actor model:} OTP fits perfectly in the actor model, since the
         state and the behaviour of an actor are neatly separated: the behaviour
         of an actor is able to change its state only after having finished to
         process a message.
         In other actor model implementations this is not always true: for
         example, in Scala an actor \textit{may suffer of concurrent
         modifications of its state};
-  \item \textit{Lightweight processes}: every thread in the JVM is mapped
+  \item \textbf{Lightweight processes:} every thread in the JVM is mapped
         one-to-one to an OS level thread, in BEAM the mapping is n-to-m using
         lightweight threads (not OS threads) and supporting true multi-threading
         through SMP where each scheduler handle a running queue of Elixir
@@ -39,35 +39,35 @@ implementation \cite{poolcomparison}.
         block the entire thread. This can not happen in BEAM, where a blocked
         actor does not block the scheduler which immediately starts running the
         next process in its queue;
-  \item \textit{Isolation}: the JVM uses a shared heap among all existing
+  \item \textbf{Isolation:} the JVM uses a shared heap among all existing
         threads. In BEAM each Elixir process/actor has its own heap;
-  \item \textit{Heap Management}: BEAM process isolation makes garbage
+  \item \textbf{Heap Management:} BEAM process isolation makes garbage
         collection easier and more efficient than in Java. The garbage
         collection process does not affect other running processes because
         there isn't any global pause in the application like in the JVM;
-    \item \textit{Hot code swapping}: BEAM supports hot code swapping, allowing
+    \item \textbf{Hot code swapping:} BEAM supports hot code swapping, allowing
         to update the code whithout stopping the process which is running it
         and defining procedures to employ when swapping code at runtime;
-    \item \textit{Supervision trees}: OTP provides primitives to structure a
+    \item \textbf{Supervision trees:} OTP provides primitives to structure a
         fault-tolerant application in a hierarchical tree of processes where
         the parent can handle the faulty behaviour of the children with
         different strategies;
-    \item \textit{Location transparency}: the implementation needed to invoke a
+    \item \textbf{Location transparency:} the implementation needed to invoke a
         remote procedure/send a message to a remote process is actually the same
         of using a local procedure/send a message to a local process.
 \end{itemize}
 
 \paragraph{Elixir-specific features}
 \begin{itemize}
-  \item \textit{Productivity}: the Mix tool enables both good short-term
+  \item \textbf{Productivity:} the Mix tool enables both good short-term
         productivity as well as long-term productivity and maintainability;
-  \item \textit{Extensibility and Compatibility}: the most part of the Elixir
+  \item \textbf{Extensibility and Compatibility:} the most part of the Elixir
         language is written in Elixir itself. This is because the smallest
         programming units (e.g., \texttt{if} statements) are written using
         macros which are unfolded at compile time, thus guaranteeing no loss of
         performance and smooth compatibility w.r.t. Erlang , as well as a way
         to easily define DSLs;
-  \item \textit{GenStage}: from Elixir 1.4, Flow and the GenStage behavior
+  \item \textbf{GenStage:} from Elixir 1.4, Flow and the GenStage behavior
         (a behavior the equivalent of an abstract class in OOP) has been
         implemented.
         The GenStage behavior is built on top of GenServer (Generic

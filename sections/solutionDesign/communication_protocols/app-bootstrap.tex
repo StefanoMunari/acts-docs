@@ -3,9 +3,9 @@
 The bootstrap process consists of two ordered and separated processes:
 
 \begin{enumerate}
-  \item \textit{Initialization} -- instantiates and configures the necessary
+  \item \textbf{Initialization:} instantiates and configures the necessary
     resources for the application;
-  \item \textit{Activation} -- starts the application.
+  \item \textbf{Activation:} starts the application.
 \end{enumerate}
 
 Clearly, the activation phase depends on initialization.
@@ -19,13 +19,13 @@ among the entity types (which are depicted in Figure
 The overall bootstrap process, which mimics UNIX init \cite{online-tlsag},
 is divided in two ordered parts:
 \begin{enumerate}
-  \item \textit{Init} -- initialize all the sublayers of each macro layer,
+  \item \textbf{Init:} initialize all the sublayers of each macro layer,
   following a bottom up approach (from \verb|interface_layer.session| to
   \verb|application.scheduling|).
   The initialization order is given by the fact that the upper
   layers need the services provided by the underlying layers to work
   correctly (Figure \ref{fig:sd-app-init});
-  \item \textit{Start} -- IL forwards the start message sent from the
+  \item \textbf{Start:} IL forwards the start message sent from the
   middleware to the Application Layer.
   Therefore, this event is exclusively triggered by the middleware.
 \end{enumerate}
@@ -54,9 +54,9 @@ LWPs\footnote{lightweight processes}.
 The Application Layer initialization completes in the following order:
 
 \begin{enumerate}
-  \item \textit{Active} - the entities which move in the city (e.g.,
+  \item \textbf{Active:} the entities which move in the city (e.g.,
     pedestrians);
-  \item \textit{Reactive} - the infrastructure of the city (e.g., streets);
+  \item \textbf{Reactive:} the infrastructure of the city (e.g., streets);
 \end{enumerate}
 
 The Scheduling package, which manages the execution order for the events of the
@@ -74,10 +74,10 @@ signals the Application layer completion to each sublayer of Interface Layer
 in the following order:
 
 \begin{enumerate}
-  \item \textit{Service} - provides activators and pipelines services to
+  \item \textbf{Service:} provides activators and pipelines services to
     application layer;
-  \item \textit{Presentation} - provides data conversion services;
-  \item \textit{Session} - provides network connection services (e.g., senders
+  \item \textbf{Presentation:} provides data conversion services;
+  \item \textbf{Session:} provides network connection services (e.g., senders
   and receivers).
 \end{enumerate}
 

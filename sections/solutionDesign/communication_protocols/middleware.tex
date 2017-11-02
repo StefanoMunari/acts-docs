@@ -40,14 +40,14 @@ attach some headers to the messages we send down from the application to the
 middleware.
 These headers are comprehensive of, but not limited to:
 \begin{itemize}
-  \item \texttt{Recipient} -- if present, provides the logical identifier of an
+  \item \texttt{Recipient}: if present, provides the logical identifier of an
     entity the message is addressed to;
-  \item \texttt{RecipientType} -- if present, identifies the type of the
+  \item \texttt{RecipientType}: if present, identifies the type of the
     \texttt{Recipient} field. The middleware will be completely unaware
     of the type of the \texttt{Recipient} and \texttt{RecipientType} fields,
     which will be used just to look up the entity address with a name
     resolution procedure;
-  \item \texttt{Request} -- identifies the type of the request. The middleware
+  \item \texttt{Request}: identifies the type of the request. The middleware
     exposes only \texttt{BOOT}, \texttt{TERMINATION} and \texttt{SNAPSHOT} as
     available services. Any other custom request will be treated as opaque and
     classified as a pure application-level request.
@@ -160,12 +160,12 @@ The protocol is represented in Figure \ref{fig:sys-bootstrap-protocol}, where:
 \begin{itemize}
   \item A circle is a logical node which is composed of two layers:
     \begin{itemize}
-      \item \textbf{MW}:  middleware layer
-      \item \textbf{APP}: application layer
+      \item \textbf{MW:}  middleware layer
+      \item \textbf{APP:} application layer
   \end{itemize}
-  \item \textbf{Named arrow}: it represents a message that is sent from a
+  \item \textbf{Named arrow:} it represents a message that is sent from a
 logical node through another one with the name as its payload;
-  \item \textbf{Number}: it represents the progress of the logical system clock
+  \item \textbf{Number:} it represents the progress of the logical system clock
 during the bootstrap process.
 \end{itemize}
 

@@ -6,12 +6,12 @@ application server(s) to make our system more scalable.
 Indeed, the messages sent by the middleware have two deficiencies:
 
 \begin{enumerate}
-  \item \textit{Size} -- middleware messages carry a significant amount of
+  \item \textbf{Size:} middleware messages carry a significant amount of
     information, because middleware does not perform deep inspection of the
     payload (the application domain is completely transparent) and, therefore,
     messages are forwarded as they are received from the upper application
     layer;
-  \item \textit{Poor semantics} -- middleware outputs events with its best
+  \item \textbf{Poor semantics:} middleware outputs events with its best
     effort, but it can only read the headers of application layer messages.
     Therefore, message topics are just a concatenation of little detailed
     information obtained by the application.
