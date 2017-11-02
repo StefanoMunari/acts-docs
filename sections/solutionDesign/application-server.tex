@@ -8,7 +8,7 @@ application.
 interactions of the whole Phoenix application, so it will receive data from the
 backend and serve it to the end users.
 
-\subsubsection{Application Server -- Domain}
+\subsubsection{Domain}
 %TODO: Update if something changes
 
 The \texttt{Domain} application keeps track of per-district data.
@@ -17,11 +17,11 @@ decided to store very basic information in each tracker, for instance the
 number of streets (\textit{static} information) and the number of travelers
 (\textit{dynamic} information).
 
-\subsubsection{Application Server -- Interface}
-In the \texttt{Interface} application we leverage the Phoenix pub/sub
+\subsubsection{Interface}
+The \texttt{Interface} application leverages the Phoenix pub/sub
 mechanism in order to deliver live information to consumers.
 Basically, we make end users register their sockets to one or more topics by
-means of a Phoenix Channel and then we deliver to them information which
+means of a Phoenix channel and then we deliver to them information which
 matches those topics.
 
 \texttt{Interface} also exposes some REST APIs through which it is possible to
