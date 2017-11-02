@@ -17,14 +17,11 @@ names since it was born and developed for another context, i.e., telephony.
 \subsubsection{Protocols}
 
 \subsubsubsection{Application - Middleware}
-This subsubsection describes the communication protocol between
+This subsection describes the communication protocol between
 the application (i.e., IL) and the middleware layer
 \paragraph{Fire and forget}
 It is a one-way message pattern (the service sends a message without expecting
-a response). Since the application and the middleware will reside on the same
-physical node, we can assume that the communication is reliable: once a message
-is sent from the application layer it arrives to the middleware layer and
-viceversa. The asynchronous communication decouples (when possible)
+a response). The asynchronous communication decouples (when possible)
 the computation of the application from the computation of the middleware
 and viceversa. We use this pattern only for messages which will be
 translated by the broker into events for the application server
