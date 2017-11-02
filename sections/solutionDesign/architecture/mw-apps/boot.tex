@@ -1,19 +1,25 @@
-\subsubsubsection{Boot service}\label{sec:mw-boot-descr}
+\subsubsubsection{Boot}\label{sec:mw-boot-descr}
 
-The Boot service is responsible of starting the system in a graceful fashion.
-It does so by dividing the start phase into two subphases, namely the
-\textbf{marker diffusion} and the \textbf{(own) boot} phase. The procedure is
-the same shown in Figure \ref{fig:sys-bootstrap-protocol}, with the first phase
-going from left to right and the second phase going in the opposite direction.
+The Boot application is responsible of starting the distributed
+system in a graceful fashion.
+It does so by dividing the start process in two steps, namely the
+\textbf{marker diffusion} and its \textbf{(own) boot}. The procedure is
+the same shown in Figure \ref{fig:sys-bootstrap-protocol}: the first step
+is described by reading the figure from left to right
+while the second one can be seen reading the same figure
+in the opposite direction.
+\\
 
 In this context, by \textit{marker} we will mean \textit{boot marker}.
+\\
 
-When receiving a marker, this the Boot service will forward the marker to all
+When receiving a marker, the Boot application forwards the marker to all
 of its adjacent middleware nodes.
-Then, when receiving further markers, this service will just reply immediately
-with an end marker.
+Then, when receiving further markers, this application will just reply
+immediately with an end marker.
 
-After having received all the replies for the markers, the Boot service will
-request to the application layer to gracefully start.
-When the application layer will inform the middleware it started, this service
-will send an end marker to all of its adjacent middleware nodes.
+After having received all the end marker replies,
+the Boot application will start the application layer
+by sending a boot request to it.
+When the application layer replies with an ack, the node has complete its boot
+and it replies with an end marker to all of its adjacent middleware nodes.

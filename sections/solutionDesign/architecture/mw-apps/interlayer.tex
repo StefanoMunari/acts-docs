@@ -23,14 +23,15 @@ the middleware).
 from the application layer and passes them to other middleware applications.
 It can receive several messages in parallel.
 
-\item \textit{MwAppInterface} : receives requests from other middleware applications.
+\item \textit{MwAppInterface} : receives requests from other
+middleware applications.
 Instead of blocking the requesting process
 on the delivery of the message, it stores the message
-in a Redis queue of pending requests. Then, the request is
+in a Redis map of pending requests. Then, the request is
 asynchronously handed over to the \textit{Consumer} module by means of the
 GenStage behavior. The \textit{Consumer} instances send
 pending messages to the application layer and, for each successful delivery,
-pop the delivered messages from the Redis queue.
+pop the delivered messages from the Redis map.
 
 \item \textit{Consumer} : can store meta-information for messages delivered to
 the application. They do so in order to keep track of the RPCs performed by the
