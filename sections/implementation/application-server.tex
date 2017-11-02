@@ -13,38 +13,50 @@ modules, where $k$ is the number of cities and $m$ the number of districts per
 city.
 
 In Figure \ref{fig:impl-as-domain} we can see a visual representation of this
-tree: even if in the picture \texttt{DistrictInfo} GenServers (i.e., the
-per-district trackers) are grouped by city (e.g., $A$ in the drawing), the
-supervision tree has an actual depth of 1\footnote{that's why there is a
-dotted line around each \texttt{DistrictInfo}}.
-We could also have placed one intermediate supervisors for each city, but
-there was no special need to do it.
+tree: the \texttt{DistrictInfo} GenServers are the
+per-district trackers while their postfix codes have the following meaning:
+\begin{center}
+  $Letter\_Number$ represents a pair where
+  $Letter=CityId$ and $Number=DistrictId$
+\end{center}
 
-Always in Figure \ref{fig:impl-as-domain}, we can notice that there is another
-GenServer supervised other than the \texttt{DistrictInfo}s: this is the
-\texttt{Loader} module, which is responsible for loading static information in
-the district trackers when our Application Server starts. We chose to employ a
+Also, if \texttt{DistrictInfo}s are grouped by city
+(e.g., $A$ in the figure), the
+supervision tree has an actual depth of one (which is the reason of the
+dotted lines around each \texttt{DistrictInfo}).
+% We could also have placed one intermediate supervisor for each city, but we did not need it.
+\\
+
+Another supervised GenServer
+is the \texttt{Loader} module (Figure \ref{fig:impl-as-domain}).
+It is in charge of
+loading static information in
+the district trackers when our Application Server starts.
+We chose to use a
 supervised GenServer (that can be also viewed as an Elixir process) and not a
-task because we use the \texttt{Loader} module at runtime too, when a
-simulation ends and we want to reset a district tracker to its initial
+Elixir task because the \texttt{Loader} module executes throughout all the
+uptime of the application server.
+Indeed, when a
+simulation ends, it resets a district
+tracker to its initial
 configuration values.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\columnwidth]{images/implementation/as-domain.eps}
+  \includegraphics[width=.95\columnwidth]{images/implementation/as-domain.eps}
   \caption{Domain supervision tree}
   \label{fig:impl-as-domain}
 \end{figure}
 
 \subsubsection{Interface}
 
-Even if we implemented several modules and REST APIs, we will focus on some
-key components of the \texttt{Interface} sub-system.
+We will focus on some key components of the \texttt{Interface} sub-system
+implementation.
 
 \paragraph{PubSub}
-We'll start by talking about \texttt{DistrictChannel}, which is an
-implementation we provided for the \texttt{Channel} behaviour. As we can see
-in Figure \ref{fig:impl-as-pubsub}, we subscribe \texttt{UserSocket}s to the
+\texttt{DistrictChannel} is an
+implementation we provided for the \texttt{Channel} behavior. As we can see
+in Figure \ref{fig:impl-as-pubsub}, \texttt{UserSocket}s subscribe to the
 Phoenix pub/sub system for the city simulator.
 Sockets reach \texttt{DistrictChannel} through an \texttt{Endpoint}.
 Each socket is always subscribed to a district, and could be additionally
@@ -63,24 +75,24 @@ Thanks to this, we are able to avoid unnecessary traffic towards the clients.
 
 \paragraph{Input pipeline}
 Events and updates arrive at the application server starting from an
-\texttt{InputStream}. This process is a Wabbit GenStage produces which
+\texttt{InputStream}. This process is a Wabbit GenStage which
 basically receives messages from a RabbitMQ topic exchange and forwards them
 to a \texttt{Formatter}.
 A \texttt{Formatter} is a process which just extracts basic information from
 the incoming messages and transform them in a format used by the application
 server processes.
-Then messages are piped through an \texttt{InternalDispatcher} process, which
+Then, messages are piped through an \texttt{InternalDispatcher} process, which
 can eventually dispatch some information to some processes in the Application
 Server; for example, it sends updates to district trackers when a traveler
 moves from a district to another one.
-Finally, messages are broadcasted to the Interface \texttt{Endpoint} by
-providing the payload and the topic of a message.
+Finally, messages are broadcasted to \texttt{Interface.Endpoint} by
+providing the payload and the topic of the message.
 
 \paragraph{Output}
 The Application Server is also able to send minimal control information (start
 messages) to the cities used for simulations. This is done via a process called
 \texttt{OutputStream}\footnote{actually, this process is replicated once for
-each city}, which dispatches this messages to the right backend node.
+each city}, which dispatches control messages to the right backend node.
 
 \begin{figure}[H]
   \centering

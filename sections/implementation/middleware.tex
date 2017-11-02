@@ -1,7 +1,9 @@
-%%% TODO - MIDDLEWARE SECTION
+\subsection{Middleware}\label{sec:impl-mw}
 
-Since some runtimes may handle strings in a different format with respect to
-what Elixir does, we defined a \textit{Formatter} behavior\footnote{a behavior
+\paragraph{TCP socket stream}
+
+Since different languages may handle strings using different formats,
+we defined a \textit{Formatter} behavior\footnote{a behavior
 is equivalent to an abstract class in OOP} to cope with these
 issues.
 We implemented a couple of formatters, one for Elixir (it does nothing but
@@ -9,7 +11,8 @@ return the message as it is) and one for Ada. In particular, Ada does not
 output the actual character sequence when using \textit{'Output}: in this case
 the receiving sockets reads additional meta-information along with the string,
 which are basically the boundaries of the binary data streamed.
-However, this is not enough: in fact, we also had to split long messages since
-Ada's Stream \textit{'Input} attribute reads up to about 200B; therefore, the
-\textit{Consumer} module also has to split long messages into chunks in order
-to deliver them without causing a failure during the reception.
+However, this is not enough; since Ada's Stream \textit{'Input} attribute
+reads up to about 200B, we had to split long messages into smaller
+chunks. Therefore, the
+\textit{Consumer} module has also this responsibility, which enables
+to deliver every message without causing a failure during the reception.
