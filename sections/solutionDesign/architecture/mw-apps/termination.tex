@@ -1,21 +1,6 @@
 \subsubsubsection{Termination}\label{sec:mw-termination-descr}
 
 The Termination application is responsible of shutting down the system in a
-graceful fashion.
-It does so by dividing the termination phase into two subphases, namely the
-\textbf{marker diffusion} and the \textbf{(own) termination} phase. The
-procedure is the same shown in Figure \ref{fig:sys-termination-protocol}, with
-the first phase going from left to right and the second phase going in the
-opposite direction.
-
-In this context, by \textit{marker} we will mean \textit{termination marker}.
-
-When receiving a marker, this the Termination application will forward the marker
-to all of its adjacent middleware nodes.
-Then, when receiving further markers, this application will just reply immediately
-with an end marker.
-
-After having received all the replies for the markers, the Termination application
-will request to the application layer to gracefully shut down.
-When the application layer will inform the middleware it has terminated, this
-application will send an end marker to all of its adjacent middleware nodes.
+graceful way. Its logic is exactly the same already described for the Boot
+application (Section \ref{sec:mw-boot-descr}). Further details will be given
+in Section \ref{sec:comm-mw-termination}.

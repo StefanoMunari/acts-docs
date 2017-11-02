@@ -1,19 +1,19 @@
 \subsubsubsection{Snapshot}
 This component is responsible of taking global and consistent snapshots by
 implementing the Chandy-Lamport algorithm with the help of the
-\texttt{MessageHolder} module in the Incoming application, which holds the message
+\textit{MessageHolder} module in the Incoming application, which holds the message
 during the execution of a snapshot.
 
 This application is comprehensive of three architectural units:
 
 \begin{enumerate}
-  \item \texttt{ChandyLamportSnapshot}, which is a wrapper for an on-going
+  \item \textit{ChandyLamportSnapshot} : a wrapper for an on-going
         snapshot;
-  \item \texttt{ChandyLamportExecutor}, which embodies the logic necessary to
+  \item \textit{ChandyLamportExecutor} : embodies the logic necessary to
         exchange (i.e., process and send) messages relative to the
         Chandy-Lamport procedure and keeps track of the current snapshots being
         taken;
-  \item \texttt{ChandyLamport}: supervisor which instantiates, monitors and
-        stops \texttt{ChandyLamportSnapshot} children on demand for the
-        \texttt{ChandyLamportExecutor}
+  \item \textit{ChandyLamport} : supervisor which instantiates, monitors and
+        stops \textit{ChandyLamportSnapshot} children on demand for the
+        \textit{ChandyLamportExecutor}.
 \end{enumerate}

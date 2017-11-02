@@ -1,15 +1,14 @@
 \subsubsubsection{Coordination}
 
-This component is responsible of the supervising the life-cycle of an
-application run on our middleware, so our backend is able to operate
-cohesively.
+This component is responsible of the supervising the life-cycle of the
+application related to the middleware. Thus our backend can be seen as a unit.
 
-There are just two architectural units which compose this service:
+There are two architectural units which compose this service:
 
 \begin{enumerate}
-\item a \texttt{Coordinator} initiates the boot process when requested and the
+\item \textit{Coordinator} : initiates the boot process when requested and the
   termination process when the time limit for the application elapses;
-\item \texttt{Monitor}s supervise the status of some services. In
+\item \textit{Monitors} : supervise the status of some processes. In
   particular, we instantiated two monitor processes, one for the boot process
   and another one for the termination process. If a process $X$ does not end
   within a pre-configured time limit (we arbitrarily set 15 seconds for this
