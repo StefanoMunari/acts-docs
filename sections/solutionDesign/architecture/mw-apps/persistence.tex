@@ -6,7 +6,7 @@ More specifically, persistence is a collection of Redix wrappers. Redix is an
 Elixir client for Redis, which handles all the network communication and
 provides simple and convenient API to access Redis applications.
 Therefore, we just have to specify some of the CRUD operations for a certain
-data structure we are interested in -- it could be a map (e.g., for pending
+data structure we are interested in: it could be a map (e.g., for pending
 requests, so that we are able to correlate an id to a given request) or a
 queue (e.g., pending unsent messages directed to the application layer).
 
