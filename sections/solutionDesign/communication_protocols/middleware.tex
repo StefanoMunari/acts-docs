@@ -1,6 +1,13 @@
 \subsection{Middleware}
-\subsubsection{Application - Middleware}
-This subsection describes the communication protocol between
+
+\subsubsection{Services}
+
+\input{sections/solutionDesign/architecture/middleware.tex}
+
+\subsubsection{Protocols}
+
+\subsubsubsection{Application - Middleware}
+This subsubsection describes the communication protocol between
 the application (i.e., IL) and the middleware layer
 \paragraph{Fire and forget}
 It is a one-way message pattern (the service sends a message without expecting
@@ -39,7 +46,7 @@ These headers are comprehensive of, but not limited to:
     classified as a pure application-level request.
 \end{itemize}
 
-\subsubsection{Middleware - Middleware}
+\subsubsubsection{Middleware - Middleware}
 
 The communication between middlewares implies the design of different
 services. Taking into account the distributed nature of the system we have
@@ -55,7 +62,7 @@ between parties.
 %   node.
 % \end{itemize}
 
-% \subsubsection{Election Protocol}\label{sec:election}
+% \subsubsubsection{Election Protocol}\label{sec:election}
 % This protocol tries to resolve the problem of the global consensus in a
 % distributed system through the election of a coordinator node. This version
 % tries to improve the efficiency of the bully algorithm through the
@@ -119,7 +126,7 @@ between parties.
 %   election processes.
 % \end{itemize}
 
-% \subsubsubsection{Example}
+% \subsubsubsubsection{Example}
 
 % \begin{figure}[H]
 %   \centering
@@ -135,7 +142,7 @@ between parties.
 %   \label{fig:election-protocol-ex}
 % \end{figure}
 
-\subsubsection{System Boostrap}\label{sec:sys-boot-mw}
+\subsubsubsection{System Boostrap}\label{sec:sys-boot-mw}
 As pointed out in Problem Analysis (Section \ref{sec:pa-distribution}),
 the system has
 to start neatly. Hence, we need to design a protocol in order to accomplish
@@ -187,7 +194,7 @@ by all nodes of the system. If a node has already received a boot request,
 then it only sends \texttt{Ack\_mw} back.
 
 
-\subsubsection{System Termination}
+\subsubsubsection{System Termination}
 The system has to shutdown neatly. Therefore we designed a protocol to
 stop the entire system. This one can be seen as a
 symmetric version of the System Bootstrap (\ref{sec:sys-boot-mw}).

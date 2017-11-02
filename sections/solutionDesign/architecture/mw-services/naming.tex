@@ -1,0 +1,10 @@
+\subsubsubsection{Naming service}
+The Naming service, fed with an reactive
+entity id and its type, finds the node on
+which a given reactive entity resides.
+
+This is completely decoupled from the application
+layer, which just provides the identifier and the type of the entity in the
+headers of the message handed over to the middleware. Then, the
+Naming component just have to look up for the node on which the reactive
+entity resides through a local configuration file.

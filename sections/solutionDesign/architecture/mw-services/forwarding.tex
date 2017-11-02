@@ -1,0 +1,13 @@
+\subsubsubsection{Forwarding service}
+The Forwarding service delivers messages to other nodes. This component
+comprise just an interface (\texttt{MQProxy}) and its
+implementation (\texttt{RabbitSender}).
+
+Basically, a \texttt{RabbitSender} takes a message as input and guarantees to
+send it to the intended recipient, which could be middleware node or a
+RabbitMQ pub/sub queue shared with the other message brokers.
+\texttt{RabbitSender}s are able to make this decision by simply looking if the
+messages they are handling are events or communications between districts.
+In the former case, the messages are propagated towards the frontend of the
+application (and therefore to the brokers). In the latter case, the messages are
+sent to the district specified as the recipient of the message.
