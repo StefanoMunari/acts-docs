@@ -1,4 +1,13 @@
 \subsection{Viewer}
-The viewer adopts different paradigms to communicate with the application server.
-It exploits a \texttt{push} paradigm, for efficiently receiving realtime data from the application server, using WebSockets.
-In addiction, it employs a \texttt{pull} paradigm, for requesting one-time static data to the application server, using REST.
+The viewer adopts different paradigms to communicate with the Application
+Server.
+
+The viewer exploits several networking paradigms:
+
+\begin{itemize}
+  \item \textbf{Push model:} used to efficiently receive realtime data from
+    the Application Server; in particular, we decided to employ WebSockets
+    for this purpose;
+  \item \textbf{Pull model:} used for requesting static data to the
+    Application Server by means of REST calls.
+\end{itemize}
