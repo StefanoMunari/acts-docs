@@ -17,7 +17,7 @@ You can specify the chosen environment during the build step:
 ./build.sh -s <services> -m <environment>
 \end{lstlisting}
 
-with the -m flag the environment is specified.
+where the \texttt{-m} flag is used to choose the environment.
 
 
 An example (production environment):
@@ -43,7 +43,7 @@ we just needed to instantiate a temporary
 container to run a specific set of tests.
 
 
-Instead, in the development environment we use containers in an unconventional
+Instead, in the development environment we used containers in an unconventional
 way. We started each container with a entrypoint which
 only purpose was to keep the container up, thus enabling the developers to log into it.
 Although a bit unorthodox, this approach has proved to be very effective.
