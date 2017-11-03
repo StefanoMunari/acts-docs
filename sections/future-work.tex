@@ -58,7 +58,8 @@ traveler in a state of emergency this operation would be analogous to book a
 parking spot (obviously with a different semantic after the booking operation).
 
 \subsection{Fault tolerance - Middleware}
-The middleware is fault tolerant in the sense it is resilient against failures
+The middleware is fault tolerant in the sense it is able to continue its
+intended operation in presence of failures
 during the boot phase, when sending messages to the application layer, and in
 other scenarios.
 
@@ -67,7 +68,7 @@ normal flow of the system: for example, if the process which is currently
 supervising a snapshot dies, then when it is respawned there are chances it
 never ends the snapshot.
 This means that in this and other situations the system might suffer of a low
-degree of fault tolerance. However, this lack of resiliency could be fixed by
+degree of fault tolerance. However, this lack could be fixed by
 addressing each possible problem with a suitable patch: for example, snapshot
 daemons may send snapshot markers again after a while if no response is
 arriving from a given neighbor.
