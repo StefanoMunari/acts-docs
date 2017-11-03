@@ -1,19 +1,18 @@
 \section{Future Work}
 In this section we will cover some features we deliberately left for future
-work, since their implementation would have costed too much time for us to
-integrate it.
+work, since their implementation would have costed too much time for us.
 Nevertheless, we tried to sketch blueprints of possible solutions for these
 problems, in order to show they would actually be feasible.
 
 \subsection{Overcoming worker threads greediness}
 In our system, an executor loads work items on a single queue, which is
 concurrently consumed by worker threads that fetch items from its head.
-Clearly, if we increased the available cores and the number of worker threads,
+Clearly, if we increase the available cores and the number of worker threads,
 this work queue could become a bottleneck since each worker thread tries to
 extract a work item from the queue head as soon as there is one.
 
-One possible way to tackle this problem would be to have more queues, one for
-each worker thread. In this way, an executor may be able to choose among
+One possible solution to this problem could use more queues, one for
+each worker thread. Thus, an executor may be able to choose among
 different policies (round robin, fair-weighted queues, ...) to populate the
 work item queues.
 
@@ -26,18 +25,8 @@ of variability from run to run (if we run several instances).
 Even if we can tune several parameters in our generator, it is limited to a
 certain set of topologies: for example, we assume to have a street composed by
 a sidewalk, a bikeway, a roadway and again a bikeway and a sidewalk.
-This hinders clearly the flexibility of our simulator, but it eased our work
-when we had to verify the correctness of the system.
-
-\subsection{Enhanced queries -- Middleware}\label{sec:future-iterative-rpc}
-The middleware layer could provide a further service that we called iterative
-queries. Instead of performing simple requests from one node (sender) to
-another (recipient), it may cause a request to spread from an originator node
-until satisfied \textit{or} after having visited all the nodes of the system.
-
-This service may result useful for certain services which aim to flood the
-system with their requests, without knowing at priori the specific
-recipient/servant for their need.
+This clearly hinders the flexibility of our simulator, but it simplify
+the verification of the system correctness.
 
 \subsection{Uber-like services}\label{sec:future-uber}
 The application layer presents two types of RPC:
@@ -57,8 +46,7 @@ which \textit{requests} a Uber-like service has to reach a mobile entity.
 This factor would have made our system more complex because the Uber-like
 request does not specify an intended provider, then it should be propagated
 until it finds an available provider, if any.
-However, for a service like this it is clear that we would need some middleware
-feature like the one described in Section \ref{sec:future-iterative-rpc}.
+However, for a service like this it is clear that we would need some middleware.
 
 \subsection{Emergency services}
 Similarly to the previous point (section \ref{sec:future-uber}), we could add
@@ -69,7 +57,7 @@ This feature would be easier than Uber-like services to implement, since for a
 traveler in a state of emergency this operation would be analogous to book a
 parking spot (obviously with a different semantic after the booking operation).
 
-\subsection{Fault tolerance -- Middleware}
+\subsection{Fault tolerance - Middleware}
 The middleware is fault tolerant in the sense it is resilient against failures
 during the boot phase, when sending messages to the application layer, and in
 other scenarios.
@@ -100,54 +88,53 @@ a hierarchical name system for reactive entities, like \texttt{x.y.w.z}, where
 \texttt{x} refers to the street, \texttt{y} to the way, \texttt{w} to the lane
 and \texttt{z} to the specific stretch.
 
-\subsection{Dynamic routing}
-Our middleware currently bases its routing mechanism on static forwarding
-tables. This is surely not a flexible choice, but we chose to do it so for the
-sake of simplicity.
+% \subsection{Dynamic routing}
+% Our middleware currently bases its routing mechanism on static forwarding
+% tables. This is surely not a flexible choice, but we chose to do it so for the
+% sake of simplicity.
+% An alternative feasible solution could be to perform dynamic lookup for the
+% route when the message has to be sent in the first place by using some dynamic
+% routing protocol (e.g., AODV).
 
-An alternative feasible solution could be to perform dynamic lookup for the
-route when the message has to be sent in the first place by using some dynamic
-routing protocol (e.g., AODV).
+% \subsection{Consistency of local snapshots}
+% The consistency of application layer snapshot is not currently guaranteed,
+% since they might contain duplicates or some travelers might disappear.
 
-\subsection{Consistency of local snapshots}
-The consistency of application layer snapshot is not currently guaranteed,
-since they might contain duplicates or some travelers might disappear.
+% Clearly, a local snapshot is not a consistent checkpoint to resume the system
+% in case of failures. Therefore, we could also have added the following
+% features:
 
-Clearly, a local snapshot is not a consistent checkpoint to resume the system
-in case of failures. Therefore, we could also have added the following
-features:
+% \begin{itemize}
+%   \item Snapshot Validator: a daemon which checks the integrity of an
+%         application-layer snapshot. If this snapshot is not valid, then it may
+%         act according to different policies, for example requiring another
+%         snapshot or simply dropping the invalid one;
+%   \item Snapshot Corrector: a daemon which works after a validation check for
+%         an application-layer snapshot fails. This component could try to fix
+%         the snapshot so it becomes feasible. E.g., if no traveler disappeared
+%         and the snapshot is invalid due to duplicates, it may simply
+%         arbitrarily drop some travelers from some stretches and make it valid,
+%         avoiding subsequent requests for valid snapshots;
+%   \item Resumption from a valid epoch: if we had the chance to guarantee a
+%         snapshot it's valid, we could make the system restart from a valid,
+%         distributed snapshot in case of failures. Clearly, this procedure would
+%         also stop nodes which are running without problems, just to make them
+%         restart executing from the last valid point in time.
+%         We also think that this procedure could be used to minimize clock
+%         drift across several nodes, though it may not be a the best solution
+%         to do it.
+% \end{itemize}
 
-\begin{itemize}
-  \item Snapshot Validator: a daemon which checks the integrity of an
-        application-layer snapshot. If this snapshot is not valid, then it may
-        act according to different policies, for example requiring another
-        snapshot or simply dropping the invalid one;
-  \item Snapshot Corrector: a daemon which works after a validation check for
-        an application-layer snapshot fails. This component could try to fix
-        the snapshot so it becomes feasible. E.g., if no traveler disappeared
-        and the snapshot is invalid due to duplicates, it may simply
-        arbitrarily drop some travelers from some stretches and make it valid,
-        avoiding subsequent requests for valid snapshots;
-  \item Resumption from a valid epoch: if we had the chance to guarantee a
-        snapshot it's valid, we could make the system restart from a valid,
-        distributed snapshot in case of failures. Clearly, this procedure would
-        also stop nodes which are running without problems, just to make them
-        restart executing from the last valid point in time.
-        We also think that this procedure could be used to minimize clock
-        drift across several nodes, though it may not be a the best solution
-        to do it.
-\end{itemize}
+% \subsection{Election protocol}
+% Even if we design the election protocol for our system, we did not implement it
+% because we did not need it for our system to work in the way we require: in
+% fact, we believe a simulation makes sense if all of its nodes are running (and
+% therefore the coordinator is always one specific node).
 
-\subsection{Election protocol}
-Even if we design the election protocol for our system, we did not implement it
-because we did not need it for our system to work in the way we require: in
-fact, we believe a simulation makes sense if all of its nodes are running (and
-therefore the coordinator is always one specific node).
-
-However, in some cases it could be useful to have a way to make the system
-perform distributed operations gracefully even if some nodes are not working.
-In those situations, an election protocol like the one described in Section
-\ref{sec:election} would definitely be useful.
+% However, in some cases it could be useful to have a way to make the system
+% perform distributed operations gracefully even if some nodes are not working.
+% In those situations, an election protocol like the one described in Section
+% \ref{sec:election} would definitely be useful.
 
 \subsection{Test coverage}
 Even if we tested many of the main components of our system, we may want to
@@ -166,8 +153,7 @@ We strove ourselves to make our code easily understandable, also because we
 were working on a small-sized team.
 Therefore, in absence of comments, we tried to make the flow of the code itself
 self-explanatory; on the other hand, we pointed out complex pieces of code and
-add explanation to them in the cases we thought it was not enough clear as it
-was.
+add explanation to them.
 
 Always in this direction, we provided ourselves READMEs and explanations on how
 to build and run our (sub)system(s). Also, the middleware source code is
@@ -205,25 +191,27 @@ Indeed, other than being onerous, we would have needed to implement a not
 limited version of shared references (so they can be used along with some
 Ada.Containers) and to implement shared references for limited types.
 
-\subsection{Clock synchronization}
-We did not make any effort to synchronize the clocks of different nodes.
-In the case we did it (maybe sending absolute or relative timestamps to have 
-some kind of alignment), we might have experienced some improvements in
-time-dependent operations.
+% \subsection{Clock synchronization}
+% We did not make any effort to synchronize the clocks of different nodes.
+% In the case we did it, we might have experienced some improvements in
+% time-dependent operations.
 
 \subsection{Middleware communication semantics}
 Thanks to RabbitMQ's persistent queues, we managed to have RR1
 (\textit{Request Retry}) as our communication semantics at middleware layer.
 
 We did implement neither DF (\textit{Duplicate Filter}) nor RR2
-(\textit{Request Retransmit}), simply because we implemented the middleware in
-a way we don't need them (it is safe against duplicates and idempotent
+(\textit{Request Retransmit}), simply because we implemented
+the middleware in
+a way we don't need them
+(it is safe against duplicates and idempotent
 computations).
 
 \subsection{High-level automation tool}
-Most of our system is built and run by means of scripts which have a very
-low-level feel. We could have gone instead for sophisticated build automation
-systems like Chef or Puppet, but we deliberately did not because they would
+Most of our system is compiled and run by low-level scripts.
+We could have gone instead for sophisticated build automation
+systems like Chef or Puppet. However, we deliberately did not
+because they would
 have introduced further dependencies for the final user.
 
 \subsection{Frontend stack}
@@ -249,9 +237,9 @@ postgres of the application server. Thus, we could provide the
 whole simulation to the user so she does not notice any difference between
 a live-streamed and a pre-recorded simulation.
 
-Another possibility could provide enhanced capabilities to our browser
-player. For example, it could rewind the transmission of a simulation or
-fast-forward to the present moment, if it is live.
+% Another possibility could provide enhanced capabilities to our browser
+% player. For example, it could rewind the transmission of a simulation or
+% fast-forward to the present moment, if it is live.
 
 \paragraph{Design}
 Even if we did not implement this feature, we wanted to design it as well.
@@ -267,21 +255,21 @@ operations to store per-district messages, we should:
     scratch for on-demand transmissions;
   \item register subscriptions for topics using a pattern like
     \texttt{on-demand:uuid}, where \texttt{uuid} is an identifier for a
-    specific client
+    specific client;
   \item instantiate a supervised GenStage process for each request. We believe
     this would scale well because Elixir processes are really lightweight.
     However, we may decide to instantiate separate application servers for
     on-demand transmissions in the case of very high traffic loads, or
-    replicate the current one
+    replicate the current one;
   \item finally, the dedicated process should generate a stream of messages to
-    send to the \texttt{Broadcaster}
+    send to the \texttt{Broadcaster}.
 \end{enumerate}
 
-Clearly, this procedure is about just the application server, but we would also
-have to modify the user interface.
-The user interface should be modified so that a consumer can choose to watch a
-live streaming event or an on-demand transmission by sending the right
-subscription to the application server.
-After doing this, the frontend would not require further changes, since all the
-logic used to separate live streaming from on-demand transmissions would be
-encapsulated in the application server.
+% Clearly, this procedure is about just the application server, but we would also
+% have to modify the user interface.
+% The user interface should be modified so that a consumer can choose to watch a
+% live streaming event or an on-demand transmission by sending the right
+% subscription to the application server.
+% After doing this, the frontend would not require further changes, since all the
+% logic used to separate live streaming from on-demand transmissions would be
+% encapsulated in the application server.
