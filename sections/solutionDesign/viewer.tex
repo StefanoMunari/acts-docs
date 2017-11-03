@@ -1,8 +1,7 @@
 \subsection{Viewer}
-The viewer adopts different paradigms to communicate with the Application
-Server.
 
-The viewer exploits several networking paradigms:
+The viewer exploits several networking paradigms to communicate with the
+Application Server:
 
 \begin{itemize}
   \item \textbf{Push model:} used to efficiently receive realtime data from
@@ -11,3 +10,10 @@ The viewer exploits several networking paradigms:
   \item \textbf{Pull model:} used for requesting static data to the
     Application Server by means of REST calls.
 \end{itemize}
+
+Our viewer leverages OOP to have a solid structure which resembles the
+architecture of our application layer (with respect to infrastructural
+entities and travelers). This is the simple reason why we will not dig into
+the details for the frontend architecture, since we would have to repeat the
+same description we already provided in Section \ref{sec:sol-des-app-layer}
+when talking about the application layer design.
