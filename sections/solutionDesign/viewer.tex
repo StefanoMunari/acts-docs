@@ -17,3 +17,7 @@ entities and travelers). This is the simple reason why we will not dig into
 the details for the frontend architecture, since we would have to repeat the
 same description we already provided in Section \ref{sec:sol-des-app-layer}
 when talking about the application layer design.
+
+\paragraph{Note}
+Since we wanted the simulation to look more fluent, the viewer applies further delays to the traveler's movements (otherwise it would be jerkily).
+Therefore, there could be visual inconsistencies which do not reflect what happens under the hood: like vehicles engaging a crossing even if the traffic light is red, though in the backend the simulation does not produce errors.
