@@ -59,7 +59,7 @@ If the result is empty (no entry returned) then port 5000 is free.
 
 We can create our registry:
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}
 docker service create --detach=false --name registry --publish 5000:5000 registry:latest
 \end{lstlisting}
 
@@ -88,12 +88,12 @@ For example, if you placed the repository at the path
 character.
 
 To set the environment variable \textbf{in you local shell session}:
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}
 export CITY_ROOT=<PATH_TO_THE_PROJECT_ROOT>
 \end{lstlisting}
 
 example with root path /home/goofy/acts:
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}
 export CITY_ROOT="/home/goofy/acts"
 \end{lstlisting}
 
