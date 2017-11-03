@@ -55,7 +55,8 @@ bottom up order:
   A pending request is a synchronous requests which may trigger one of
   the following behaviors:
   \begin{itemize}
-  	\item retransmission on timeout;
+  	\item retransmission on timeout\footnote{feature not implemented and
+	  partially managed by the middleware};
   	\item a local retry on failure - retry on the local district with
   	the next action which could be a repetition of the last executed action;
   	\item a local clean up on success - remove the retained data from the local
