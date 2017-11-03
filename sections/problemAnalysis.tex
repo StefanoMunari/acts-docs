@@ -11,7 +11,7 @@ initial phase of the project:
   while designing the distribution of the city traffic simulator;
 \item \textbf{Concurrency}: it is reasonable to believe that some entities
   will act concurrently in the system, since the city traffic intrinsically
-  contains more than one control unit;\footnote{control unit : each
+  contains more than one control unit;\footnote{Control unit : each
   agent which represents a source of action}
 \item \textbf{Application}: after outlining the domain of our simulations, we
   have to single out the major problems which our level of abstraction entails;
@@ -42,7 +42,7 @@ Therefore, we can make some assumptions about this reality:
   intersections (\href{https://www.google.it/maps/place/San+Francisco,+California,+Stati+Uniti/@37.7766566,-122.4330836,16z/data=!4m2!3m1!1s0x80859a6d00690021:0x4a501367f076adff}{example}).
 \end{itemize}
 
-Even if our reference city\footnote{with the term \emph{``reference city"}
+Even if our reference city\footnote{With the term \emph{``reference city"}
 we are talking about a city which has similar characteristics to San
 Francisco} has many means of transport, we will consider only a few meaningful
 ones (besides \textbf{pedestrian} traffic): \textbf{bikes},
@@ -193,7 +193,7 @@ If so, how?
 \item How errors will be managed by our system so that it can reach a certain
   degree of fault tolerancy?
 \item How can we cope with common distributed systems network-related
-  problems\footnote{considering \href{https://blogs.oracle.com/jag/resource/Fallacies.html?cm_mc_uid=82650292107114582847614&cm_mc_sid_50200000=1458564821}{The eight fallacies of distributed computing}: excluding the point 4,5,6
+  problems\footnote{Considering \href{https://blogs.oracle.com/jag/resource/Fallacies.html?cm_mc_uid=82650292107114582847614&cm_mc_sid_50200000=1458564821}{The eight fallacies of distributed computing}: excluding the point 4,5,6
   since the topology of a city is statically defined and security issues are
   out of the project's scope}?
 \item How can we guarantee a local agent to always find a path in
@@ -332,7 +332,7 @@ it is necessary to define a protocol to regulate the described scenario.
 
 \paragraph{Yield rules} \mbox{} \\
 
-We will use \href{http://www.aci.it/i-servizi/normative/codice-della-strada/titolo-v-norme-di-comportamento/art-145-precedenza.html}{Italian yield rules}\footnote{we will also assume that vehicles proceed on the right side of the
+We will use \href{http://www.aci.it/i-servizi/normative/codice-della-strada/titolo-v-norme-di-comportamento/art-145-precedenza.html}{Italian yield rules}\footnote{We will also assume that vehicles proceed on the right side of the
 street}, therefore if a vehicle's trajectory is met by another one from right,
 the latter has to wait for the former to pass.
 Looking at picture \ref{fig:pa-sample-crossroad}:
