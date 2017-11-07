@@ -4,6 +4,7 @@
 	"carrier": <boolean>, //O
 	"passengers": Array<number> // non presente o nullo quando "carrier"=FALSE 
 								//altrimenti presente e con almeno un elemento
+	"districtId": <number>
 }
 // N.B.: i body di enterFacility ed exitFacility hanno il medesimo schema
 // O = campo obbligatorio

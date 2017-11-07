@@ -1,6 +1,7 @@
 {
 	"busId": <number>, //O
 	"pedestrianId": <number> //O
+	"districtId": <number>
 }
 // N.B.: i body di enterBus ed exitBus hanno il medesimo schema
 // O = campo obbligatorio

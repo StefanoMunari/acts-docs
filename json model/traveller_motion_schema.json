@@ -3,8 +3,9 @@
 	"infrastructureId": <number>, //O
 	"speed": <number>, //O
 	"travellerType": Enum<"PEDESTRIAN"|"VEHICLE"|"BYCICLE">, //O
-        "passengers": Array<number> //non presente o nullo quando "travellerType="PEDESTRIAN"" 
+    "passengers": Array<number> //non presente o nullo quando "travellerType="PEDESTRIAN"" 
                             //altrimenti presente e con almeno un elemento
+    "districtId": <number>
 }
 // O = campo obbligatorio
 // N.B.: l'enum di travellerType può avere anche altri valori per altri tipi di traveller
